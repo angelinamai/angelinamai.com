@@ -16,7 +16,8 @@ function App() {
           <div className="space-y-3">
             <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
               I have been working in the frontend development industry for over
-              5 years. My skills include HTML, CSS, JavaScript, React, and Vue.
+              1 years. My skills include HTML, CSS, JavaScript, React, and
+              Tailwind.
             </p>
             <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
               I'm passionate about creating intuitive and dynamic user
@@ -34,6 +35,7 @@ function App() {
                 name={value.name}
                 description={value.description}
                 img={value.img}
+                link={value.link}
               />
             ))}
           </div>
