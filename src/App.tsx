@@ -11,18 +11,22 @@ function App() {
         </h1>
         <div className="py-5">
           <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
-            Here are some of my projects.
+            I love playing guitar, singing, cooking, playing poker and laughing
+            at silly things.
           </p>
           <div className="space-y-3">
             <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
               I have been working in the frontend development industry for over
-              1 years. My skills include HTML, CSS, JavaScript, React, and
+              a year. My skills include HTML, CSS, JavaScript, React, and
               Tailwind.
             </p>
             <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
               I'm passionate about creating intuitive and dynamic user
               interfaces. My projects demonstrate my focus on high-quality code,
               attention to detail, and user experience.
+            </p>
+            <p className="mx-auto max-w-full text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed text-[#000000]">
+              Here are some of my projects.
             </p>
           </div>
         </div>
