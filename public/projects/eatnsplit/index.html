@@ -5,18 +5,17 @@
     <meta charset="utf-8" />
     <link rel="icon" href="/projects/eatnsplit/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/projects/mobile.css?v=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Web site created using create-react-app" />
     <link rel="apple-touch-icon" href="/projects/eatnsplit/logo192.png" />
     <link rel="manifest" href="/projects/eatnsplit/manifest.json" />
-    <title>React App</title>
+    <title>Eat n Split</title>
 
-    <!-- Original compiled CSS -->
-    <link href="/projects/eatnsplit/static/css/main.a4c28843.css" rel="stylesheet">
-    
+    <!-- App’s compiled CSS -->
+    <link href="/projects/eatnsplit/static/css/main.a4c28843.css" rel="stylesheet" />
+
+    <!-- Your button color tweak (optional) -->
     <style>
-        /* Make all buttons teal */
         button {
             background-color: #0d9488 !important;
             /* teal-600 */
@@ -28,15 +27,18 @@
             cursor: pointer !important;
             transition: background-color 0.2s ease-in-out !important;
         }
-    
+
         button:hover {
             background-color: #0f766e !important;
             /* teal-700 */
         }
     </style>
 
-    <script defer="defer" src="/projects/eatnsplit/static/js/main.4311e106.js"></script>
-<link rel="stylesheet" href="/projects/mobile.css?v=3" />
+    <!-- Load mobile overrides LAST so they win -->
+    <link rel="stylesheet" href="/projects/mobile.css?v=4" />
+
+    <!-- JS can stay anywhere; 'defer' is fine -->
+    <script defer src="/projects/eatnsplit/static/js/main.4311e106.js"></script>
 </head>
 
 <body>
