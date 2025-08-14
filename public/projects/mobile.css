@@ -1,0 +1,131 @@
+/* ========= Universal mobile fixes for the mini-projects ========= */
+
+/* Base */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+/* Fluid spacing & readable type */
+:root {
+    --space: clamp(12px, 3vw, 20px);
+    --radius: 12px;
+}
+
+body {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--space);
+    font-size: clamp(15px, 1.8vw, 18px);
+    line-height: 1.5;
+}
+
+/* Media assets never overflow */
+img,
+video,
+canvas,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Sections look like cards (nicer on small screens) */
+main,
+section,
+.card,
+.panel {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: var(--radius);
+    padding: var(--space);
+}
+
+/* Kill desktop-only fixed widths */
+[class*="container"],
+[class*="wrapper"],
+[class*="box"],
+[class*="content"] {
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* ---------- Mobile stacking rules ---------- */
+@media (max-width: 768px) {
+
+    /* Big titles clamp so they don't break lines awkwardly */
+    h1,
+    .logo,
+    .title {
+        font-size: clamp(22px, 7vw, 28px) !important;
+        line-height: 1.2 !important;
+        word-break: break-word;
+    }
+
+    /* Any "row" style layouts stack vertically */
+    .row,
+    .grid,
+    .columns,
+    .header,
+    .footer,
+    .stats,
+    .summary,
+    .actions {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    /* Forms: input areas become one column and full width */
+    form,
+    .form,
+    .add-form,
+    .controls,
+    .toolbar {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+        width: 100% !important;
+        font: inherit;
+    }
+
+    .btn,
+    .button,
+    button {
+        padding: 10px 14px !important;
+        border-radius: 999px !important;
+    }
+
+    /* Tables/lists scroll instead of overflowing */
+    table,
+    .table,
+    .list {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    /* Reduce heavy padding */
+    main,
+    section,
+    .card,
+    .panel {
+        padding: clamp(12px, 3vw, 18px) !important;
+    }
+}
