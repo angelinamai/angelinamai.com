@@ -1,1 +1,328 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/projects/travellist/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/projects/travellist/logo192.png"/><link rel="manifest" href="/projects/travellist/manifest.json"/><title>React App</title><script defer="defer" src="/projects/travellist/static/js/main.355a2be8.js"></script><link href="/projects/travellist/static/css/main.fdc828fe.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/projects/travellist/favicon.ico" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Travel List" />
+    <link rel="apple-touch-icon" href="/projects/travellist/logo192.png" />
+    <link rel="manifest" href="/projects/travellist/manifest.json" />
+    <title>Far Away — Travel List</title>
+
+    <!-- App assets (keep) -->
+    <script defer src="/projects/travellist/static/js/main.355a2be8.js"></script>
+    <link href="/projects/travellist/static/css/main.fdc828fe.css" rel="stylesheet" />
+
+    <!-- Brand / UX overrides -->
+    <style>
+        :root {
+            --brand: #0f766e;
+            /* portfolio green */
+            --brand-light: #15998f;
+            /* hover/gradient */
+            --page: #f7fafc;
+            /* page bg */
+            --surface: #ffffff;
+            /* card/list bg */
+            --text: #374151;
+            --text-strong: #0f172a;
+            --ring: rgba(15, 118, 110, .28);
+            --radius-lg: 16px;
+            --radius-md: 12px;
+        }
+main {
+  border-radius: 12px;
+  background: #fff;
+}
+        /* Base */
+        html,
+        body {
+            background: var(--page);
+            color: var(--text);
+            font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
+        }
+
+        /* ✅ The orange banner is on <header>, not just .logo */
+        header {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+            color: #fff !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .12) !important;
+        }
+        .header-text span {
+  font-size: 1.2em;
+}
+
+        /* if the app sets inline orange, nuke it too */
+        header[style*="#f4a226"],
+        header[style*="rgb(244"] {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+        }
+
+        /* The inner .logo just becomes a flex layout; no background here */
+        .logo {
+            background: transparent !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+        }
+
+        .logo img {
+            height: 48px;
+        }
+
+        .logo h1 {
+            color: #fff !important;
+            font-weight: 800 !important;
+            letter-spacing: -.02em;
+        }
+
+        /* ✅ Input strip under header */
+        .add-form {
+            background: var(--brand) !important;
+            color: #fff !important;
+            border-radius: var(--radius-lg) !important;
+            padding: .9rem 1rem !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .06) !important;
+        }
+
+        .add-form input[type="text"],
+        .add-form select {
+            background: #fff !important;
+            color: var(--text-strong) !important;
+            border: 1.5px solid rgba(0, 0, 0, .1) !important;
+            border-radius: var(--radius-md) !important;
+            padding: .45rem .75rem !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        .add-form input:focus-visible,
+        .add-form select:focus-visible {
+            border-color: var(--brand-light) !important;
+            box-shadow: 0 0 0 3px var(--ring) !important;
+        }
+
+        /* ✅ Main list/card surface (replaces the brown slab) */
+        .list {
+            background: var(--surface) !important;
+            border-radius: var(--radius-lg) !important;
+            padding: 1rem !important;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .05) !important;
+            border: 1px solid rgba(2, 6, 23, .08) !important;
+            color: var(--text-strong) !important;
+        }
+
+        /* Footer ribbon */
+        .stats {
+            background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+            color: #fff !important;
+            border-top: none !important;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+            font-weight: 500 !important;
+        }
+
+        /* Buttons */
+        button {
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+        /* Kill legacy oranges/yellows just in case */
+        .bg-orange-300,
+        .bg-orange-400,
+        .bg-orange-500,
+        .bg-amber-300,
+        .bg-amber-400,
+        .bg-amber-500,
+        .bg-yellow-300,
+        .bg-yellow-400,
+        .bg-yellow-500 {
+            background: transparent !important;
+        }
+        /* --- kill the orange page bg and make the title a teal banner --- */
+
+/* The starter sets the whole page/wrapper to orange.
+   Force it back to the light page color. */
+body, .app {
+  background: var(--page) !important;
+}
+
+/* The title is just <h1 class="logo"> (no real header).
+   Make it a proper full-width teal bar. */
+h1.logo, .logo {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 18px 0 !important;
+  text-align: center !important;
+
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12) !important;
+}
+
+/* keep inputs/buttons looking clean on the teal strip */
+.add-form input[type="text"], .add-form select {
+  background: #fff !important;
+  color: var(--text-strong) !important;
+}
+/* ==== FINAL OVERRIDES: nuke remaining orange ==== */
+
+/* 1) Force every root container to use the page color */
+html,
+body,
+#root,
+#root > div,
+#root > *:first-child,
+.app,
+.App,
+main,
+.container {
+  background: var(--page) !important;
+}
+
+/* 2) Kill inline/orange backgrounds by value (hex and rgb) */
+[style*="#f4a226"],
+[style*="rgb(244, 162, 38"],
+[style*="rgba(244, 162, 38"] {
+  background: var(--page) !important;
+}
+
+/* 3) Make the title row a proper teal banner no matter what */
+h1.logo,
+.logo {
+  display: block !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 18px 0 !important;
+  text-align: center !important;
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12) !important;
+}
+
+/* 4) Keep the add-form teal and readable */
+.add-form {
+  background: var(--brand) !important;
+  color: #fff !important;
+  border: none !important;
+}
+.add-form input[type="text"],
+.add-form select {
+  background: #fff !important;
+  color: var(--text-strong) !important;
+}
+/* Kill any orange header no matter what */
+header,
+header[style],
+header[style*="#f4a226"],
+header[style*="rgb(244, 162, 38"] {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--brand-light) 100%) !important;
+  color: #fff !important;
+}
+/* Primary action buttons (consistent teal) */
+.add-form button,                 /* ADD */
+button.clear,                     /* if your build uses .clear */
+button.clear-list,                /* or .clear-list */
+button[data-action="clear"],
+.stats button,                    /* safety: buttons in footer */
+.list button                      /* safety: buttons around list */
+{
+  background: var(--brand) !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 999px !important;
+  transition: background .18s ease;
+}
+.add-form button:hover,
+button.clear:hover,
+button.clear-list:hover,
+button[data-action="clear"]:hover,
+.stats button:hover,
+.list button:hover {
+  background: var(--brand-light) !important;
+}
+
+/* Keep the Sort control neutral and readable */
+select, 
+button.sort, 
+[aria-haspopup="listbox"] {
+  background: #fff !important;
+  color: var(--text-strong) !important;
+  border: 1.5px solid rgba(0,0,0,.12) !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+
+/* Also fix the inner title container if it has its own inline background */
+header > *[style*="#f4a226"],
+header > *[style*="rgb(244, 162, 38"] {
+  background: transparent !important;
+}
+
+    </style>
+
+    <!-- Optional: mark destructive buttons if any appear later -->
+    <script>
+        (function () {
+            const GRADIENT = "linear-gradient(135deg, #0f766e 0%, #15998f 100%)";
+            const ORANGE_HEX = "#f4a226";
+            const ORANGE_RGB = "rgb(244, 162, 38)";
+
+            function isOrange(color) {
+                if (!color) return false;
+                const c = color.replace(/\s+/g, "").toLowerCase();
+                return c.includes(ORANGE_HEX) || c.includes("rgb(244,162,38)");
+            }
+
+            function swapOrangeBackgrounds(root = document) {
+                const all = root.querySelectorAll("*");
+                for (let i = 0; i < all.length; i++) {
+                    const el = all[i];
+                    const cs = getComputedStyle(el);
+                    // background-color or background (shorthand)
+                    if (isOrange(cs.backgroundColor) || isOrange(cs.background)) {
+                        el.style.setProperty("background", GRADIENT, "important");
+                        el.style.setProperty("color", "#fff", "important");
+                    }
+                }
+                // header is the usual culprit—double down
+                const header = document.querySelector("header");
+                if (header) {
+                    header.style.setProperty("background", GRADIENT, "important");
+                    header.style.setProperty("color", "#fff", "important");
+                }
+            }
+
+            // Run after everything paints
+            window.addEventListener("load", () => {
+                swapOrangeBackgrounds();
+
+                // Keep watching for React updates
+                const mo = new MutationObserver((muts) => {
+                    muts.forEach((m) => {
+                        m.addedNodes.forEach((n) => {
+                            if (n.nodeType === 1) swapOrangeBackgrounds(n);
+                        });
+                    });
+                });
+                mo.observe(document.body, { childList: true, subtree: true });
+            });
+        })();
+    </script>
+</head>
+
+<body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+</body>
+
+</html>

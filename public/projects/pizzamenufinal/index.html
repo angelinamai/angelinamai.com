@@ -1,27 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>"
-    />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍕</text></svg>" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
-    <title>Fast React Pizza Co.</title>
-    <script type="module" crossorigin src="/projects/pizzamenufinal/assets/index-a622c0f2.js"></script>
-    <link rel="stylesheet" href="/projects/pizzamenufinal/assets/index-ea9dea0b.css">
-  </head>
-  <body class="bg-stone-100 text-stone-700">
-    <div id="root"></div>
-    
-  </body>
+  <title>Fast React Pizza Co.</title>
+
+  <!-- App assets (keep) -->
+  <script type="module" crossorigin src="/projects/pizzamenufinal/assets/index-a622c0f2.js"></script>
+  <link rel="stylesheet" href="/projects/pizzamenufinal/assets/index-ea9dea0b.css" />
+
+  <!-- Unified brand overrides -->
+  <style>
+    :root {
+      --brand-green: #0f766e;
+      /* match your portfolio buttons (teal-700) */
+      --brand-green-hover: #0d5f59;
+      /* a touch darker for hover */
+      --brand-red: #dc2626;
+      --brand-red-hover: #b91c1c;
+      --text-dark: #0f172a;
+      /* slate-900 */
+      --text-muted: #374151;
+      /* slate-700 */
+    }
+
+    /* Header bar and any green/yellow utility backgrounds -> brand green */
+    header,
+    .bg-green-500,
+    .bg-green-600,
+    .bg-green-700,
+    .bg-yellow-300,
+    .bg-yellow-400,
+    .bg-yellow-500,
+    .bg-amber-300,
+    .bg-amber-400,
+    .bg-amber-500 {
+      background-color: var(--brand-green) !important;
+      color: #ffffff !important;
+      border-color: var(--brand-green) !important;
+    }
+
+    /* Any yellow/amber/green text utilities -> brand green text */
+    .text-green-500,
+    .text-green-600,
+    .text-green-700,
+    .text-yellow-300,
+    .text-yellow-400,
+    .text-yellow-500,
+    .text-amber-300,
+    .text-amber-400,
+    .text-amber-500 {
+      color: var(--brand-green) !important;
+    }
+
+    /* Any yellow/amber/green borders/rings -> brand green */
+    .border-green-500,
+    .border-green-600,
+    .border-green-700,
+    .border-yellow-300,
+    .border-yellow-400,
+    .border-yellow-500,
+    .border-amber-300,
+    .border-amber-400,
+    .border-amber-500 {
+      border-color: var(--brand-green) !important;
+    }
+
+    .ring-yellow-300,
+    .ring-yellow-400,
+    .ring-yellow-500,
+    .ring-amber-300,
+    .ring-amber-400,
+    .ring-amber-500,
+    .ring-green-500,
+    .ring-green-600,
+    .ring-green-700 {
+      --tw-ring-color: var(--brand-green) !important;
+    }
+
+    /* Buttons: default to brand green; delete/removes become red */
+    button,
+    [role="button"] {
+      background-color: var(--brand-green) !important;
+      color: #fff !important;
+      border: none !important;
+      border-radius: 9999px !important;
+      /* keep the pill look */
+      padding: .6rem 1.2rem !important;
+      font-weight: 600 !important;
+      letter-spacing: .02em !important;
+      transition: background-color .2s ease-in-out !important;
+    }
+
+    button:hover,
+    [role="button"]:hover {
+      background-color: var(--brand-green-hover) !important;
+    }
+
+    /* If the element has .delete (or we tag it via JS), make it red */
+    .delete {
+      background-color: var(--brand-red) !important;
+    }
+
+    .delete:hover {
+      background-color: var(--brand-red-hover) !important;
+    }
+
+    /* Inputs (name + search) cleanup */
+    input[type="text"],
+    input[type="search"] {
+      background: #fff !important;
+      border: 2px solid var(--brand-green) !important;
+      box-shadow: none !important;
+      outline: none !important;
+      color: var(--text-dark) !important;
+      border-radius: 9999px !important;
+      padding: .5rem 1rem !important;
+    }
+
+    input::placeholder {
+      color: #6b7280 !important;
+    }
+
+    /* slate-500 */
+
+    /* Headings & copy for a more professional look */
+    h1 {
+      color: var(--text-dark) !important;
+      font-weight: 800 !important;
+      letter-spacing: -.01em !important;
+    }
+
+    h2,
+    h3 {
+      color: var(--text-dark) !important;
+      font-weight: 600 !important;
+    }
+
+    p,
+    span {
+      color: var(--text-muted) !important;
+    }
+  </style>
+
+  <!-- Tiny helper: tag any button whose text is "Delete"/"Remove" as .delete -->
+  <script>
+    function tagDestructiveButtons(root = document) {
+      root.querySelectorAll('button,[role="button"]').forEach(el => {
+        const t = (el.textContent || "").trim().toLowerCase();
+        if (t === "delete" || t === "remove") el.classList.add("delete");
+      });
+    }
+    window.addEventListener("load", () => {
+      tagDestructiveButtons();
+      new MutationObserver(m => m.forEach(x => x.addedNodes.forEach(n => {
+        if (n.nodeType === 1) tagDestructiveButtons(n);
+      }))).observe(document.body, { childList: true, subtree: true });
+    });
+  </script>
+</head>
+
+<body class="bg-stone-100 text-stone-700">
+  <div id="root"></div>
+</body>
+
 </html>

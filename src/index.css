@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
- background-color: #FFC0CB;
+body {
+    background-color: #f9fafb;
+    /* Tailwind's gray-50 */
 }
