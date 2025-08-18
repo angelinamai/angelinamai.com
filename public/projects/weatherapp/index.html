@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <link rel="icon" href="/projects/weatherapp/favicon.ico" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/projects/mobile.css?v=1" />
   <meta name="theme-color" content="#0f766e" />
   <meta name="description" content="Weather Forecast—forecast by city" />
@@ -16,8 +16,7 @@
     rel="stylesheet" />
 
   <!-- Weather app build CSS (relative to /projects/weatherapp/index.html) -->
-  <link rel="stylesheet" href="./static/css/main.28420eaf.css" />
-
+  <link rel="stylesheet" href="./static/css/main.28420eaf.css?v=2" />
   <!-- Brand/UX overrides -->
   <style>
     :root {
@@ -180,15 +179,73 @@
     .desc {
       color: var(--muted) !important;
     }
+
     /* --- Mobile compatibility fix --- */
-*, *::before, *::after { box-sizing: border-box; }
-html, body { overflow-x: hidden; }
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
 
-img, video, canvas, svg { max-width: 100%; height: auto; }
+    html,
+    body {
+      overflow-x: hidden;
+    }
 
-h1, h2, h3, .title, .app-title {
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
+    img,
+    video,
+    canvas,
+    svg {
+      max-width: 100%;
+      height: auto;
+    }
+
+    h1,
+    h2,
+    h3,
+    .title,
+    .app-title {
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width:640px){
+  /* Force all forecast items to wrap and stay visible */
+  .forecast, .forecast-container, ul, .cards, .days {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)) !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  .forecast > *, .forecast-container > *, ul > li, .cards > *, .days > * {
+    min-width: 0 !important;
+    flex: 0 1 auto !important;
+    width: 100% !important;
+  }
+}
+
+    @media (max-width: 480px) {
+      /* Adjust title font size for smaller screens */
+      h1.title, .app-title {
+        font-size: 32px !important;
+      }
+      /* Ensure input fields are full width */
+      input[type="text"], input[type="search"] {
+        width: calc(100% - 2rem) !important;
+        margin: 0 auto !important;
+      }
+    }
+    /* --- Final mobile fix for .app width --- */
+@media (max-width: 1024px) {
+  .app {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  body {
+    display: block !important;
+    align-items: stretch !important;
+    justify-content: flex-start !important;
+  }
 }
   </style>
 </head>
@@ -238,7 +295,6 @@ h1, h2, h3, .title, .app-title {
       }
     })();
   </script>
-
 
   <!-- Weather app build JS (relative) -->
   <script defer src="./static/js/main.e75645eb.js"></script>
