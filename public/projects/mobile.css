@@ -1,74 +1,48 @@
 /* === Eat n Split specific mobile fixes === */
 @media (max-width: 768px) {
+  /* Force the two-column layout to stack */
+  .app, .container, .layout, .content {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
 
-    /* Force the two-column layout to stack */
-    .app,
-    .container,
-    .layout,
-    .content {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 16px !important;
-    }
+  /* Sidebar + main take full width */
+  .sidebar, [class*="side"], .main, [class*="main"], .panel, .section {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
-    /* Sidebar + main take full width */
-    .sidebar,
-    [class*="side"],
-    .main,
-    [class*="main"],
-    .panel,
-    .section {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
+  /* Forms become single column, full width controls */
+  .add-form, .form, .form-add-friend, .form-split-bill, form {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+  .form-split-bill input,
+  .form-split-bill select,
+  .form-split-bill button,
+  .form-add-friend input,
+  .form-add-friend button,
+  form input, form select, form button {
+    width: 100% !important;
+    max-width: 100% !important;
+    font: inherit;
+  }
 
-    /* Forms become single column, full width controls */
-    .add-form,
-    .form,
-    .form-add-friend,
-    .form-split-bill,
-    form {
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-        gap: 12px !important;
-        width: 100% !important;
-    }
+  /* Friend rows don’t overflow */
+  .friend, .friend-row, li.friend {
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+  .friend img { width: 44px; height: 44px; border-radius: 9999px; }
 
-    .form-split-bill input,
-    .form-split-bill select,
-    .form-split-bill button,
-    .form-add-friend input,
-    .form-add-friend button,
-    form input,
-    form select,
-    form button {
-        width: 100% !important;
-        max-width: 100% !important;
-        font: inherit;
-    }
-
-    /* Friend rows don’t overflow */
-    .friend,
-    .friend-row,
-    li.friend {
-        display: grid !important;
-        grid-template-columns: auto 1fr auto !important;
-        align-items: center !important;
-        gap: 10px !important;
-        width: 100% !important;
-    }
-
-    .friend img {
-        width: 44px;
-        height: 44px;
-        border-radius: 9999px;
-    }
-
-    /* Reduce padding on sections */
-    main,
-    section,
-    .card,
-    .panel {
-        padding: clamp(12px, 3vw, 18px) !important;
-    }
+  /* Reduce padding on sections */
+  main, section, .card, .panel {
+    padding: clamp(12px, 3vw, 18px) !important;
+  }
 }

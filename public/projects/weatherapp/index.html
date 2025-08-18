@@ -5,10 +5,9 @@
   <meta charset="utf-8" />
   <link rel="icon" href="/projects/weatherapp/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" href="/projects/mobile.css?v=1" />
-<meta name="theme-color" content="#0f766e" />
-  <meta name="description" content="Classy Weather — forecast by city" />
+  <meta name="theme-color" content="#0f766e" />
+  <meta name="description" content="Weather Forecast—forecast by city" />
   <title>Weather Forecast</title>
 
   <!-- Fonts -->
@@ -57,7 +56,7 @@
     /* Pink background removal */
     [style*="#e7b9b3" i],
     [style*="rgb(231, 185, 179)"],
-    [style*="rgba(231, 185, 179"] {
+    [style*="rgba(231, 185, 179)"] {
       background: var(--card) !important;
       background-color: var(--card) !important;
     }
@@ -181,6 +180,16 @@
     .desc {
       color: var(--muted) !important;
     }
+    /* --- Mobile compatibility fix --- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { overflow-x: hidden; }
+
+img, video, canvas, svg { max-width: 100%; height: auto; }
+
+h1, h2, h3, .title, .app-title {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
   </style>
 </head>
 
