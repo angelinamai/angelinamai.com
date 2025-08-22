@@ -169,6 +169,39 @@
         if (n.nodeType === 1) tagDestructiveButtons(n);
       }))).observe(document.body, { childList: true, subtree: true });
     });
+     // runtime text hot-fix (survives without editing the bundle)
+      document.addEventListener('DOMContentLoaded', () => {
+        const label = Array.from(document.querySelectorAll('label'))
+          .find(el => /order priority\?/i.test(el.textContent || ''));
+        if (label) label.textContent = 'Do you want to give your order priority?';
+      });
+       // Fix the label text next to the "priority" checkbox at runtime
+        function fixPriorityLabel(root = document) {
+          const input = root.querySelector('input[name="priority"], input#priority, input[type="checkbox"][name="priority"]');
+          if (!input) return;
+
+          // Prefer the label explicitly bound to the input
+          let label = input.id ? root.querySelector(`label[for="${input.id}"]`) : null;
+
+          // Fallback: a label that contains the input
+          if (!label) label = input.closest('label');
+
+          // Fallback: any label nearby whose text mentions "order priority?"
+          if (!label) {
+            label = Array.from(root.querySelectorAll('label'))
+              .find(el => /order\s+priority\?/i.test(el.textContent || ''));
+          }
+
+          if (label) label.textContent = 'Do you want to give your order priority?';
+        }
+
+        // Run now and whenever React adds nodes
+        document.addEventListener('DOMContentLoaded', () => {
+          fixPriorityLabel();
+          new MutationObserver(muts => muts.forEach(m =>
+            m.addedNodes.forEach(n => n.nodeType === 1 && fixPriorityLabel(n))
+          )).observe(document.body, { childList: true, subtree: true });
+        });
   </script>
 </head>
 
