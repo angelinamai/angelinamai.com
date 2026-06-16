@@ -21,16 +21,43 @@ function BrowserMockup({ project, featured }: BrowserMockupProps) {
           : "border-slate-200 shadow-sm",
       ].join(" ")}
     >
-      <div className="flex h-9 items-center gap-2 border-b border-slate-200 bg-slate-50 px-3">
-        <span className="h-2.5 w-2.5 rounded-full bg-[#ef6f6c]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#f4c95d]" />
-        <span className="h-2.5 w-2.5 rounded-full bg-[#5bc48f]" />
-        <span className="ml-2 h-3 flex-1 rounded-sm bg-slate-200/80" />
+      <div
+        className={[
+          "flex items-center border-b border-slate-200 bg-slate-50",
+          featured ? "h-6 gap-1.5 px-2" : "h-9 gap-2 px-3",
+        ].join(" ")}
+      >
+        <span
+          className={[
+            "rounded-full bg-[#ef6f6c]",
+            featured ? "h-1.5 w-1.5 opacity-80" : "h-2.5 w-2.5",
+          ].join(" ")}
+        />
+        <span
+          className={[
+            "rounded-full bg-[#f4c95d]",
+            featured ? "h-1.5 w-1.5 opacity-80" : "h-2.5 w-2.5",
+          ].join(" ")}
+        />
+        <span
+          className={[
+            "rounded-full bg-[#5bc48f]",
+            featured ? "h-1.5 w-1.5 opacity-80" : "h-2.5 w-2.5",
+          ].join(" ")}
+        />
+        <span
+          className={[
+            "ml-2 flex-1 rounded-sm bg-slate-200/80",
+            featured ? "h-2 opacity-70" : "h-3",
+          ].join(" ")}
+        />
       </div>
       <div
         className={[
           "project-preview",
-          featured ? "project-preview--featured" : "project-preview--app",
+          featured
+            ? `featured-preview project-preview--featured project-preview--${project.id}`
+            : "project-preview--app",
         ].join(" ")}
       >
         <img

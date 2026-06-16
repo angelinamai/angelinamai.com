@@ -110,7 +110,7 @@ body {
 .project-preview {
   aspect-ratio: 16 / 9;
   width: 100%;
-  background: #f4f6f8;
+  background: #f3f5f7;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -123,12 +123,26 @@ body {
   object-position: top center;
 }
 
+.featured-preview,
 .project-preview--featured {
   background: #f8fafc;
+  overflow: hidden;
 }
 
 .project-preview--featured img {
   object-fit: cover;
+}
+
+.project-preview--tracy-counselling img {
+  object-position: center 18%;
+}
+
+.project-preview--swim-with-leah img {
+  object-position: center 12%;
+}
+
+.project-preview--vegan-restaurant img {
+  object-position: center 15%;
 }
 
 .project-preview--app img {
