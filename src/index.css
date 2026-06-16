@@ -145,6 +145,10 @@ body {
   object-position: center 15%;
 }
 
+.project-preview--angelina-interpreting img {
+  object-position: center 18%;
+}
+
 .project-preview--app img {
   object-fit: contain;
 }
