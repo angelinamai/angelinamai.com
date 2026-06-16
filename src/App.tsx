@@ -1,6 +1,7 @@
 import "./App.css";
 import {
   FaArrowDown,
+  FaArrowRight,
   FaEnvelope,
   FaFilePdf,
   FaGithub,
@@ -29,36 +30,62 @@ const navItems = [
 ];
 
 const skills = [
-  { label: "React", icon: SiReact },
-  { label: "JavaScript", icon: SiJavascript },
-  { label: "TypeScript", icon: SiTypescript },
-  { label: "Tailwind CSS", icon: SiTailwindcss },
-  { label: "Next.js", icon: SiNextdotjs },
-  { label: "Vite", icon: SiVite },
-  { label: "CSS", icon: SiCss3 },
-  { label: "Git", icon: SiGit },
+  { label: "React", icon: SiReact, tone: "text-cyan-300" },
+  { label: "JavaScript", icon: SiJavascript, tone: "text-amber-300" },
+  { label: "TypeScript", icon: SiTypescript, tone: "text-sky-300" },
+  { label: "Tailwind CSS", icon: SiTailwindcss, tone: "text-teal-300" },
+  { label: "Next.js", icon: SiNextdotjs, tone: "text-white" },
+  { label: "Vite", icon: SiVite, tone: "text-violet-300" },
+  { label: "CSS", icon: SiCss3, tone: "text-blue-300" },
+  { label: "Git", icon: SiGit, tone: "text-orange-300" },
+];
+
+const contactLinks = [
+  {
+    label: "Email Me",
+    href: "mailto:angelinamai8386@gmail.com",
+    icon: FaEnvelope,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/angelinamai",
+    icon: FaGithub,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
+    icon: FaLinkedin,
+  },
+  {
+    label: "Resume",
+    href: "/angelina-mai-resume.pdf",
+    icon: FaFilePdf,
+  },
 ];
 
 function App() {
   return (
-    <div className="min-h-screen bg-[#f6f8fb] text-slate-900">
-      <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+    <div className="min-h-screen overflow-hidden bg-[#080b12] text-white">
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#080b12]/82 backdrop-blur-xl">
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8"
+          className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8"
           aria-label="Primary navigation"
         >
           <a
             href="#top"
-            className="text-base font-bold tracking-tight text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-4"
+            className="group inline-flex items-center gap-3 rounded-md py-2 pr-3 text-sm font-bold text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
           >
-            Angelina Mai
+            <span className="grid h-9 w-9 place-items-center rounded-md border border-white/15 bg-white text-sm font-black text-[#080b12] transition group-hover:-rotate-3 group-hover:bg-lime-200">
+              AM
+            </span>
+            <span>Angelina Mai</span>
           </a>
-          <ul className="hidden items-center gap-1 md:flex">
+          <ul className="hidden items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] p-1 md:flex">
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
                   href={item.href}
-                  className="rounded-md px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                  className="rounded px-3 py-2 text-sm font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
                 >
                   {item.label}
                 </a>
@@ -67,7 +94,7 @@ function App() {
           </ul>
           <a
             href="#contact"
-            className="inline-flex min-h-10 items-center justify-center rounded-md bg-emerald-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+            className="inline-flex min-h-10 items-center justify-center rounded-md border border-lime-300/70 bg-lime-300 px-4 py-2 text-sm font-black text-[#080b12] shadow-[0_0_26px_rgba(190,242,100,0.22)] transition hover:-translate-y-0.5 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
           >
             Contact
           </a>
@@ -75,91 +102,121 @@ function App() {
       </header>
 
       <main id="top">
-        <section className="mx-auto grid max-w-7xl items-center gap-12 px-4 py-16 sm:px-6 md:py-24 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-emerald-700">
-              Front-End Developer
-            </p>
-            <h1 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
-              I build responsive, accessible, and user-friendly websites and
-              web applications for real people, services, and businesses.
-            </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              I create clean front-end experiences across production-style
-              websites and React applications, with attention to structure,
-              usability, responsive layouts, and maintainable code.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#featured-websites"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-slate-950 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
-              >
-                View My Work
-                <FaArrowDown aria-hidden="true" className="h-3.5 w-3.5" />
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex min-h-12 items-center justify-center rounded-md border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:border-slate-950 hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
-              >
-                Contact Me
-              </a>
+        <section className="relative isolate">
+          <div
+            className="absolute inset-0 -z-10 hero-field"
+            aria-hidden="true"
+          />
+          <div className="mx-auto grid min-h-[calc(100vh-66px)] max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-[1.08fr_0.92fr] lg:px-8">
+            <div className="max-w-4xl">
+              <p className="inline-flex rounded-md border border-teal-300/35 bg-teal-300/10 px-3 py-2 text-xs font-black uppercase text-teal-200">
+                Front-End Developer
+              </p>
+              <h1 className="mt-6 max-w-5xl text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-6xl">
+                I build responsive, accessible, and user-friendly websites and
+                web applications for real people, services, and businesses.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-slate-300">
+                I create clean front-end experiences across production-style
+                websites and React applications, with attention to structure,
+                usability, responsive layouts, and maintainable code.
+              </p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <a
+                  href="#featured-websites"
+                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-black text-[#080b12] shadow-[0_18px_60px_rgba(255,255,255,0.16)] transition hover:-translate-y-1 hover:bg-lime-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
+                >
+                  View My Work
+                  <FaArrowDown aria-hidden="true" className="h-3.5 w-3.5" />
+                </a>
+                <a
+                  href="#contact"
+                  className="inline-flex min-h-12 items-center justify-center rounded-md border border-white/20 bg-white/[0.06] px-5 py-3 text-sm font-bold text-white transition hover:-translate-y-1 hover:border-teal-300/70 hover:bg-teal-300/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
+                >
+                  Contact Me
+                </a>
+              </div>
             </div>
-          </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            {featuredProjects.slice(0, 2).map((project) => (
-              <a
-                key={project.id}
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
-              >
-                <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+            <div className="relative mx-auto w-full max-w-2xl lg:max-w-none">
+              <div
+                className="absolute -left-3 top-10 hidden h-28 w-28 border-l border-t border-lime-300/70 md:block"
+                aria-hidden="true"
+              />
+              <div
+                className="absolute -bottom-3 right-8 hidden h-24 w-24 border-b border-r border-fuchsia-300/70 md:block"
+                aria-hidden="true"
+              />
+              <div className="hero-showcase">
+                <a
+                  href={featuredProjects[0].liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group hero-main focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
+                >
                   <img
-                    src={project.screenshot}
-                    alt={`${project.name} website screenshot`}
-                    className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-[1.02]"
+                    src={featuredProjects[0].screenshot}
+                    alt={`${featuredProjects[0].name} website screenshot`}
+                    className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.035]"
                     decoding="async"
                   />
-                </div>
-                <div className="flex items-center justify-between px-4 py-3">
-                  <span className="text-sm font-semibold text-slate-950">
-                    {project.name}
+                  <span className="absolute bottom-4 left-4 right-4 flex items-center justify-between rounded-md border border-white/15 bg-[#080b12]/84 px-4 py-3 text-sm font-bold text-white backdrop-blur">
+                    {featuredProjects[0].name}
+                    <span className="text-lime-200">Live</span>
                   </span>
-                  <span className="text-xs font-semibold text-emerald-700">
-                    Live
-                  </span>
+                </a>
+
+                <div
+                  className="hero-stack"
+                  aria-label="Featured website previews"
+                >
+                  {featuredProjects.slice(1).map((project) => (
+                    <a
+                      key={project.id}
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group hero-mini focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
+                    >
+                      <img
+                        src={project.screenshot}
+                        alt={`${project.name} website screenshot`}
+                        className="h-full w-full object-cover object-top transition duration-500 group-hover:scale-[1.05]"
+                        decoding="async"
+                      />
+                      <span>{project.name}</span>
+                    </a>
+                  ))}
                 </div>
-              </a>
-            ))}
+              </div>
+            </div>
           </div>
         </section>
 
         <section
           aria-labelledby="intro-title"
-          className="border-y border-slate-200 bg-white"
+          className="border-y border-white/10 bg-[#101723]"
         >
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-sky-700">
+              <p className="text-sm font-black uppercase text-lime-200">
                 Professional Introduction
               </p>
               <h2
                 id="intro-title"
-                className="mt-3 text-3xl font-bold tracking-tight text-slate-950"
+                className="mt-4 max-w-xl text-4xl font-black text-white md:text-5xl"
               >
                 Practical front-end work with a client-focused eye.
               </h2>
             </div>
-            <div className="grid gap-5 text-base leading-8 text-slate-600 md:grid-cols-2">
-              <p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <p className="intro-panel">
                 My strongest work combines real-world service websites with
                 interactive React apps. I focus on clear navigation, polished
                 interface details, accessible markup, and layouts that hold up
                 on smaller screens.
               </p>
-              <p>
+              <p className="intro-panel accent">
                 The projects below show both client-facing websites and app
                 workflows: service discovery, menus, forms, account/payment
                 infrastructure, API data, routing, and state management.
@@ -171,36 +228,45 @@ function App() {
         <section
           id="featured-websites"
           aria-labelledby="featured-websites-title"
-          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8"
+          className="relative bg-[#f6f1e8] text-[#101723]"
         >
-          <SectionHeader
-            id="featured-websites-title"
-            eyebrow="Featured Websites"
-            title="Real websites for services and businesses"
-            description="These are the most prominent projects: public, responsive websites with clear business goals, real content, and production deployment paths."
-          />
-          <div className="mt-10 grid gap-8">
-            {featuredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} featured />
-            ))}
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+            <SectionHeader
+              id="featured-websites-title"
+              eyebrow="Featured Websites"
+              title="Real websites for services and businesses"
+              description="These are the most prominent projects: public, responsive websites with clear business goals, real content, and production deployment paths."
+              variant="light"
+            />
+            <div className="mt-12 grid gap-8">
+              {featuredProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  featured
+                  index={index}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
         <section
           id="web-applications"
           aria-labelledby="web-applications-title"
-          className="bg-white"
+          className="bg-[#080b12]"
         >
-          <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
             <SectionHeader
               id="web-applications-title"
               eyebrow="Web Applications"
               title="React apps with state, routing, and API behavior"
               description="These smaller projects show hands-on React application work, including form state, list operations, routing, API data, and cart workflows."
+              variant="dark"
             />
-            <div className="mt-10 grid gap-6 lg:grid-cols-2">
-              {appProjects.map((project) => (
-                <ProjectCard key={project.id} project={project} />
+            <div className="mt-12 grid gap-6 lg:grid-cols-2">
+              {appProjects.map((project, index) => (
+                <ProjectCard key={project.id} project={project} index={index} />
               ))}
             </div>
           </div>
@@ -209,50 +275,60 @@ function App() {
         <section
           id="skills"
           aria-labelledby="skills-title"
-          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8"
+          className="border-y border-white/10 bg-[#111827]"
         >
-          <SectionHeader
-            id="skills-title"
-            eyebrow="Skills and Technologies"
-            title="Front-end tools I use to build polished interfaces"
-            description="The stack varies by project, but the through-line is responsive React development, component thinking, clear data flow, and careful styling."
-          />
-          <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {skills.map(({ label, icon: Icon }) => (
-              <li
-                key={label}
-                className="flex items-center gap-3 rounded-lg border border-slate-200 bg-white px-4 py-4 shadow-sm"
-              >
-                <Icon aria-hidden="true" className="h-5 w-5 text-emerald-700" />
-                <span className="font-semibold text-slate-900">{label}</span>
-              </li>
-            ))}
-          </ul>
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+            <SectionHeader
+              id="skills-title"
+              eyebrow="Skills and Technologies"
+              title="Front-end tools I use to build polished interfaces"
+              description="The stack varies by project, but the through-line is responsive React development, component thinking, clear data flow, and careful styling."
+              variant="dark"
+            />
+            <ul className="mt-12 grid gap-px overflow-hidden rounded-md border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+              {skills.map(({ label, icon: Icon, tone }) => (
+                <li
+                  key={label}
+                  className="group flex min-h-28 items-center justify-between bg-[#111827] px-5 py-5 transition hover:bg-white/[0.08]"
+                >
+                  <span className="font-black text-white">{label}</span>
+                  <Icon
+                    aria-hidden="true"
+                    className={`h-7 w-7 ${tone} transition group-hover:-translate-y-1 group-hover:scale-110`}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
-        <section id="about" aria-labelledby="about-title" className="bg-white">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 md:py-20 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        <section
+          id="about"
+          aria-labelledby="about-title"
+          className="bg-[#f6f1e8] text-[#101723]"
+        >
+          <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-700">
+              <p className="text-sm font-black uppercase text-teal-700">
                 About Me
               </p>
               <h2
                 id="about-title"
-                className="mt-3 text-3xl font-bold tracking-tight text-slate-950 md:text-4xl"
+                className="mt-4 text-4xl font-black text-[#101723] md:text-5xl"
               >
                 I care about building useful, clear, human front ends.
               </h2>
             </div>
-            <div className="space-y-5 text-base leading-8 text-slate-600">
-              <p>
+            <div className="grid gap-4 md:grid-cols-2">
+              <p className="about-panel">
                 I am Angelina Mai, a Front-End Developer building websites and
-                React applications with a practical, detail-oriented approach.
-                I like turning real content and real workflows into interfaces
+                React applications with a practical, detail-oriented approach. I
+                like turning real content and real workflows into interfaces
                 that feel organized, friendly, and easy to use.
               </p>
-              <p>
-                My work includes service websites for counselling, coaching,
-                and restaurants, plus React applications that demonstrate state
+              <p className="about-panel dark">
+                My work includes service websites for counselling, coaching, and
+                restaurants, plus React applications that demonstrate state
                 management, API fetching, routing, forms, and responsive UI
                 polish.
               </p>
@@ -263,68 +339,68 @@ function App() {
         <section
           id="contact"
           aria-labelledby="contact-title"
-          className="mx-auto max-w-7xl px-4 py-16 sm:px-6 md:py-20 lg:px-8"
+          className="relative isolate bg-[#080b12]"
         >
-          <div className="grid gap-8 rounded-lg border border-slate-200 bg-slate-950 p-6 text-white shadow-xl md:grid-cols-[1.1fr_0.9fr] md:p-8 lg:p-10">
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-emerald-300">
-                Contact
-              </p>
-              <h2
-                id="contact-title"
-                className="mt-3 text-3xl font-bold tracking-tight md:text-4xl"
-              >
-                Let's build a clear, responsive web experience.
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
-                I am open to front-end website and React application work where
-                thoughtful UI, accessibility, and maintainable implementation
-                matter.
-              </p>
-            </div>
-            <div className="flex flex-col justify-center gap-3 sm:flex-row md:flex-col">
-              <a
-                href="mailto:angelinamai8386@gmail.com"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              >
-                <FaEnvelope aria-hidden="true" />
-                Email Me
-              </a>
-              <a
-                href="https://github.com/angelinamai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-slate-600 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              >
-                <FaGithub aria-hidden="true" />
-                GitHub
-              </a>
-              <a
-                href="https://www.linkedin.com/in/angelina-mai-b7b9b1176/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-slate-600 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              >
-                <FaLinkedin aria-hidden="true" />
-                LinkedIn
-              </a>
-              <a
-                href="/angelina-mai-resume.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-slate-600 px-5 py-3 text-sm font-semibold text-white transition hover:border-white hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
-              >
-                <FaFilePdf aria-hidden="true" />
-                Resume
-              </a>
+          <div
+            className="absolute inset-0 -z-10 contact-field"
+            aria-hidden="true"
+          />
+          <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
+            <div className="grid gap-10 border-y border-white/15 py-12 md:grid-cols-[1.05fr_0.95fr] md:py-16">
+              <div>
+                <p className="text-sm font-black uppercase text-lime-200">
+                  Contact
+                </p>
+                <h2
+                  id="contact-title"
+                  className="mt-4 max-w-3xl text-4xl font-black text-white md:text-6xl"
+                >
+                  Let's build a clear, responsive web experience.
+                </h2>
+                <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 md:text-lg">
+                  I am open to front-end website and React application work
+                  where thoughtful UI, accessibility, and maintainable
+                  implementation matter.
+                </p>
+              </div>
+              <div className="grid content-center gap-3 sm:grid-cols-2">
+                {contactLinks.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target={
+                      href.startsWith("http") || href.endsWith(".pdf")
+                        ? "_blank"
+                        : undefined
+                    }
+                    rel={
+                      href.startsWith("http") || href.endsWith(".pdf")
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
+                    className="group inline-flex min-h-16 items-center justify-between gap-4 rounded-md border border-white/12 bg-white/[0.06] px-5 py-4 text-sm font-black text-white transition hover:-translate-y-1 hover:border-lime-200/70 hover:bg-lime-200 hover:text-[#080b12] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-200 focus-visible:ring-offset-2 focus-visible:ring-offset-[#080b12]"
+                  >
+                    <span className="inline-flex items-center gap-3">
+                      <Icon aria-hidden="true" className="h-5 w-5" />
+                      {label}
+                    </span>
+                    <FaArrowRight
+                      aria-hidden="true"
+                      className="h-3.5 w-3.5 transition group-hover:translate-x-1"
+                    />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-slate-600 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
-          <p>© {new Date().getFullYear()} Angelina Mai. Front-End Developer.</p>
+      <footer className="border-t border-white/10 bg-[#080b12]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-sm text-slate-400 sm:px-6 md:flex-row md:items-center md:justify-between lg:px-8">
+          <p>
+            (c) {new Date().getFullYear()} Angelina Mai. Front-End Developer.
+          </p>
           <p>Built with React, Vite, and Tailwind CSS.</p>
         </div>
       </footer>
