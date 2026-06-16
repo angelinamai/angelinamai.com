@@ -14,7 +14,6 @@ export type Project = {
   responsive: string;
   screenshot: string;
   screenshotPosition?: string;
-  screenshotScale?: number;
   liveUrl: string;
   codeUrl?: string;
   status?: "In Development";
@@ -54,8 +53,7 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling.png",
-    screenshotPosition: "center top",
-    screenshotScale: 1.12,
+    screenshotPosition: "top center",
     liveUrl: "https://www.nguyentracy.com/",
   },
   {
@@ -90,8 +88,7 @@ export const featuredProjects: Project[] = [
     responsive:
       "Designed with responsive section spacing, mobile navigation, and flexible service cards across viewport sizes.",
     screenshot: "/images/swim-with-leah.png",
-    screenshotPosition: "center top",
-    screenshotScale: 1.18,
+    screenshotPosition: "top center",
     liveUrl: "https://www.swimwithleah.com/",
   },
   {
@@ -125,8 +122,7 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
     screenshot: "/images/vegan-restaurant.png",
-    screenshotPosition: "center top",
-    screenshotScale: 1.12,
+    screenshotPosition: "top center",
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
 ];
@@ -155,7 +151,7 @@ export const appProjects: Project[] = [
     responsive:
       "Uses the portfolio's mobile override stylesheet so the compact form and friend list remain usable on small screens.",
     screenshot: "/images/eatnsplit.png",
-    screenshotPosition: "center center",
+    screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/eatnsplit/index.html",
   },
   {
@@ -181,7 +177,7 @@ export const appProjects: Project[] = [
     responsive:
       "Includes portfolio-level responsive overrides for the add form, list area, and action controls.",
     screenshot: "/images/travellist.png",
-    screenshotPosition: "center top",
+    screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/travellist/index.html",
   },
   {
@@ -207,7 +203,7 @@ export const appProjects: Project[] = [
     responsive:
       "Responsive card and form styling is layered over the compiled app for cleaner tablet and mobile use.",
     screenshot: "/images/weather-app.png",
-    screenshotPosition: "center center",
+    screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/weatherapp/index.html",
   },
   {
@@ -240,7 +236,7 @@ export const appProjects: Project[] = [
     responsive:
       "The compiled app uses responsive Tailwind utility classes and the portfolio mobile stylesheet for smaller screens.",
     screenshot: "/images/pizzamenufinal.png",
-    screenshotPosition: "center top",
+    screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/pizzamenufinal/index.html",
   },
 ];

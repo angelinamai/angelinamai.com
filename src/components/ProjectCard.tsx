@@ -27,25 +27,13 @@ function BrowserMockup({ project, featured }: BrowserMockupProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#5bc48f]" />
         <span className="ml-2 h-3 flex-1 rounded-sm bg-slate-200/80" />
       </div>
-      <div
-        className={[
-          "overflow-hidden bg-slate-100",
-          featured
-            ? "h-[220px] sm:h-[260px] lg:h-[300px]"
-            : "h-[170px] sm:h-[190px]",
-        ].join(" ")}
-      >
+      <div className="project-preview">
         <img
           src={project.screenshot}
           alt={`${project.name} project screenshot`}
           loading="lazy"
           decoding="async"
-          className="h-full w-full object-cover"
-          style={{
-            objectPosition: project.screenshotPosition ?? "center top",
-            transform: `scale(${project.screenshotScale ?? 1})`,
-            transformOrigin: "top center",
-          }}
+          style={{ objectPosition: project.screenshotPosition ?? "top center" }}
         />
       </div>
     </div>
