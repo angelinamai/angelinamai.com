@@ -27,7 +27,12 @@ function BrowserMockup({ project, featured }: BrowserMockupProps) {
         <span className="h-2.5 w-2.5 rounded-full bg-[#5bc48f]" />
         <span className="ml-2 h-3 flex-1 rounded-sm bg-slate-200/80" />
       </div>
-      <div className="project-preview">
+      <div
+        className={[
+          "project-preview",
+          featured ? "project-preview--featured" : "project-preview--app",
+        ].join(" ")}
+      >
         <img
           src={project.screenshot}
           alt={`${project.name} project screenshot`}

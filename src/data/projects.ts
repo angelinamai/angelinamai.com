@@ -52,7 +52,7 @@ export const featuredProjects: Project[] = [
     ],
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
-    screenshot: "/images/tracy-counselling.png",
+    screenshot: "/images/tracy-counselling-card.png",
     screenshotPosition: "top center",
     liveUrl: "https://www.nguyentracy.com/",
   },
@@ -87,7 +87,7 @@ export const featuredProjects: Project[] = [
     ],
     responsive:
       "Designed with responsive section spacing, mobile navigation, and flexible service cards across viewport sizes.",
-    screenshot: "/images/swim-with-leah.png",
+    screenshot: "/images/swim-with-leah-card.png",
     screenshotPosition: "top center",
     liveUrl: "https://www.swimwithleah.com/",
   },
@@ -121,7 +121,7 @@ export const featuredProjects: Project[] = [
     ],
     responsive:
       "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
-    screenshot: "/images/vegan-restaurant.png",
+    screenshot: "/images/vegan-restaurant-card.png",
     screenshotPosition: "top center",
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
