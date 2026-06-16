@@ -125,6 +125,41 @@ export const featuredProjects: Project[] = [
     screenshotPosition: "center 15%",
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
+  {
+    id: "angelina-interpreting",
+    category: "featured",
+    name: "Angelina Interpreting",
+    eyebrow: "Professional Service Website",
+    description:
+      "A bilingual Vietnamese-English interpreting website for medical, legal, and community interpretation services across Ontario.",
+    purpose:
+      "Present interpreting services, credentials, service settings, and booking paths in a polished public website.",
+    problem:
+      "People and organizations looking for interpretation support need clear service information, trust signals, language options, and a direct way to request a booking.",
+    role: "Built the responsive Next.js interface, bilingual English/Vietnamese content, service and credential sections, contact form, schedule request flow, SEO metadata, structured data, and production Vercel deployment.",
+    features: [
+      "English and Vietnamese language toggle",
+      "Medical, legal, community, remote, and in-person service sections",
+      "Dedicated schedule page with date, time, duration, and meeting-format controls",
+      "Contact and booking request handling with mail fallback",
+      "SEO metadata, sitemap, robots, Open Graph, structured data, and analytics",
+    ],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Radix UI",
+      "Framer Motion",
+      "Lucide React",
+      "Vercel Analytics",
+    ],
+    responsive:
+      "Responsive hero, navigation, service cards, booking form, and contact sections for desktop, tablet, and mobile screens.",
+    screenshot: "/images/angelina-interpreting-card.png",
+    screenshotPosition: "center 18%",
+    liveUrl: "https://angelinainterpreting.ca/",
+  },
 ];
 
 export const appProjects: Project[] = [
