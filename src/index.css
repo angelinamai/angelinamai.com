@@ -41,7 +41,7 @@ body {
       rgba(20, 184, 166, 0.18),
       transparent 34%,
       rgba(190, 242, 100, 0.12) 68%,
-      rgba(217, 70, 239, 0.12)
+      rgba(20, 184, 166, 0.1)
     ),
     repeating-linear-gradient(
       135deg,
@@ -110,16 +110,16 @@ body {
 .intro-panel,
 .about-panel {
   border-radius: 0.375rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.055);
-  color: #cbd5e1;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #334155;
   padding: 1.5rem;
   line-height: 1.85;
 }
 
 .intro-panel.accent {
-  border-color: rgba(190, 242, 100, 0.32);
-  background: rgba(190, 242, 100, 0.08);
+  border-color: #b7ded5;
+  background: #eef7f4;
 }
 
 .about-panel {

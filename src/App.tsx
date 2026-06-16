@@ -30,14 +30,14 @@ const navItems = [
 ];
 
 const skills = [
-  { label: "React", icon: SiReact, tone: "text-cyan-300" },
-  { label: "JavaScript", icon: SiJavascript, tone: "text-amber-300" },
-  { label: "TypeScript", icon: SiTypescript, tone: "text-sky-300" },
-  { label: "Tailwind CSS", icon: SiTailwindcss, tone: "text-teal-300" },
-  { label: "Next.js", icon: SiNextdotjs, tone: "text-white" },
-  { label: "Vite", icon: SiVite, tone: "text-violet-300" },
-  { label: "CSS", icon: SiCss3, tone: "text-blue-300" },
-  { label: "Git", icon: SiGit, tone: "text-orange-300" },
+  { label: "React", icon: SiReact },
+  { label: "JavaScript", icon: SiJavascript },
+  { label: "TypeScript", icon: SiTypescript },
+  { label: "Tailwind CSS", icon: SiTailwindcss },
+  { label: "Next.js", icon: SiNextdotjs },
+  { label: "Vite", icon: SiVite },
+  { label: "CSS", icon: SiCss3 },
+  { label: "Git", icon: SiGit },
 ];
 
 const contactLinks = [
@@ -195,16 +195,16 @@ function App() {
 
         <section
           aria-labelledby="intro-title"
-          className="border-y border-white/10 bg-[#101723]"
+          className="border-y border-slate-200 bg-white text-slate-950"
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[0.75fr_1.25fr] lg:px-8">
             <div>
-              <p className="text-sm font-black uppercase text-lime-200">
+              <p className="text-sm font-black uppercase text-teal-700">
                 Professional Introduction
               </p>
               <h2
                 id="intro-title"
-                className="mt-4 max-w-xl text-4xl font-black text-white md:text-5xl"
+                className="mt-4 max-w-xl text-4xl font-black text-slate-950 md:text-5xl"
               >
                 Practical front-end work with a client-focused eye.
               </h2>
@@ -228,24 +228,19 @@ function App() {
         <section
           id="featured-websites"
           aria-labelledby="featured-websites-title"
-          className="relative bg-[#f6f1e8] text-[#101723]"
+          className="relative border-b border-slate-200 bg-[#f7f2ea] text-slate-950"
         >
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
             <SectionHeader
               id="featured-websites-title"
-              eyebrow="Featured Websites"
-              title="Real websites for services and businesses"
+              eyebrow="Featured Client Work"
+              title="Selected Client Projects"
               description="These are the most prominent projects: public, responsive websites with clear business goals, real content, and production deployment paths."
               variant="light"
             />
-            <div className="mt-12 grid gap-8">
-              {featuredProjects.map((project, index) => (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  featured
-                  index={index}
-                />
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+              {featuredProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} featured />
               ))}
             </div>
           </div>
@@ -254,7 +249,7 @@ function App() {
         <section
           id="web-applications"
           aria-labelledby="web-applications-title"
-          className="bg-[#080b12]"
+          className="border-b border-slate-200 bg-white text-slate-950"
         >
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
             <SectionHeader
@@ -262,11 +257,11 @@ function App() {
               eyebrow="Web Applications"
               title="React apps with state, routing, and API behavior"
               description="These smaller projects show hands-on React application work, including form state, list operations, routing, API data, and cart workflows."
-              variant="dark"
+              variant="light"
             />
             <div className="mt-12 grid gap-6 lg:grid-cols-2">
-              {appProjects.map((project, index) => (
-                <ProjectCard key={project.id} project={project} index={index} />
+              {appProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
               ))}
             </div>
           </div>
@@ -275,7 +270,7 @@ function App() {
         <section
           id="skills"
           aria-labelledby="skills-title"
-          className="border-y border-white/10 bg-[#111827]"
+          className="border-b border-teal-100 bg-[#eef7f4] text-slate-950"
         >
           <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 md:py-24 lg:px-8">
             <SectionHeader
@@ -283,18 +278,18 @@ function App() {
               eyebrow="Skills and Technologies"
               title="Front-end tools I use to build polished interfaces"
               description="The stack varies by project, but the through-line is responsive React development, component thinking, clear data flow, and careful styling."
-              variant="dark"
+              variant="light"
             />
-            <ul className="mt-12 grid gap-px overflow-hidden rounded-md border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
-              {skills.map(({ label, icon: Icon, tone }) => (
+            <ul className="mt-12 grid gap-px overflow-hidden rounded-md border border-teal-100 bg-teal-100 sm:grid-cols-2 lg:grid-cols-4">
+              {skills.map(({ label, icon: Icon }) => (
                 <li
                   key={label}
-                  className="group flex min-h-28 items-center justify-between bg-[#111827] px-5 py-5 transition hover:bg-white/[0.08]"
+                  className="group flex min-h-24 items-center justify-between bg-white px-5 py-5 transition hover:bg-teal-50"
                 >
-                  <span className="font-black text-white">{label}</span>
+                  <span className="font-black text-slate-950">{label}</span>
                   <Icon
                     aria-hidden="true"
-                    className={`h-7 w-7 ${tone} transition group-hover:-translate-y-1 group-hover:scale-110`}
+                    className="h-7 w-7 text-teal-700 transition group-hover:-translate-y-1 group-hover:scale-105"
                   />
                 </li>
               ))}
@@ -305,7 +300,7 @@ function App() {
         <section
           id="about"
           aria-labelledby="about-title"
-          className="bg-[#f6f1e8] text-[#101723]"
+          className="bg-[#f7f2ea] text-slate-950"
         >
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 sm:px-6 md:py-24 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
             <div>
@@ -314,7 +309,7 @@ function App() {
               </p>
               <h2
                 id="about-title"
-                className="mt-4 text-4xl font-black text-[#101723] md:text-5xl"
+                className="mt-4 text-4xl font-black text-slate-950 md:text-5xl"
               >
                 I care about building useful, clear, human front ends.
               </h2>

@@ -13,6 +13,8 @@ export type Project = {
   technologies: string[];
   responsive: string;
   screenshot: string;
+  screenshotPosition?: string;
+  screenshotScale?: number;
   liveUrl: string;
   codeUrl?: string;
   status?: "In Development";
@@ -30,8 +32,7 @@ export const featuredProjects: Project[] = [
       "Give prospective clients a clear place to learn about Tracy's services, approach, location, resources, and contact options.",
     problem:
       "People looking for counselling need quick trust signals, service clarity, and a low-friction path to ask questions or book a session.",
-    role:
-      "Built the React/Vite front end, organized the multi-page experience, implemented bilingual content flows, and added intake, course, and contact surfaces supported by server/API code.",
+    role: "Built the React/Vite front end, organized the multi-page experience, implemented bilingual content flows, and added intake, course, and contact surfaces supported by server/API code.",
     features: [
       "Multi-page React Router navigation",
       "English and Vietnamese content support",
@@ -53,6 +54,8 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling.png",
+    screenshotPosition: "center top",
+    screenshotScale: 1.12,
     liveUrl: "https://www.nguyentracy.com/",
   },
   {
@@ -66,8 +69,7 @@ export const featuredProjects: Project[] = [
       "Present swim lesson options and help families or adults contact Leah with confidence.",
     problem:
       "A service provider needs to communicate experience, lesson types, availability areas, and contact details without making visitors dig.",
-    role:
-      "Built a responsive Next.js site with structured sections, animated interactions, SEO metadata, contact handling, and a production Vercel deployment.",
+    role: "Built a responsive Next.js site with structured sections, animated interactions, SEO metadata, contact handling, and a production Vercel deployment.",
     features: [
       "Hero, about, certifications, services, areas, testimonials, and contact sections",
       "Mobile navigation and sticky header behavior",
@@ -88,6 +90,8 @@ export const featuredProjects: Project[] = [
     responsive:
       "Designed with responsive section spacing, mobile navigation, and flexible service cards across viewport sizes.",
     screenshot: "/images/swim-with-leah.png",
+    screenshotPosition: "center top",
+    screenshotScale: 1.18,
     liveUrl: "https://www.swimwithleah.com/",
   },
   {
@@ -101,8 +105,7 @@ export const featuredProjects: Project[] = [
       "Showcase vegan dishes and make it easy for customers to browse the menu, see ordering options, and contact the shop.",
     problem:
       "Small food businesses need a clear digital menu and direct ordering details that work well on phones.",
-    role:
-      "Built the Next.js interface, menu and gallery sections, contact calls to action, responsive layout, and public Vercel deployment.",
+    role: "Built the Next.js interface, menu and gallery sections, contact calls to action, responsive layout, and public Vercel deployment.",
     features: [
       "Hero and service overview",
       "Menu cards with prices, categories, and food images",
@@ -122,6 +125,8 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
     screenshot: "/images/vegan-restaurant.png",
+    screenshotPosition: "center top",
+    screenshotScale: 1.12,
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
 ];
@@ -138,8 +143,7 @@ export const appProjects: Project[] = [
       "Help a user add friends, select a friend, and calculate who owes whom after splitting a bill.",
     problem:
       "Shared meals can be awkward to settle when payment amounts and balances are not tracked clearly.",
-    role:
-      "Implemented the React state flow, friend list, add-friend form, split-bill form, and balance updates.",
+    role: "Implemented the React state flow, friend list, add-friend form, split-bill form, and balance updates.",
     features: [
       "Add a friend with avatar URL",
       "Select and close active friend records",
@@ -151,6 +155,7 @@ export const appProjects: Project[] = [
     responsive:
       "Uses the portfolio's mobile override stylesheet so the compact form and friend list remain usable on small screens.",
     screenshot: "/images/eatnsplit.png",
+    screenshotPosition: "center center",
     liveUrl: "https://www.angelinamai.com/projects/eatnsplit/index.html",
   },
   {
@@ -164,8 +169,7 @@ export const appProjects: Project[] = [
       "Give travelers a simple checklist that tracks quantity, packed status, and progress.",
     problem:
       "Packing is easy to forget or duplicate without a quick list that can be updated while planning.",
-    role:
-      "Built the React component structure, item state management, sorting controls, delete actions, and progress stats.",
+    role: "Built the React component structure, item state management, sorting controls, delete actions, and progress stats.",
     features: [
       "Add items with quantity",
       "Mark items packed",
@@ -177,6 +181,7 @@ export const appProjects: Project[] = [
     responsive:
       "Includes portfolio-level responsive overrides for the add form, list area, and action controls.",
     screenshot: "/images/travellist.png",
+    screenshotPosition: "center top",
     liveUrl: "https://www.angelinamai.com/projects/travellist/index.html",
   },
   {
@@ -190,8 +195,7 @@ export const appProjects: Project[] = [
       "Let users search for a city and quickly scan upcoming daily weather conditions.",
     problem:
       "Weather apps need clear loading states, useful daily summaries, and remembered location input.",
-    role:
-      "Implemented the class-based React app, API fetching, location persistence, loading state, icons, and forecast rendering.",
+    role: "Implemented the class-based React app, API fetching, location persistence, loading state, icons, and forecast rendering.",
     features: [
       "City search with geocoding",
       "Open-Meteo daily forecast data",
@@ -203,6 +207,7 @@ export const appProjects: Project[] = [
     responsive:
       "Responsive card and form styling is layered over the compiled app for cleaner tablet and mobile use.",
     screenshot: "/images/weather-app.png",
+    screenshotPosition: "center center",
     liveUrl: "https://www.angelinamai.com/projects/weatherapp/index.html",
   },
   {
@@ -216,8 +221,7 @@ export const appProjects: Project[] = [
       "Model a small ordering workflow from entering a name through menu browsing, cart editing, and order submission.",
     problem:
       "Ordering flows need reliable routing, cart state, validation, and status feedback across multiple screens.",
-    role:
-      "Implemented the routed React app, Redux cart/user state, menu and order API calls, cart controls, checkout form, and order-status views.",
+    role: "Implemented the routed React app, Redux cart/user state, menu and order API calls, cart controls, checkout form, and order-status views.",
     features: [
       "Name entry and menu route",
       "Pizza menu loaded from an API",
@@ -236,6 +240,7 @@ export const appProjects: Project[] = [
     responsive:
       "The compiled app uses responsive Tailwind utility classes and the portfolio mobile stylesheet for smaller screens.",
     screenshot: "/images/pizzamenufinal.png",
+    screenshotPosition: "center top",
     liveUrl: "https://www.angelinamai.com/projects/pizzamenufinal/index.html",
   },
 ];
