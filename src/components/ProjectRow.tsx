@@ -6,6 +6,17 @@ type ProjectRowProps = {
 };
 
 function ProjectRow({ project }: ProjectRowProps) {
+  const previewClassName = [
+    "preview-frame rounded-md border border-slate-700/60 transition group-hover:border-teal-300/40 sm:order-1",
+    project.category === "app"
+      ? "preview-frame--app"
+      : "preview-frame--featured",
+  ].join(" ");
+  const imageClassName =
+    project.category === "featured"
+      ? "transition duration-300 group-hover:scale-[1.03]"
+      : "transition duration-300";
+
   return (
     <li>
       <a
@@ -15,14 +26,16 @@ function ProjectRow({ project }: ProjectRowProps) {
         className="group relative grid gap-4 rounded-lg p-4 transition-colors duration-200 hover:bg-slate-800/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/60 sm:grid-cols-[8.5rem_1fr] sm:gap-6 lg:hover:!opacity-100 lg:group-hover/list:opacity-50"
       >
         {/* Preview thumbnail */}
-        <div className="preview-frame rounded-md border border-slate-700/60 transition group-hover:border-teal-300/40 sm:order-1 sm:aspect-[4/3]">
+        <div className={previewClassName}>
           <img
             src={project.screenshot}
             alt={`${project.name} preview`}
             loading="lazy"
             decoding="async"
-            style={{ objectPosition: project.screenshotPosition ?? "top center" }}
-            className="transition duration-300 group-hover:scale-[1.03]"
+            style={{
+              objectPosition: project.screenshotPosition ?? "top center",
+            }}
+            className={imageClassName}
           />
         </div>
 
@@ -50,7 +63,10 @@ function ProjectRow({ project }: ProjectRowProps) {
             {project.description}
           </p>
 
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Technologies used">
+          <ul
+            className="mt-4 flex flex-wrap gap-2"
+            aria-label="Technologies used"
+          >
             {project.technologies.map((technology) => (
               <li
                 key={technology}

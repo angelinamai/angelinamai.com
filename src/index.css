@@ -44,8 +44,7 @@ body {
 
 /* Subtle spotlight that follows the page background */
 .page-glow {
-  background:
-    radial-gradient(
+  background: radial-gradient(
       600px circle at 0% 0%,
       rgba(45, 212, 191, 0.08),
       transparent 45%
@@ -57,9 +56,9 @@ body {
     );
 }
 
-/* Browser mockup preview frame */
+/* Consistent preview frame for project screenshots */
 .preview-frame {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   width: 100%;
   overflow: hidden;
   background: #0f172a;
@@ -69,7 +68,19 @@ body {
   display: block;
   height: 100%;
   width: 100%;
+}
+
+.preview-frame--featured img {
   object-fit: cover;
+}
+
+.preview-frame--app {
+  background: #f3f5f7;
+}
+
+.preview-frame--app img {
+  object-fit: contain;
+  object-position: top center;
 }
 
 @media (prefers-reduced-motion: reduce) {

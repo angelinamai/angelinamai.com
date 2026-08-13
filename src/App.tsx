@@ -1,33 +1,83 @@
 import "./App.css";
+import type { ReactNode } from "react";
 import {
-  SiCss3,
-  SiGit,
-  SiJavascript,
-  SiNextdotjs,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
-  SiVite,
-} from "react-icons/si";
+  FaArrowUpRightFromSquare,
+  FaEnvelope,
+  FaFilePdf,
+  FaGithub,
+  FaLinkedin,
+} from "react-icons/fa6";
 import ProjectRow from "./components/ProjectRow";
 import Sidebar from "./components/Sidebar";
 import { appProjects, featuredProjects } from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
-const sectionIds = ["about", "work", "apps", "skills"];
-
-const skills = [
-  { label: "React", icon: SiReact },
-  { label: "JavaScript", icon: SiJavascript },
-  { label: "TypeScript", icon: SiTypescript },
-  { label: "Next.js", icon: SiNextdotjs },
-  { label: "Tailwind CSS", icon: SiTailwindcss },
-  { label: "Vite", icon: SiVite },
-  { label: "CSS", icon: SiCss3 },
-  { label: "Git", icon: SiGit },
+const sectionIds = [
+  "work",
+  "experience",
+  "about",
+  "projects",
+  "skills",
+  "contact",
 ];
 
-function SectionLabel({ children }: { children: React.ReactNode }) {
+const experienceBullets = [
+  "Built responsive React interfaces from product and UI designs.",
+  "Integrated front-end features with API-backed application data.",
+  "Built and maintained reusable UI components for product screens.",
+  "Debugged front-end issues affecting application behavior and user experience.",
+  "Used Git, GitHub, code-review workflows, and sprint collaboration to ship changes with a team.",
+];
+
+const skillGroups = [
+  {
+    title: "Frontend",
+    skills: ["React", "TypeScript", "JavaScript", "Next.js", "React Router"],
+  },
+  {
+    title: "UI",
+    skills: [
+      "HTML",
+      "CSS",
+      "Tailwind CSS",
+      "Responsive Design",
+      "Accessibility",
+    ],
+  },
+  {
+    title: "Data & Integrations",
+    skills: ["REST APIs", "Supabase", "Clerk", "Stripe", "Express", "Resend"],
+  },
+  {
+    title: "Tooling",
+    skills: ["Git", "GitHub", "Vite", "Vercel"],
+  },
+];
+
+const contactLinks = [
+  {
+    label: "Email",
+    href: "mailto:angelinamai8386@gmail.com",
+    icon: FaEnvelope,
+  },
+  {
+    label: "Resume",
+    href: "/angelina-mai-resume.pdf",
+    icon: FaFilePdf,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/angelinamai",
+    icon: FaGithub,
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
+    icon: FaLinkedin,
+  },
+];
+
+function SectionLabel({ children }: { children: ReactNode }) {
   return (
     <p className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
       {children}
@@ -35,8 +85,18 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
   );
 }
 
+function isExternalLink(href: string) {
+  return href.startsWith("http") || href.endsWith(".pdf");
+}
+
 function App() {
   const activeId = useActiveSection(sectionIds);
+  const primaryProject =
+    featuredProjects.find((project) => project.id === "tracy-counselling") ??
+    featuredProjects[0];
+  const supportingFeaturedProjects = featuredProjects.filter(
+    (project) => project.id !== primaryProject.id,
+  );
 
   return (
     <div id="top" className="min-h-screen page-glow">
@@ -44,91 +104,239 @@ function App() {
         <Sidebar activeId={activeId} />
 
         <main className="mt-16 lg:mt-0 lg:w-[56%] lg:py-24">
-          {/* About */}
-          <section
-            id="about"
-            aria-labelledby="about-heading"
-            className="scroll-mt-24"
-          >
-            <h3
-              id="about-heading"
-              className="mb-6 text-xs font-bold uppercase tracking-widest text-slate-400 lg:sr-only"
-            >
-              About
-            </h3>
-            <div className="space-y-4 leading-relaxed text-slate-400">
-              <p>
-                I&apos;m a front-end developer who turns real content and
-                everyday workflows into interfaces that feel{" "}
-                <span className="font-medium text-slate-200">
-                  organized, clear, and easy to use
-                </span>
-                . I care about clean structure, accessible markup, and layouts
-                that hold up on every screen size.
-              </p>
-              <p>
-                My work spans two areas: production-ready{" "}
-                <span className="font-medium text-slate-200">
-                  service websites
-                </span>{" "}
-                for counselling, coaching, and restaurant clients, and{" "}
-                <span className="font-medium text-slate-200">
-                  React applications
-                </span>{" "}
-                that demonstrate state management, routing, API data, and form
-                handling.
-              </p>
-              <p>
-                I focus on the details that make products feel trustworthy:
-                thoughtful navigation, responsive behavior, and maintainable
-                code that&apos;s easy to build on.
-              </p>
-            </div>
-          </section>
-
-          {/* Featured client work */}
           <section
             id="work"
             aria-labelledby="work-heading"
-            className="mt-20 scroll-mt-24"
+            className="scroll-mt-24"
           >
             <div className="mb-8">
-              <SectionLabel>Selected Work</SectionLabel>
-              <h3
+              <SectionLabel>Featured Work</SectionLabel>
+              <h2
                 id="work-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Client &amp; service websites
-              </h3>
+                Production websites and front-end systems
+              </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                Public, responsive websites with real content, clear business
-                goals, and live production deployments.
+                Real client and production projects come first here, with Tracy
+                Counselling presented as the strongest case study.
               </p>
             </div>
-            <ul className="group/list space-y-2">
-              {featuredProjects.map((project) => (
-                <ProjectRow key={project.id} project={project} />
-              ))}
-            </ul>
+
+            <article className="overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/30 shadow-2xl shadow-slate-950/25">
+              <div className="preview-frame preview-frame--featured preview-frame--tracy-counselling border-b border-slate-700/50">
+                <img
+                  src={primaryProject.screenshot}
+                  alt={`${primaryProject.name} website preview`}
+                  loading="eager"
+                  decoding="async"
+                  style={{
+                    objectPosition:
+                      primaryProject.screenshotPosition ?? "center 18%",
+                  }}
+                />
+              </div>
+
+              <div className="p-5 sm:p-6">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
+                    Strongest Case Study
+                  </span>
+                  <span className="rounded-full border border-teal-300/30 bg-teal-300/10 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-teal-100">
+                    Production
+                  </span>
+                </div>
+
+                <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-100">
+                  {primaryProject.name}
+                </h3>
+                <p className="mt-3 leading-relaxed text-slate-400">
+                  {primaryProject.description}
+                </p>
+
+                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                      Problem
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                      {primaryProject.problem}
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                      My Role
+                    </h4>
+                    <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                      {primaryProject.role}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-6 border-t border-slate-700/60 pt-6">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    Technical Implementation
+                  </h4>
+                  <ul className="mt-3 grid gap-3 text-sm leading-relaxed text-slate-400 sm:grid-cols-2">
+                    {[
+                      "React/Vite front end with multi-page React Router navigation.",
+                      "Responsive public service pages, forms, FAQs, resources, blog, and course surfaces.",
+                      "Clerk, Supabase, Stripe, Express, and Resend appear in the supported project stack.",
+                      "Production deployment with real content and client-facing paths.",
+                    ].map((item) => (
+                      <li key={item} className="flex gap-3">
+                        <span
+                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300"
+                          aria-hidden="true"
+                        />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+                    Technologies
+                  </h4>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {primaryProject.technologies.map((technology) => (
+                      <li
+                        key={technology}
+                        className="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-200"
+                      >
+                        {technology}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <a
+                  href={primaryProject.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-teal-300 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-teal-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                >
+                  Live Site
+                  <FaArrowUpRightFromSquare
+                    aria-hidden="true"
+                    className="h-3.5 w-3.5"
+                  />
+                </a>
+              </div>
+            </article>
+
+            <div className="mt-10">
+              <SectionLabel>Selected Client Projects</SectionLabel>
+              <ul className="group/list mt-4 space-y-2">
+                {supportingFeaturedProjects.map((project) => (
+                  <ProjectRow key={project.id} project={project} />
+                ))}
+              </ul>
+            </div>
           </section>
 
-          {/* Web applications */}
           <section
-            id="apps"
-            aria-labelledby="apps-heading"
+            id="experience"
+            aria-labelledby="experience-heading"
             className="mt-20 scroll-mt-24"
           >
             <div className="mb-8">
-              <SectionLabel>Web Applications</SectionLabel>
-              <h3
-                id="apps-heading"
+              <SectionLabel>Professional Experience</SectionLabel>
+              <h2
+                id="experience-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                React apps &amp; experiments
-              </h3>
+                Previous front-end developer experience
+              </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                Smaller builds that show hands-on React work: component state,
-                routing, API fetching, and cart workflows.
+                Product UI work, API-backed features, reusable components,
+                debugging, Git workflow, and team collaboration.
+              </p>
+            </div>
+
+            <article className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
+                    Previous Role
+                  </p>
+                  <h3 className="mt-2 text-xl font-semibold text-slate-100">
+                    Front-End Developer
+                  </h3>
+                  <p className="mt-1 font-medium text-slate-300">
+                    Hit the Books
+                  </p>
+                </div>
+                <p className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-200">
+                  July 2024 - [End date to add]
+                </p>
+              </div>
+
+              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-slate-400">
+                {experienceBullets.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span
+                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300"
+                      aria-hidden="true"
+                    />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          </section>
+
+          <section
+            id="about"
+            aria-labelledby="about-heading"
+            className="mt-20 scroll-mt-24"
+          >
+            <div className="mb-8">
+              <SectionLabel>About</SectionLabel>
+              <h2
+                id="about-heading"
+                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
+              >
+                Production React work, practical UI decisions, and ownership
+              </h2>
+            </div>
+            <div className="space-y-4 leading-relaxed text-slate-400">
+              <p>
+                I am a Front-End Developer with professional React experience
+                and shipped production websites. My work focuses on{" "}
+                <span className="font-medium text-slate-200">
+                  TypeScript/JavaScript, reusable UI components, responsive
+                  layouts, accessible markup, and clear front-end structure
+                </span>
+                .
+              </p>
+              <p>
+                My project work includes API integration, authentication,
+                payment flows, persistent data, transactional email, routing,
+                deployment, and client-facing delivery for real services and
+                businesses.
+              </p>
+            </div>
+          </section>
+
+          <section
+            id="projects"
+            aria-labelledby="projects-heading"
+            className="mt-20 scroll-mt-24"
+          >
+            <div className="mb-8">
+              <SectionLabel>More Projects</SectionLabel>
+              <h2
+                id="projects-heading"
+                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
+              >
+                Learning projects and React practice
+              </h2>
+              <p className="mt-3 leading-relaxed text-slate-400">
+                These projects are intentionally secondary. They show React
+                fundamentals, state, routing, API calls, forms, cart behavior,
+                and small app workflows.
               </p>
             </div>
             <ul className="group/list space-y-2">
@@ -138,68 +346,89 @@ function App() {
             </ul>
           </section>
 
-          {/* Skills */}
           <section
             id="skills"
             aria-labelledby="skills-heading"
             className="mt-20 scroll-mt-24"
           >
             <div className="mb-8">
-              <SectionLabel>Toolkit</SectionLabel>
-              <h3
+              <SectionLabel>Skills</SectionLabel>
+              <h2
                 id="skills-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Skills &amp; technologies
-              </h3>
+                Front-end skills organized for engineering teams
+              </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                The stack shifts per project, but it always comes back to
-                responsive React, clear data flow, and careful styling.
+                The stack below is grounded in the current portfolio projects
+                and professional front-end work.
               </p>
             </div>
-            <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-              {skills.map(({ label, icon: Icon }) => (
-                <li
-                  key={label}
-                  className="flex items-center gap-3 rounded-lg border border-slate-700/50 bg-slate-800/30 px-4 py-3 transition-colors hover:border-teal-300/40 hover:bg-slate-800/60"
+            <div className="grid gap-3 sm:grid-cols-2">
+              {skillGroups.map((group) => (
+                <section
+                  key={group.title}
+                  className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5"
                 >
-                  <Icon
-                    aria-hidden="true"
-                    className="h-5 w-5 shrink-0 text-teal-300"
-                  />
-                  <span className="text-sm font-medium text-slate-200">
-                    {label}
-                  </span>
-                </li>
+                  <h3 className="font-semibold text-slate-100">
+                    {group.title}
+                  </h3>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {group.skills.map((skill) => (
+                      <li
+                        key={skill}
+                        className="rounded-full bg-slate-900/70 px-3 py-1 text-xs font-medium text-slate-300"
+                      >
+                        {skill}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
+            </div>
           </section>
 
-          {/* Contact */}
           <section
             id="contact"
             aria-labelledby="contact-heading"
             className="mt-20 scroll-mt-24"
           >
-            <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-8">
+            <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6 sm:p-8">
               <SectionLabel>Contact</SectionLabel>
-              <h3
+              <h2
                 id="contact-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Let&apos;s build something clear and responsive.
-              </h3>
+                Looking for a Front-End Developer?
+              </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                I&apos;m open to front-end website and React application work
-                where thoughtful UI, accessibility, and maintainable code
-                matter.
+                I&apos;m interested in front-end engineering opportunities where
+                I can build production React/TypeScript products, collaborate
+                with engineering and design teams, and continue growing as an
+                engineer.
               </p>
-              <a
-                href="mailto:angelinamai8386@gmail.com"
-                className="mt-6 inline-flex min-h-11 items-center justify-center rounded-md bg-teal-300 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-teal-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-              >
-                Get in touch
-              </a>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                {contactLinks.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target={isExternalLink(href) ? "_blank" : undefined}
+                    rel={
+                      isExternalLink(href) ? "noopener noreferrer" : undefined
+                    }
+                    className="inline-flex min-h-11 items-center justify-between gap-3 rounded-md border border-slate-700/70 px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
+                  >
+                    <span className="inline-flex items-center gap-3">
+                      <Icon aria-hidden="true" className="h-4 w-4" />
+                      {label}
+                    </span>
+                    <FaArrowUpRightFromSquare
+                      aria-hidden="true"
+                      className="h-3 w-3 text-slate-500"
+                    />
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
 

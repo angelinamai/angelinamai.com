@@ -94,7 +94,7 @@ export const featuredProjects: Project[] = [
   {
     id: "vegan-restaurant",
     category: "featured",
-    name: "Vegan Restaurant Website",
+    name: "Cơm Chay Ngọc Hạnh",
     eyebrow: "Restaurant Website",
     description:
       "A Vietnamese vegan restaurant site for Cơm Chay Ngọc Hạnh with service information, menu items, gallery images, and ordering contact paths.",
@@ -167,7 +167,7 @@ export const appProjects: Project[] = [
     id: "eat-n-split",
     category: "app",
     name: "Eat N Split",
-    eyebrow: "React App",
+    eyebrow: "Learning Project",
     description:
       "A bill-splitting app for tracking shared meal expenses and balances between friends.",
     purpose:
@@ -193,7 +193,7 @@ export const appProjects: Project[] = [
     id: "travel-list",
     category: "app",
     name: "Travel List",
-    eyebrow: "React App",
+    eyebrow: "Learning Project",
     description:
       "A packing-list app for adding, sorting, checking off, and clearing travel items.",
     purpose:
@@ -219,7 +219,7 @@ export const appProjects: Project[] = [
     id: "weather-forecast",
     category: "app",
     name: "Weather Forecast",
-    eyebrow: "API App",
+    eyebrow: "API Practice Project",
     description:
       "A city weather app that searches locations and displays a multi-day forecast from Open-Meteo.",
     purpose:
@@ -245,7 +245,7 @@ export const appProjects: Project[] = [
     id: "fast-react-pizza",
     category: "app",
     name: "Fast React Pizza",
-    eyebrow: "React Router App",
+    eyebrow: "Learning Project",
     description:
       "A pizza-ordering demo with menu loading, cart management, checkout, and order status views.",
     purpose:

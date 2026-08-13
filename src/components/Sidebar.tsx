@@ -1,9 +1,4 @@
-import {
-  FaEnvelope,
-  FaFilePdf,
-  FaGithub,
-  FaLinkedin,
-} from "react-icons/fa6";
+import { FaEnvelope, FaFilePdf, FaGithub, FaLinkedin } from "react-icons/fa6";
 
 type NavItem = {
   id: string;
@@ -11,10 +6,12 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-  { id: "about", label: "About" },
   { id: "work", label: "Work" },
-  { id: "apps", label: "Apps" },
+  { id: "experience", label: "Experience" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
 ];
 
 const socialLinks = [
@@ -32,6 +29,16 @@ const socialLinks = [
   { label: "Resume", href: "/angelina-mai-resume.pdf", icon: FaFilePdf },
 ];
 
+const actionLinks = [
+  { label: "View My Work", href: "#work" },
+  { label: "Resume", href: "/angelina-mai-resume.pdf" },
+  { label: "GitHub", href: "https://github.com/angelinamai" },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
+  },
+];
+
 type SidebarProps = {
   activeId: string;
 };
@@ -40,21 +47,46 @@ function Sidebar({ activeId }: SidebarProps) {
   return (
     <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:py-24">
       <div>
+        <p className="mb-4 text-xs font-bold uppercase tracking-widest text-teal-300/90">
+          Angelina Mai
+        </p>
         <a
           href="#top"
           className="inline-block rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
         >
           <h1 className="text-4xl font-bold tracking-tight text-slate-100 sm:text-5xl">
-            Angelina Mai
+            Front-End Developer
           </h1>
         </a>
         <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200">
-          Front-End Developer
+          React · TypeScript · Next.js
         </h2>
-        <p className="mt-4 max-w-xs leading-relaxed text-slate-400">
-          I build accessible, responsive websites and React applications for
-          people and small businesses.
+        <p className="mt-4 max-w-sm leading-relaxed text-slate-400">
+          I build responsive, accessible web applications and production
+          websites, from reusable interfaces and API integrations to
+          authentication, payments, and deployment.
         </p>
+        <div className="mt-8 flex max-w-md flex-wrap gap-3">
+          {actionLinks.map(({ label, href }, index) => {
+            const external = href.startsWith("http") || href.endsWith(".pdf");
+            return (
+              <a
+                key={href}
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className={[
+                  "inline-flex min-h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70",
+                  index === 0
+                    ? "bg-teal-300 text-slate-950 hover:bg-teal-200"
+                    : "border border-slate-700/70 text-slate-200 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100",
+                ].join(" ")}
+              >
+                {label}
+              </a>
+            );
+          })}
+        </div>
 
         {/* Section navigation with scroll-spy indicators */}
         <nav className="mt-16 hidden lg:block" aria-label="In-page navigation">
