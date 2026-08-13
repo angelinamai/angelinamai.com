@@ -127,6 +127,18 @@ function DetailBlock({
   );
 }
 
+function TechnologyLine({
+  technologies,
+}: {
+  technologies: string[];
+}) {
+  return (
+    <p className="text-xs font-semibold text-teal-200">
+      {technologies.join(" · ")}
+    </p>
+  );
+}
+
 function FeaturedProjectCard({
   project,
 }: {
@@ -147,33 +159,25 @@ function FeaturedProjectCard({
         <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-100">
           {project.name}
         </h3>
-        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+        <p className="mt-1 text-sm font-medium text-slate-300">
+          {project.roleContext ?? project.context}
+        </p>
+        <div className="mt-2">
+          <TechnologyLine technologies={project.keyTechnologies} />
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-slate-400">
           {project.description}
         </p>
 
-        <div className="mt-5 grid gap-4">
+        <div className="mt-5 grid gap-4 border-t border-slate-700/60 pt-5">
           <DetailBlock title="Problem">{project.problem}</DetailBlock>
           <DetailBlock title="Owned">{project.role}</DetailBlock>
-          <DetailBlock title="UI Decisions">{project.uiFocus}</DetailBlock>
-        </div>
-
-        <div className="mt-5 border-t border-slate-700/60 pt-5">
-          <DetailBlock title="Technical Interest">
+          <DetailBlock title="Technical Work">
             {project.technicalFocus}
           </DetailBlock>
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-3">
-          <ul className="flex flex-wrap gap-2" aria-label="Key technologies">
-            {project.keyTechnologies.map((technology) => (
-              <li
-                key={technology}
-                className="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-200"
-              >
-                {technology}
-              </li>
-            ))}
-          </ul>
           <a
             href={project.liveUrl}
             target="_blank"
@@ -215,12 +219,11 @@ function App() {
                 id="work-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Client work that shows front-end ownership
+                Selected projects
               </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                The strongest work is first: real websites with requirements,
-                stakeholders, responsive UI, forms, integrations, deployment,
-                and iteration.
+                Production work spanning React interfaces, responsive design,
+                integrations, and real client requirements.
               </p>
             </div>
 
@@ -230,71 +233,36 @@ function App() {
               <div className="mt-6">
                 <div className="flex flex-wrap items-center gap-2.5">
                   <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-                    Strongest Project
+                    {primaryProject.eyebrow}
                   </span>
                   <span className="rounded-full border border-teal-300/30 bg-teal-300/10 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-teal-100">
-                    Real Client
+                    Client Project
                   </span>
                 </div>
 
                 <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-100">
                   {primaryProject.name}
                 </h3>
-                <p className="mt-3 leading-relaxed text-slate-400">
-                  {primaryProject.context}. {primaryProject.description}
+                <p className="mt-1 text-sm font-medium text-slate-300">
+                  {primaryProject.roleContext ?? primaryProject.context}
+                </p>
+                <div className="mt-2">
+                  <TechnologyLine technologies={primaryProject.keyTechnologies} />
+                </div>
+                <p className="mt-4 leading-relaxed text-slate-400">
+                  {primaryProject.description}
                 </p>
 
-                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+                <div className="mt-6 grid gap-5 border-t border-slate-700/60 pt-6 sm:grid-cols-2">
                   <DetailBlock title="Problem">
                     {primaryProject.problem}
                   </DetailBlock>
                   <DetailBlock title="Owned">
                     {primaryProject.role}
                   </DetailBlock>
-                  <DetailBlock title="Technical Interest">
+                  <DetailBlock title="Technical Work">
                     {primaryProject.technicalFocus}
                   </DetailBlock>
-                  <DetailBlock title="UI/Product Decisions">
-                    {primaryProject.uiFocus}
-                  </DetailBlock>
-                </div>
-
-                <div className="mt-6 border-t border-slate-700/60 pt-6">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                    What It Shows
-                  </h4>
-                  <ul className="mt-3 grid gap-3 text-sm leading-relaxed text-slate-400 sm:grid-cols-2">
-                    {[
-                      "Direct work with a non-technical client and changing requirements.",
-                      "Bilingual English/Vietnamese content and navigation flows.",
-                      "Reusable responsive UI for public pages, forms, resources, blog, and courses.",
-                      "Frontend scope expanded into auth, data, payments, email, debugging, and deployment.",
-                    ].map((item) => (
-                      <li key={item} className="flex gap-3">
-                        <span
-                          className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300"
-                          aria-hidden="true"
-                        />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-6">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                    Key Technologies
-                  </h4>
-                  <ul className="mt-3 flex flex-wrap gap-2">
-                    {primaryProject.keyTechnologies.map((technology) => (
-                      <li
-                        key={technology}
-                        className="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-200"
-                      >
-                        {technology}
-                      </li>
-                    ))}
-                  </ul>
                 </div>
 
                 <a
@@ -313,13 +281,7 @@ function App() {
             </article>
 
             <div className="mt-10">
-              <SectionLabel>More Production Client Work</SectionLabel>
-              <div className="mt-3 max-w-xl leading-relaxed text-slate-400">
-                <p>
-                  These projects stay prominent, but Tracy remains the clearest
-                  example of end-to-end ownership and expanding technical scope.
-                </p>
-              </div>
+              <SectionLabel>Selected Client Projects</SectionLabel>
               <div className="mt-5 space-y-5">
                 {supportingFeaturedProjects.map((project) => (
                   <FeaturedProjectCard key={project.id} project={project} />

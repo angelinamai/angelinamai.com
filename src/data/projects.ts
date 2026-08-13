@@ -5,6 +5,7 @@ export type Project = {
   category: ProjectCategory;
   name: string;
   eyebrow: string;
+  roleContext?: string;
   context: string;
   description: string;
   purpose: string;
@@ -28,19 +29,20 @@ export const featuredProjects: Project[] = [
     id: "tracy-counselling",
     category: "featured",
     name: "Tracy Counselling",
-    eyebrow: "Client Website",
-    context: "Production counselling website for a real client",
+    eyebrow: "Production Project",
+    roleContext: "Client Project · Front-End Development",
+    context: "Bilingual production counselling website",
     description:
-      "A polished counselling website for a registered social worker offering in-person and virtual support in St. Catharines, Ontario.",
+      "Bilingual production website for a registered social worker, built from client requirements through development, deployment, and iteration.",
     purpose:
       "Give prospective clients a clear place to learn about Tracy's services, approach, location, resources, and contact options.",
     problem:
-      "People looking for counselling need quick trust signals, service clarity, and a low-friction path to ask questions or book a session.",
-    role: "Built the React/Vite front end, organized the multi-page experience, implemented bilingual content flows, and added intake, course, and contact surfaces supported by server/API code.",
+      "Visitors need quick trust signals, clear service information, and a straightforward path to ask questions or book.",
+    role: "Owned the React/Vite front end, including page structure, bilingual content flows, responsive forms, debugging, and deployment.",
     technicalFocus:
-      "React Router page structure, bilingual content, contact/intake handling, and course/account infrastructure with authentication, database, payment, and email integrations.",
+      "React Router pages with contact/intake and course/account flows, plus auth, database, payment, and email integrations.",
     uiFocus:
-      "Trust-first information architecture, clear service paths, readable content hierarchy, responsive forms, and bilingual navigation.",
+      "Trust-first information architecture, readable service paths, responsive forms, and bilingual navigation.",
     features: [
       "Multi-page React Router navigation",
       "English and Vietnamese content support",
@@ -59,7 +61,7 @@ export const featuredProjects: Project[] = [
       "Resend",
       "CSS",
     ],
-    keyTechnologies: ["React", "Vite", "React Router", "Clerk + Supabase"],
+    keyTechnologies: ["React", "Vite", "Supabase", "Clerk"],
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling-card.png",
@@ -71,16 +73,17 @@ export const featuredProjects: Project[] = [
     category: "featured",
     name: "Swim With Leah",
     eyebrow: "Service Website",
+    roleContext: "Service Website · Front-End Development",
     context: "Production service website for a swimming coach",
     description:
-      "A modern website for a private swimming coach in Toronto and the GTA, focused on lessons, credentials, service areas, and inquiries.",
+      "Responsive service website for a private swim coach, focused on lesson options, credentials, service areas, and booking inquiries.",
     purpose:
       "Present swim lesson options and help families or adults contact Leah with confidence.",
     problem:
-      "A service provider needs to communicate experience, lesson types, availability areas, and contact details without making visitors dig.",
-    role: "Built a responsive Next.js site with structured sections, animated interactions, SEO metadata, contact handling, and a production Vercel deployment.",
+      "Visitors need to compare lesson types, understand credentials, and find a clear route to inquire without digging through the page.",
+    role: "Built the Next.js interface, responsive sections, contact form route, SEO metadata, and Vercel deployment.",
     technicalFocus:
-      "Next.js page structure, contact form route backed by Resend, SEO metadata, sitemap, robots file, Open Graph metadata, and structured data.",
+      "Used Next.js, TypeScript, Tailwind CSS, Framer Motion, and Resend for the public site and contact flow.",
     uiFocus:
       "Lesson types, credentials, service areas, and booking calls to action are surfaced early with responsive spacing and mobile navigation.",
     features: [
@@ -112,16 +115,17 @@ export const featuredProjects: Project[] = [
     category: "featured",
     name: "Cơm Chay Ngọc Hạnh",
     eyebrow: "Restaurant Website",
+    roleContext: "Restaurant Website · Front-End Development",
     context: "Production restaurant website with menu and ordering paths",
     description:
-      "A Vietnamese vegan restaurant site for Cơm Chay Ngọc Hạnh with service information, menu items, gallery images, and ordering contact paths.",
+      "Vietnamese vegan restaurant website with menu sections, gallery imagery, service information, and direct ordering contact paths.",
     purpose:
       "Showcase vegan dishes and make it easy for customers to browse the menu, see ordering options, and contact the shop.",
     problem:
-      "Small food businesses need a clear digital menu and direct ordering details that work well on phones.",
+      "Customers need a clear phone-friendly menu and direct ordering details before contacting the shop.",
     role: "Built the Next.js interface, menu and gallery sections, contact calls to action, responsive layout, and public Vercel deployment.",
     technicalFocus:
-      "Next.js interface with menu categories, dish imagery, gallery sections, contact calls to action, and public Vercel deployment.",
+      "Structured menu categories, dish imagery, gallery sections, and ordering calls to action in a responsive Next.js interface.",
     uiFocus:
       "Food imagery, menu scanning, Vietnamese-language content hierarchy, and phone-first ordering actions guide visitors quickly.",
     features: [
@@ -152,16 +156,17 @@ export const featuredProjects: Project[] = [
     category: "featured",
     name: "Angelina Interpreting",
     eyebrow: "Professional Service Website",
+    roleContext: "Service Website · Front-End Development",
     context: "Production bilingual service website",
     description:
-      "A bilingual Vietnamese-English interpreting website for medical, legal, and community interpretation services across Ontario.",
+      "Bilingual Vietnamese-English interpreting website for medical, legal, and community interpretation services across Ontario.",
     purpose:
       "Present interpreting services, credentials, service settings, and booking paths in a polished public website.",
     problem:
-      "People and organizations looking for interpretation support need clear service information, trust signals, language options, and a direct way to request a booking.",
-    role: "Built the responsive Next.js interface, bilingual English/Vietnamese content, service and credential sections, contact form, schedule request flow, SEO metadata, structured data, and production Vercel deployment.",
+      "Visitors need service details, language options, credentials, and a direct path to request an appointment.",
+    role: "Built the responsive Next.js interface, bilingual content, service and credential sections, contact form, schedule request flow, SEO metadata, and Vercel deployment.",
     technicalFocus:
-      "Next.js pages, bilingual content state, contact and schedule request flows, SEO metadata, sitemap, robots file, Open Graph metadata, structured data, and analytics.",
+      "Implemented bilingual content state, contact and schedule request flows, SEO metadata, structured data, and analytics.",
     uiFocus:
       "Language switching, service-category scanning, credential trust signals, and clear scheduling paths support visitors with urgent service needs.",
     features: [
