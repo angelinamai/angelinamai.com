@@ -7,10 +7,9 @@ type NavItem = {
 
 const navItems: NavItem[] = [
   { id: "work", label: "Work" },
-  { id: "experience", label: "Experience" },
   { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
   { id: "skills", label: "Skills" },
+  { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -31,12 +30,8 @@ const socialLinks = [
 
 const actionLinks = [
   { label: "View My Work", href: "#work" },
-  { label: "Resume", href: "/angelina-mai-resume.pdf" },
+  { label: "View Resume", href: "/angelina-mai-resume.pdf" },
   { label: "GitHub", href: "https://github.com/angelinamai" },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
-  },
 ];
 
 type SidebarProps = {
@@ -48,7 +43,7 @@ function Sidebar({ activeId }: SidebarProps) {
     <header className="lg:sticky lg:top-0 lg:flex lg:max-h-screen lg:w-[44%] lg:flex-col lg:justify-between lg:py-24">
       <div>
         <p className="mb-4 text-xs font-bold uppercase tracking-widest text-teal-300/90">
-          Angelina Mai
+          Angelina Mai · Richmond Hill / Toronto
         </p>
         <a
           href="#top"
@@ -59,14 +54,29 @@ function Sidebar({ activeId }: SidebarProps) {
           </h1>
         </a>
         <h2 className="mt-3 text-lg font-medium tracking-tight text-slate-200">
-          React · TypeScript · Next.js
+          React · TypeScript · Next.js · UI Engineering
         </h2>
         <p className="mt-4 max-w-sm leading-relaxed text-slate-400">
-          I build responsive, accessible web applications and production
-          websites, from reusable interfaces and API integrations to
-          authentication, payments, and deployment.
+          I build polished, accessible React interfaces and turn real
+          requirements into responsive web experiences for users, clients, and
+          product teams.
         </p>
-        <div className="mt-8 flex max-w-md flex-wrap gap-3">
+        <ul className="mt-5 grid max-w-md gap-2 text-sm text-slate-400">
+          {[
+            "Shipped production client websites",
+            "Owns UI from requirements through deployment",
+            "Comfortable debugging across front-end and integrations",
+          ].map((item) => (
+            <li key={item} className="flex gap-3">
+              <span
+                aria-hidden="true"
+                className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300"
+              />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+        <div className="mt-8 grid max-w-md grid-cols-2 gap-3 min-[460px]:flex min-[460px]:flex-wrap">
           {actionLinks.map(({ label, href }, index) => {
             const external = href.startsWith("http") || href.endsWith(".pdf");
             return (
@@ -76,7 +86,7 @@ function Sidebar({ activeId }: SidebarProps) {
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
                 className={[
-                  "inline-flex min-h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-semibold transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70",
+                  "inline-flex min-h-10 items-center justify-center rounded-md px-4 py-2 text-center text-sm font-semibold transition hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70",
                   index === 0
                     ? "bg-teal-300 text-slate-950 hover:bg-teal-200"
                     : "border border-slate-700/70 text-slate-200 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100",

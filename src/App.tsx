@@ -12,21 +12,12 @@ import Sidebar from "./components/Sidebar";
 import { appProjects, featuredProjects } from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
-const sectionIds = [
-  "work",
-  "experience",
-  "about",
-  "projects",
-  "skills",
-  "contact",
-];
+const sectionIds = ["work", "about", "skills", "projects", "contact"];
 
 const experienceBullets = [
-  "Built responsive React interfaces from product and UI designs.",
-  "Integrated front-end features with API-backed application data.",
-  "Built and maintained reusable UI components for product screens.",
-  "Debugged front-end issues affecting application behavior and user experience.",
-  "Used Git, GitHub, code-review workflows, and sprint collaboration to ship changes with a team.",
+  "Built responsive React UI components from Figma wireframes and product requirements.",
+  "Integrated front-end features with REST API-backed data and debugged rendering, state, and UI behavior.",
+  "Worked with Git, GitHub, code reviews, daily stand-ups, and Agile sprint planning during a completed 2024 contract.",
 ];
 
 const skillGroups = [
@@ -37,20 +28,20 @@ const skillGroups = [
   {
     title: "UI",
     skills: [
-      "HTML",
-      "CSS",
       "Tailwind CSS",
+      "CSS",
       "Responsive Design",
       "Accessibility",
+      "Typography/Layout",
     ],
   },
   {
-    title: "Data & Integrations",
-    skills: ["REST APIs", "Supabase", "Clerk", "Stripe", "Express", "Resend"],
+    title: "Tools",
+    skills: ["Git", "GitHub", "Vite", "Vercel", "Figma"],
   },
   {
-    title: "Tooling",
-    skills: ["Git", "GitHub", "Vite", "Vercel"],
+    title: "Integrations",
+    skills: ["REST APIs", "Clerk", "Supabase", "Stripe", "Express", "Resend"],
   },
 ];
 
@@ -61,7 +52,7 @@ const contactLinks = [
     icon: FaEnvelope,
   },
   {
-    label: "Resume",
+    label: "View Resume",
     href: "/angelina-mai-resume.pdf",
     icon: FaFilePdf,
   },
@@ -87,6 +78,115 @@ function SectionLabel({ children }: { children: ReactNode }) {
 
 function isExternalLink(href: string) {
   return href.startsWith("http") || href.endsWith(".pdf");
+}
+
+function BrowserPreview({
+  project,
+  priority = false,
+}: {
+  project: (typeof featuredProjects)[number];
+  priority?: boolean;
+}) {
+  return (
+    <div className="browser-shell">
+      <div className="browser-chrome" aria-hidden="true">
+        <span className="browser-dot bg-rose-400" />
+        <span className="browser-dot bg-amber-300" />
+        <span className="browser-dot bg-emerald-400" />
+        <span className="browser-address" />
+      </div>
+      <div className="preview-frame preview-frame--featured">
+        <img
+          src={project.screenshot}
+          alt={`${project.name} website preview`}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          style={{
+            objectPosition: project.screenshotPosition ?? "center 18%",
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+function DetailBlock({
+  title,
+  children,
+}: {
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
+        {title}
+      </h4>
+      <p className="mt-2 text-sm leading-relaxed text-slate-400">{children}</p>
+    </div>
+  );
+}
+
+function FeaturedProjectCard({
+  project,
+}: {
+  project: (typeof featuredProjects)[number];
+}) {
+  return (
+    <article className="group rounded-xl border border-slate-700/50 bg-slate-800/30 p-4 transition hover:border-teal-300/30 hover:bg-slate-800/45 sm:p-5">
+      <BrowserPreview project={project} />
+      <div className="mt-5">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
+            {project.eyebrow}
+          </span>
+          <span className="rounded-full border border-slate-700/80 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-slate-400">
+            Production
+          </span>
+        </div>
+        <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-100">
+          {project.name}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-slate-400">
+          {project.description}
+        </p>
+
+        <div className="mt-5 grid gap-4">
+          <DetailBlock title="Problem">{project.problem}</DetailBlock>
+          <DetailBlock title="Owned">{project.role}</DetailBlock>
+          <DetailBlock title="UI Decisions">{project.uiFocus}</DetailBlock>
+        </div>
+
+        <div className="mt-5 border-t border-slate-700/60 pt-5">
+          <DetailBlock title="Technical Interest">
+            {project.technicalFocus}
+          </DetailBlock>
+        </div>
+
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <ul className="flex flex-wrap gap-2" aria-label="Key technologies">
+            {project.keyTechnologies.map((technology) => (
+              <li
+                key={technology}
+                className="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-200"
+              >
+                {technology}
+              </li>
+            ))}
+          </ul>
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-slate-700/70 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
+          >
+            Live Site
+            <FaArrowUpRightFromSquare aria-hidden="true" className="h-3 w-3" />
+          </a>
+        </div>
+      </div>
+    </article>
+  );
 }
 
 function App() {
@@ -115,35 +215,25 @@ function App() {
                 id="work-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Production websites and front-end systems
+                Client work that shows front-end ownership
               </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                Real client and production projects come first here, with Tracy
-                Counselling presented as the strongest case study.
+                The strongest work is first: real websites with requirements,
+                stakeholders, responsive UI, forms, integrations, deployment,
+                and iteration.
               </p>
             </div>
 
-            <article className="overflow-hidden rounded-xl border border-slate-700/50 bg-slate-800/30 shadow-2xl shadow-slate-950/25">
-              <div className="preview-frame preview-frame--featured preview-frame--tracy-counselling border-b border-slate-700/50">
-                <img
-                  src={primaryProject.screenshot}
-                  alt={`${primaryProject.name} website preview`}
-                  loading="eager"
-                  decoding="async"
-                  style={{
-                    objectPosition:
-                      primaryProject.screenshotPosition ?? "center 18%",
-                  }}
-                />
-              </div>
+            <article className="rounded-2xl border border-teal-300/20 bg-slate-800/45 p-4 shadow-2xl shadow-slate-950/25 sm:p-6">
+              <BrowserPreview project={primaryProject} priority />
 
-              <div className="p-5 sm:p-6">
-                <div className="flex flex-wrap items-center gap-2">
+              <div className="mt-6">
+                <div className="flex flex-wrap items-center gap-2.5">
                   <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-                    Strongest Case Study
+                    Strongest Project
                   </span>
                   <span className="rounded-full border border-teal-300/30 bg-teal-300/10 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-teal-100">
-                    Production
+                    Real Client
                   </span>
                 </div>
 
@@ -151,38 +241,34 @@ function App() {
                   {primaryProject.name}
                 </h3>
                 <p className="mt-3 leading-relaxed text-slate-400">
-                  {primaryProject.description}
+                  {primaryProject.context}. {primaryProject.description}
                 </p>
 
                 <div className="mt-6 grid gap-5 sm:grid-cols-2">
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                      Problem
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                      {primaryProject.problem}
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                      My Role
-                    </h4>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-400">
-                      {primaryProject.role}
-                    </p>
-                  </div>
+                  <DetailBlock title="Problem">
+                    {primaryProject.problem}
+                  </DetailBlock>
+                  <DetailBlock title="Owned">
+                    {primaryProject.role}
+                  </DetailBlock>
+                  <DetailBlock title="Technical Interest">
+                    {primaryProject.technicalFocus}
+                  </DetailBlock>
+                  <DetailBlock title="UI/Product Decisions">
+                    {primaryProject.uiFocus}
+                  </DetailBlock>
                 </div>
 
                 <div className="mt-6 border-t border-slate-700/60 pt-6">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                    Technical Implementation
+                    What It Shows
                   </h4>
                   <ul className="mt-3 grid gap-3 text-sm leading-relaxed text-slate-400 sm:grid-cols-2">
                     {[
-                      "React/Vite front end with multi-page React Router navigation.",
-                      "Responsive public service pages, forms, FAQs, resources, blog, and course surfaces.",
-                      "Clerk, Supabase, Stripe, Express, and Resend appear in the supported project stack.",
-                      "Production deployment with real content and client-facing paths.",
+                      "Direct work with a non-technical client and changing requirements.",
+                      "Bilingual English/Vietnamese content and navigation flows.",
+                      "Reusable responsive UI for public pages, forms, resources, blog, and courses.",
+                      "Frontend scope expanded into auth, data, payments, email, debugging, and deployment.",
                     ].map((item) => (
                       <li key={item} className="flex gap-3">
                         <span
@@ -197,10 +283,10 @@ function App() {
 
                 <div className="mt-6">
                   <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-                    Technologies
+                    Key Technologies
                   </h4>
                   <ul className="mt-3 flex flex-wrap gap-2">
-                    {primaryProject.technologies.map((technology) => (
+                    {primaryProject.keyTechnologies.map((technology) => (
                       <li
                         key={technology}
                         className="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-medium text-teal-200"
@@ -227,53 +313,73 @@ function App() {
             </article>
 
             <div className="mt-10">
-              <SectionLabel>Selected Client Projects</SectionLabel>
-              <ul className="group/list mt-4 space-y-2">
+              <SectionLabel>More Production Client Work</SectionLabel>
+              <div className="mt-3 max-w-xl leading-relaxed text-slate-400">
+                <p>
+                  These projects stay prominent, but Tracy remains the clearest
+                  example of end-to-end ownership and expanding technical scope.
+                </p>
+              </div>
+              <div className="mt-5 space-y-5">
                 {supportingFeaturedProjects.map((project) => (
-                  <ProjectRow key={project.id} project={project} />
+                  <FeaturedProjectCard key={project.id} project={project} />
                 ))}
-              </ul>
+              </div>
             </div>
           </section>
 
           <section
-            id="experience"
-            aria-labelledby="experience-heading"
+            id="about"
+            aria-labelledby="about-heading"
             className="mt-20 scroll-mt-24"
           >
             <div className="mb-8">
-              <SectionLabel>Professional Experience</SectionLabel>
+              <SectionLabel>About</SectionLabel>
               <h2
-                id="experience-heading"
+                id="about-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Previous front-end developer experience
+                React development with practical product judgment
               </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                Product UI work, API-backed features, reusable components,
-                debugging, Git workflow, and team collaboration.
+            </div>
+            <div className="space-y-4 leading-relaxed text-slate-400">
+              <p>
+                I build with React, TypeScript, JavaScript, and Tailwind CSS,
+                working from requirements and designs through implementation,
+                debugging, and deployment. I have shipped production websites
+                for real services and worked directly with non-technical
+                stakeholders when the product path was still taking shape.
+              </p>
+              <p>
+                I care about interfaces that are responsive, accessible, and
+                maintainable: clear navigation, readable content hierarchy,
+                reusable components, form behavior, interaction states, and
+                mobile details that do not feel like an afterthought.
+              </p>
+              <p>
+                When requirements move beyond the front end, I am comfortable
+                learning the surrounding concepts needed to ship the work,
+                including authentication, user data, database-backed features,
+                payments, and email integrations.
               </p>
             </div>
 
-            <article className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 sm:p-6">
+            <article className="mt-8 rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-                    Previous Role
+                    Completed Contract
                   </p>
                   <h3 className="mt-2 text-xl font-semibold text-slate-100">
-                    Front-End Developer
+                    Front-End Developer · Hit the Books
                   </h3>
-                  <p className="mt-1 font-medium text-slate-300">
-                    Hit the Books
-                  </p>
                 </div>
-                <p className="rounded-full border border-amber-300/30 bg-amber-300/10 px-3 py-1 text-xs font-semibold text-amber-200">
-                  July 2024 - [End date to add]
+                <p className="rounded-full border border-slate-700/80 px-3 py-1 text-xs font-semibold text-slate-300">
+                  2024
                 </p>
               </div>
 
-              <ul className="mt-6 space-y-3 text-sm leading-relaxed text-slate-400">
+              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-slate-400">
                 {experienceBullets.map((item) => (
                   <li key={item} className="flex gap-3">
                     <span
@@ -288,65 +394,6 @@ function App() {
           </section>
 
           <section
-            id="about"
-            aria-labelledby="about-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>About</SectionLabel>
-              <h2
-                id="about-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Production React work, practical UI decisions, and ownership
-              </h2>
-            </div>
-            <div className="space-y-4 leading-relaxed text-slate-400">
-              <p>
-                I am a Front-End Developer with professional React experience
-                and shipped production websites. My work focuses on{" "}
-                <span className="font-medium text-slate-200">
-                  TypeScript/JavaScript, reusable UI components, responsive
-                  layouts, accessible markup, and clear front-end structure
-                </span>
-                .
-              </p>
-              <p>
-                My project work includes API integration, authentication,
-                payment flows, persistent data, transactional email, routing,
-                deployment, and client-facing delivery for real services and
-                businesses.
-              </p>
-            </div>
-          </section>
-
-          <section
-            id="projects"
-            aria-labelledby="projects-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>More Projects</SectionLabel>
-              <h2
-                id="projects-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Learning projects and React practice
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                These projects are intentionally secondary. They show React
-                fundamentals, state, routing, API calls, forms, cart behavior,
-                and small app workflows.
-              </p>
-            </div>
-            <ul className="group/list space-y-2">
-              {appProjects.map((project) => (
-                <ProjectRow key={project.id} project={project} />
-              ))}
-            </ul>
-          </section>
-
-          <section
             id="skills"
             aria-labelledby="skills-heading"
             className="mt-20 scroll-mt-24"
@@ -357,18 +404,18 @@ function App() {
                 id="skills-heading"
                 className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
               >
-                Front-end skills organized for engineering teams
+                Front-end toolkit for product UI work
               </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                The stack below is grounded in the current portfolio projects
-                and professional front-end work.
+                A focused set of technologies that appears in the current
+                portfolio, resume, or connected project source.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
               {skillGroups.map((group) => (
                 <section
                   key={group.title}
-                  className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5"
+                  className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 transition hover:border-teal-300/25 hover:bg-slate-800/45"
                 >
                   <h3 className="font-semibold text-slate-100">
                     {group.title}
@@ -389,6 +436,36 @@ function App() {
           </section>
 
           <section
+            id="projects"
+            aria-labelledby="projects-heading"
+            className="mt-20 scroll-mt-24"
+          >
+            <div className="mb-8">
+              <SectionLabel>Additional React Projects</SectionLabel>
+              <h2
+                id="projects-heading"
+                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
+              >
+                Smaller builds for React fundamentals
+              </h2>
+              <p className="mt-3 leading-relaxed text-slate-400">
+                These are intentionally secondary to the production client work.
+                They show state, routing, API calls, forms, cart behavior, and
+                small interaction flows.
+              </p>
+            </div>
+            <ul className="group/list space-y-2">
+              {appProjects.map((project) => (
+                <ProjectRow
+                  key={project.id}
+                  project={project}
+                  variant="compact"
+                />
+              ))}
+            </ul>
+          </section>
+
+          <section
             id="contact"
             aria-labelledby="contact-heading"
             className="mt-20 scroll-mt-24"
@@ -402,10 +479,9 @@ function App() {
                 Looking for a Front-End Developer?
               </h2>
               <p className="mt-3 leading-relaxed text-slate-400">
-                I&apos;m interested in front-end engineering opportunities where
-                I can build production React/TypeScript products, collaborate
-                with engineering and design teams, and continue growing as an
-                engineer.
+                I&apos;m currently looking for front-end opportunities where I can
+                contribute to thoughtful, user-facing products with React,
+                TypeScript, and careful UI execution.
               </p>
               <div className="mt-6 grid gap-3 sm:grid-cols-2">
                 {contactLinks.map(({ label, href, icon: Icon }) => (

@@ -37,6 +37,10 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+img {
+  max-width: 100%;
+}
+
 ::selection {
   background: var(--accent);
   color: var(--background);
@@ -56,6 +60,39 @@ body {
     );
 }
 
+.browser-shell {
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 0.75rem;
+  background: #111827;
+  box-shadow: 0 22px 70px rgba(2, 6, 23, 0.24);
+}
+
+.browser-chrome {
+  display: flex;
+  height: 1.8rem;
+  align-items: center;
+  gap: 0.45rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.16);
+  background: rgba(15, 23, 42, 0.92);
+  padding: 0 0.75rem;
+}
+
+.browser-dot {
+  height: 0.42rem;
+  width: 0.42rem;
+  flex: none;
+  border-radius: 999px;
+}
+
+.browser-address {
+  margin-left: 0.55rem;
+  height: 0.48rem;
+  flex: 1;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.12);
+}
+
 /* Consistent preview frame for project screenshots */
 .preview-frame {
   aspect-ratio: 16 / 9;
@@ -72,6 +109,7 @@ body {
 
 .preview-frame--featured img {
   object-fit: cover;
+  transition: transform 260ms ease;
 }
 
 .preview-frame--app {
