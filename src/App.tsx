@@ -65,12 +65,15 @@ const capabilityGroups = [
   },
 ];
 
+const protectedEmailParts = ["angelinamai8386", "gmail", "com"];
+
 const contactLinks = [
   {
     label: "Email",
-    detail: "angelinamai8386@gmail.com",
-    href: "mailto:angelinamai8386@gmail.com",
+    detail: "Click to email",
+    href: "#contact",
     icon: FaEnvelope,
+    kind: "email",
   },
   {
     label: "LinkedIn",
@@ -91,6 +94,12 @@ const contactLinks = [
     icon: FaFilePdf,
   },
 ];
+
+function getProtectedEmailHref() {
+  const [name, host, tld] = protectedEmailParts;
+
+  return `mailto:${name}@${host}.${tld}`;
+}
 
 function requireProject(id: string) {
   const project = featuredProjects.find((item) => item.id === id);
@@ -248,15 +257,27 @@ function ProjectMedia({
 }) {
   return (
     <div className={`project-media project-media--${variant}`}>
-      <img
-        src={project.screenshot}
-        alt={`${project.name} project preview`}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        style={{
-          objectPosition: project.screenshotPosition ?? "top center",
-        }}
-      />
+      <picture>
+        {project.mobileScreenshot && (
+          <source
+            media="(max-width: 640px)"
+            srcSet={project.mobileScreenshot}
+            width={project.mobileScreenshotWidth}
+            height={project.mobileScreenshotHeight}
+          />
+        )}
+        <img
+          src={project.screenshot}
+          alt={`${project.name} project preview`}
+          width={project.screenshotWidth}
+          height={project.screenshotHeight}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          style={{
+            objectPosition: project.screenshotPosition ?? "top center",
+          }}
+        />
+      </picture>
     </div>
   );
 }
@@ -474,7 +495,7 @@ function AboutSection() {
 
       <div className="about-section__copy">
         <p>
-          I&apos;m a front-end developer in Toronto focused on React,
+          I&apos;m a front-end developer in Richmond Hill focused on React,
           TypeScript, Next.js, and UI that holds up under real requirements.
           Give me a broken layout, a mysterious API response, and too many
           browser tabs and I&apos;m weirdly calm.
@@ -542,7 +563,7 @@ function ContactSection() {
         <EditorialLabel>Contact</EditorialLabel>
         <h2 id="contact-heading">
           <span>Still here?</span>
-          <span>I should probably give you my email.</span>
+          <span>I should probably give you a way to reach me.</span>
         </h2>
         <p>
           Open to Front-End Developer, React Developer, and UI Engineer
@@ -552,15 +573,38 @@ function ContactSection() {
       </div>
 
       <div className="contact-links">
-        {contactLinks.map(({ label, detail, href, icon: Icon }) => (
-          <a key={href} href={href} {...linkProps(href)}>
-            <span>
-              <Icon aria-hidden="true" />
-              {label}
-            </span>
-            <small>{detail}</small>
-          </a>
-        ))}
+        {contactLinks.map(({ label, detail, href, icon: Icon, kind }) => {
+          const isProtectedEmail = kind === "email";
+          const content = (
+            <>
+              <span>
+                <Icon aria-hidden="true" />
+                {label}
+              </span>
+              <small>{detail}</small>
+            </>
+          );
+
+          if (isProtectedEmail) {
+            return (
+              <button
+                key={label}
+                type="button"
+                onClick={() => {
+                  window.location.href = getProtectedEmailHref();
+                }}
+              >
+                {content}
+              </button>
+            );
+          }
+
+          return (
+            <a key={href} href={href} {...linkProps(href)}>
+              {content}
+            </a>
+          );
+        })}
       </div>
     </section>
   );
@@ -577,7 +621,7 @@ function App() {
         <section className="hero-section" aria-labelledby="hero-heading">
           <div className="hero-section__topline">
             <span>Angelina Mai</span>
-            <span>Toronto, Canada ↗</span>
+            <span>Richmond Hill, Canada ↗</span>
           </div>
 
           <div className="hero-section__grid">

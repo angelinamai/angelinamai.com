@@ -18,6 +18,11 @@ export type Project = {
   keyTechnologies: string[];
   responsive: string;
   screenshot: string;
+  screenshotWidth?: number;
+  screenshotHeight?: number;
+  mobileScreenshot?: string;
+  mobileScreenshotWidth?: number;
+  mobileScreenshotHeight?: number;
   screenshotPosition?: string;
   liveUrl: string;
   codeUrl?: string;
@@ -65,6 +70,11 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling-card.png",
+    screenshotWidth: 2880,
+    screenshotHeight: 2360,
+    mobileScreenshot: "/images/tracy-counselling-card-mobile.png",
+    mobileScreenshotWidth: 860,
+    mobileScreenshotHeight: 1800,
     screenshotPosition: "center 18%",
     liveUrl: "https://www.nguyentracy.com/",
   },
@@ -107,6 +117,8 @@ export const featuredProjects: Project[] = [
     responsive:
       "Designed with responsive section spacing, mobile navigation, and flexible service cards across viewport sizes.",
     screenshot: "/images/swim-with-leah-card.png",
+    screenshotWidth: 2880,
+    screenshotHeight: 2080,
     screenshotPosition: "center 12%",
     liveUrl: "https://www.swimwithleah.com/",
   },
@@ -149,6 +161,11 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive hero, navigation, service cards, booking form, and contact sections for desktop, tablet, and mobile screens.",
     screenshot: "/images/angelina-interpreting-card.png",
+    screenshotWidth: 2880,
+    screenshotHeight: 2080,
+    mobileScreenshot: "/images/angelina-interpreting-card-mobile.png",
+    mobileScreenshotWidth: 1120,
+    mobileScreenshotHeight: 1800,
     screenshotPosition: "center 18%",
     liveUrl: "https://angelinainterpreting.ca/",
   },
@@ -190,6 +207,11 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
     screenshot: "/images/vegan-restaurant-card.png",
+    screenshotWidth: 2880,
+    screenshotHeight: 2080,
+    mobileScreenshot: "/images/vegan-restaurant-card-mobile.png",
+    mobileScreenshotWidth: 860,
+    mobileScreenshotHeight: 1800,
     screenshotPosition: "center 15%",
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
@@ -225,6 +247,8 @@ export const appProjects: Project[] = [
     responsive:
       "Uses the portfolio's mobile override stylesheet so the compact form and friend list remain usable on small screens.",
     screenshot: "/images/eatnsplit.png",
+    screenshotWidth: 802,
+    screenshotHeight: 610,
     screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/eatnsplit/index.html",
   },
@@ -257,6 +281,8 @@ export const appProjects: Project[] = [
     responsive:
       "Includes portfolio-level responsive overrides for the add form, list area, and action controls.",
     screenshot: "/images/travellist.png",
+    screenshotWidth: 3420,
+    screenshotHeight: 1780,
     screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/travellist/index.html",
   },
@@ -289,6 +315,8 @@ export const appProjects: Project[] = [
     responsive:
       "Responsive card and form styling is layered over the compiled app for cleaner tablet and mobile use.",
     screenshot: "/images/weather-app.png",
+    screenshotWidth: 2288,
+    screenshotHeight: 1166,
     screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/weatherapp/index.html",
   },
@@ -328,6 +356,8 @@ export const appProjects: Project[] = [
     responsive:
       "The compiled app uses responsive Tailwind utility classes and the portfolio mobile stylesheet for smaller screens.",
     screenshot: "/images/pizzamenufinal.png",
+    screenshotWidth: 1782,
+    screenshotHeight: 906,
     screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/pizzamenufinal/index.html",
   },

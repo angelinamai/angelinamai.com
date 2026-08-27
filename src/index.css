@@ -522,19 +522,24 @@ a {
 }
 
 .project-media {
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
   border: 1px solid var(--line-soft);
   border-radius: calc(var(--radius) * 0.75);
-  background: var(--cream);
-  box-shadow: 0 1.5rem 4rem rgba(17, 17, 17, 0.08);
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.project-media picture {
+  display: block;
 }
 
 .project-media img {
   display: block;
-  height: 100%;
   width: 100%;
-  object-fit: cover;
+  height: auto;
+  border-radius: inherit;
+  object-fit: contain;
+  object-position: top center;
 }
 
 .flagship-project__details {
@@ -778,19 +783,30 @@ a {
   border-top: 2px solid var(--paper);
 }
 
-.contact-links a {
+.contact-links a,
+.contact-links button {
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr auto;
   gap: 1rem;
   align-items: center;
   border-bottom: 2px solid var(--paper);
+  border-top: 0;
+  border-right: 0;
+  border-left: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
   padding: 1.15rem 0;
+  text-align: left;
   transition:
     background-color 180ms ease,
     color 180ms ease;
 }
 
-.contact-links a:hover {
+.contact-links a:hover,
+.contact-links button:hover {
   background: var(--accent);
   color: var(--ink);
 }
