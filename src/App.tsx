@@ -233,15 +233,8 @@ function TopNav({ activeId }: { activeId: string }) {
 function HeroMark() {
   return (
     <div className="hero-mark" aria-hidden="true">
-      <div className="hero-mark__grid" />
       <p className="hero-mark__monogram">AM</p>
-      <div className="hero-mark__window">
-        <span>UI</span>
-        <span>API</span>
-        <span>SHIP</span>
-      </div>
-      <p className="hero-mark__cursor">↗</p>
-      <p className="hero-mark__caption">React / Next.js / TypeScript</p>
+      <span className="hero-mark__rule" />
     </div>
   );
 }
@@ -495,15 +488,26 @@ function AboutSection() {
 
       <div className="about-section__copy">
         <p>
-          I&apos;m a front-end developer in Richmond Hill focused on React,
-          TypeScript, Next.js, and UI that holds up under real requirements.
-          Give me a broken layout, a mysterious API response, and too many
-          browser tabs and I&apos;m weirdly calm.
+          I&apos;m Angelina. I build websites and web apps for a living, which
+          mostly means turning perfectly reasonable-looking designs into 47 very
+          specific decisions nobody warned you about.
         </p>
         <p>
-          I like turning rough product needs into clear screens, resilient
-          components, and interfaces people can actually use. The part I care
-          about most is where design judgment and implementation meet.
+          I work with React, TypeScript, and Next.js. I care way too much about
+          spacing, buttons that actually feel clickable, and whether something
+          looks weird by three pixels. Unfortunately, I will notice.
+        </p>
+        <p>
+          I like the part of frontend where design meets reality: where
+          &quot;just make it responsive&quot; becomes six screen sizes, three
+          edge cases, one suspicious API response, and somehow a perfectly
+          normal Tuesday.
+        </p>
+        <p>
+          And I&apos;m stubborn about the final 10%. If the client isn&apos;t
+          happy yet, I&apos;m not done. I&apos;ll keep tweaking, fixing, and
+          probably staring at that one button until we both stop having opinions
+          about it.
         </p>
       </div>
 
@@ -620,7 +624,7 @@ function App() {
       <main>
         <section className="hero-section" aria-labelledby="hero-heading">
           <div className="hero-section__topline">
-            <span>Angelina Mai</span>
+            <span>Open to Front-End opportunities</span>
             <span>Richmond Hill, Canada ↗</span>
           </div>
 
@@ -632,8 +636,8 @@ function App() {
                 <span>Developer.</span>
               </h1>
               <p className="hero-section__lede">
-                I design and build polished React products from interface to
-                integration. Clean UI, real constraints, fewer mystery divs.
+                I turn &quot;it should be pretty simple&quot; into production
+                code.
               </p>
               <p className="hero-section__stack">
                 React / TypeScript / Next.js
