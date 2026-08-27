@@ -92,21 +92,6 @@ const contactLinks = [
   },
 ];
 
-const tracyEngineering = [
-  {
-    label: "Structure",
-    text: "React/Vite pages with React Router, bilingual content flows, and clear service paths.",
-  },
-  {
-    label: "The not-just-a-website part",
-    text: "Clerk, Supabase, Stripe, Express, and Resend handle auth, data, payments, API surfaces, and email.",
-  },
-  {
-    label: "Shipping",
-    text: "Responsive forms, deployment, debugging, and iteration as requirements kept doing what requirements do.",
-  },
-];
-
 function requireProject(id: string) {
   const project = featuredProjects.find((item) => item.id === id);
 
@@ -126,14 +111,46 @@ const selectedProjects = [
   {
     number: "02",
     project: interpretingProject,
-    heading: ["Angelina", "Interpreting"],
   },
   {
     number: "03",
     project: swimProject,
-    heading: ["Swim With", "Leah"],
   },
 ];
+
+const projectMetadata: Record<string, { label: string; value: string }[]> = {
+  "tracy-counselling": [
+    { label: "Role", value: "Front-End Developer" },
+    { label: "Year", value: "2025" },
+    {
+      label: "Focus",
+      value:
+        "Authentication, database-backed features, payments, email flows, responsive UI",
+    },
+  ],
+  "angelina-interpreting": [
+    { label: "Role", value: "Front-End Developer" },
+    {
+      label: "Focus",
+      value:
+        "Bilingual content, service pages, scheduling flow, responsive UI",
+    },
+  ],
+  "swim-with-leah": [
+    { label: "Role", value: "Front-End Developer" },
+    {
+      label: "Focus",
+      value: "Lesson sections, booking calls to action, contact flow, responsive UI",
+    },
+  ],
+  "vegan-restaurant": [
+    { label: "Role", value: "Front-End Developer" },
+    {
+      label: "Focus",
+      value: "Menu sections, gallery, ordering contact paths, responsive UI",
+    },
+  ],
+};
 
 function isExternalLink(href: string) {
   return href.startsWith("http") || href.endsWith(".pdf");
@@ -146,6 +163,10 @@ function linkProps(href: string) {
     target: external ? "_blank" : undefined,
     rel: external ? "noopener noreferrer" : undefined,
   };
+}
+
+function projectEyebrow(number: string) {
+  return `${number} — SELECTED WORK`;
 }
 
 function EditorialLabel({ children }: { children: ReactNode }) {
@@ -227,29 +248,43 @@ function ProjectMedia({
 }) {
   return (
     <div className={`project-media project-media--${variant}`}>
-      <div className="project-media__chrome" aria-hidden="true">
-        <span />
-        <span />
-        <span />
-        <i />
-      </div>
-      <div className="project-media__screen">
-        <img
-          src={project.screenshot}
-          alt={`${project.name} project preview`}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          style={{
-            objectPosition: project.screenshotPosition ?? "top center",
-          }}
-        />
-      </div>
+      <img
+        src={project.screenshot}
+        alt={`${project.name} project preview`}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+        style={{
+          objectPosition: project.screenshotPosition ?? "top center",
+        }}
+      />
     </div>
   );
 }
 
 function TechLine({ items }: { items: string[] }) {
-  return <p className="tech-line">{items.join(" / ")}</p>;
+  return <p className="tech-line">{items.join(" · ")}</p>;
+}
+
+function ProjectMetadata({ project }: { project: Project }) {
+  const rows = projectMetadata[project.id] ?? [
+    { label: "Role", value: project.roleContext ?? project.context },
+    { label: "Focus", value: project.uiFocus },
+  ];
+
+  return (
+    <dl className="project-meta">
+      {rows.map((item) => (
+        <div key={item.label}>
+          <dt>{item.label}</dt>
+          <dd>{item.value}</dd>
+        </div>
+      ))}
+      <div>
+        <dt>Stack</dt>
+        <dd>{project.keyTechnologies.join(" · ")}</dd>
+      </div>
+    </dl>
+  );
 }
 
 function ExperienceSection() {
@@ -299,32 +334,22 @@ function ExperienceSection() {
 function FlagshipProject({ project }: { project: Project }) {
   return (
     <article className="flagship-project">
-      <div className="flagship-project__heading">
-        <p className="project-number">01 / {project.name.toUpperCase()}</p>
-        <h3>
-          <span>Tracy </span>
-          <span>Counselling</span>
-        </h3>
+      <div className="flagship-project__intro">
+        <p className="project-number">{projectEyebrow("01")}</p>
+        <div>
+          <h3>{project.name}</h3>
+          <p className="project-deck">
+            Production React application for a private counselling practice.
+          </p>
+          <TechLine items={["React", "Vite", "Clerk", "Supabase", "Stripe"]} />
+        </div>
       </div>
 
       <ProjectMedia project={project} priority variant="flagship" />
 
       <div className="flagship-project__details">
-        <div className="flagship-project__summary">
-          <p className="project-context">{project.roleContext}</p>
-          <p>{project.description}</p>
-          <TechLine items={project.keyTechnologies} />
-          <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
-        </div>
-
-        <div className="engineering-grid">
-          {tracyEngineering.map((item) => (
-            <div key={item.label}>
-              <h4>{item.label}</h4>
-              <p>{item.text}</p>
-            </div>
-          ))}
-        </div>
+        <ProjectMetadata project={project} />
+        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
       </div>
     </article>
   );
@@ -333,43 +358,43 @@ function FlagshipProject({ project }: { project: Project }) {
 function SupportingProject({
   number,
   project,
-  heading,
 }: {
   number: string;
   project: Project;
-  heading: string[];
 }) {
   return (
     <article className="project-strip">
-      <div className="project-strip__meta">
-        <p className="project-number">{number} / {project.eyebrow}</p>
-        <h3>
-          {heading.map((line, index) => (
-            <span key={line}>
-              {line}
-              {index < heading.length - 1 ? " " : ""}
-            </span>
-          ))}
-        </h3>
-        <p>{project.description}</p>
+      <div className="project-strip__intro">
+        <p className="project-number">{projectEyebrow(number)}</p>
+        <h3>{project.name}</h3>
+        <p className="project-deck">{project.description}</p>
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
-        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
       </div>
 
       <ProjectMedia project={project} variant="mini" />
+
+      <div className="project-strip__details">
+        <ProjectMetadata project={project} />
+        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+      </div>
     </article>
   );
 }
 
-function ClientAside({ project }: { project: Project }) {
+function ClientAside({ number, project }: { number: string; project: Project }) {
   return (
     <article className="client-aside">
-      <ProjectMedia project={project} variant="archive" />
-      <div>
-        <p className="project-number">04 / {project.eyebrow}</p>
+      <div className="client-aside__intro">
+        <p className="project-number">{projectEyebrow(number)}</p>
         <h3>{project.name}</h3>
-        <p>{project.description}</p>
+        <p className="project-deck">{project.description}</p>
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
+      </div>
+
+      <ProjectMedia project={project} variant="archive" />
+
+      <div className="client-aside__details">
+        <ProjectMetadata project={project} />
         <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
       </div>
     </article>
@@ -428,12 +453,11 @@ function SelectedWorkSection() {
             key={item.project.id}
             number={item.number}
             project={item.project}
-            heading={item.heading}
           />
         ))}
       </div>
 
-      <ClientAside project={veganProject} />
+      <ClientAside number="04" project={veganProject} />
       <ProjectArchive />
     </section>
   );
