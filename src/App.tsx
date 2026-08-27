@@ -1,108 +1,246 @@
 import "./App.css";
 import type { ReactNode } from "react";
 import {
+  FaArrowDown,
   FaArrowUpRightFromSquare,
   FaEnvelope,
   FaFilePdf,
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa6";
-import ProjectRow from "./components/ProjectRow";
-import Sidebar from "./components/Sidebar";
-import { appProjects, featuredProjects } from "./data/projects";
+import { appProjects, featuredProjects, type Project } from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
-const sectionIds = ["work", "about", "skills", "projects", "contact"];
+const sectionIds = ["experience", "work", "about", "skills", "contact"];
+
+const navItems = [
+  { id: "experience", label: "Experience" },
+  { id: "work", label: "Work" },
+  { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
+  { id: "contact", label: "Contact" },
+];
 
 const experienceBullets = [
   "Built responsive React UI components from Figma wireframes and product requirements.",
-  "Integrated front-end features with REST API-backed data and debugged rendering, state, and UI behavior.",
-  "Worked with Git, GitHub, code reviews, daily stand-ups, and Agile sprint planning during a completed 2024 contract.",
+  "Connected front-end features to REST API-backed data and debugged the usual suspects: rendering, state, and UI behavior.",
+  "Worked through Git, GitHub, code reviews, stand-ups, and sprint planning during a completed 2024 contract.",
 ];
 
-const skillGroups = [
+const experienceStack = [
+  "React",
+  "Figma",
+  "REST APIs",
+  "GitHub",
+  "Code review",
+  "Responsive UI",
+];
+
+const toolbox = [
+  "React",
+  "TypeScript",
+  "Next.js",
+  "JavaScript",
+  "HTML / CSS",
+  "Tailwind CSS",
+  "REST APIs",
+  "Git",
+  "Figma",
+  "Accessibility",
+  "Responsive UI",
+];
+
+const capabilityGroups = [
   {
-    title: "Frontend",
-    skills: ["React", "TypeScript", "JavaScript", "Next.js", "React Router"],
+    title: "Interface",
+    text: "Component structure, page hierarchy, typography, responsive layouts, and interaction states.",
   },
   {
-    title: "UI",
-    skills: [
-      "Tailwind CSS",
-      "CSS",
-      "Responsive Design",
-      "Accessibility",
-      "Typography/Layout",
-    ],
+    title: "Integration",
+    text: "Front-end work connected to APIs, authentication, data, payments, and email flows when the product requires it.",
   },
   {
-    title: "Tools",
-    skills: ["Git", "GitHub", "Vite", "Vercel", "Figma"],
-  },
-  {
-    title: "Integrations",
-    skills: ["REST APIs", "Clerk", "Supabase", "Stripe", "Express", "Resend"],
+    title: "Delivery",
+    text: "Debugging, deployment, Git workflows, accessibility checks, and iteration from feedback.",
   },
 ];
 
 const contactLinks = [
   {
     label: "Email",
+    detail: "angelinamai8386@gmail.com",
     href: "mailto:angelinamai8386@gmail.com",
     icon: FaEnvelope,
   },
   {
-    label: "View Resume",
-    href: "/angelina-mai-resume.pdf",
-    icon: FaFilePdf,
+    label: "LinkedIn",
+    detail: "Profile",
+    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
+    icon: FaLinkedin,
   },
   {
     label: "GitHub",
+    detail: "angelinamai",
     href: "https://github.com/angelinamai",
     icon: FaGithub,
   },
   {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/angelina-mai-b7b9b1176/",
-    icon: FaLinkedin,
+    label: "Resume",
+    detail: "PDF",
+    href: "/angelina-mai-resume.pdf",
+    icon: FaFilePdf,
   },
 ];
 
-function SectionLabel({ children }: { children: ReactNode }) {
-  return (
-    <p className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-      {children}
-    </p>
-  );
+const tracyEngineering = [
+  {
+    label: "Structure",
+    text: "React/Vite pages with React Router, bilingual content flows, and clear service paths.",
+  },
+  {
+    label: "The not-just-a-website part",
+    text: "Clerk, Supabase, Stripe, Express, and Resend handle auth, data, payments, API surfaces, and email.",
+  },
+  {
+    label: "Shipping",
+    text: "Responsive forms, deployment, debugging, and iteration as requirements kept doing what requirements do.",
+  },
+];
+
+function requireProject(id: string) {
+  const project = featuredProjects.find((item) => item.id === id);
+
+  if (!project) {
+    throw new Error(`Missing featured project: ${id}`);
+  }
+
+  return project;
 }
+
+const tracyProject = requireProject("tracy-counselling");
+const interpretingProject = requireProject("angelina-interpreting");
+const swimProject = requireProject("swim-with-leah");
+const veganProject = requireProject("vegan-restaurant");
+
+const selectedProjects = [
+  {
+    number: "02",
+    project: interpretingProject,
+    heading: ["Angelina", "Interpreting"],
+  },
+  {
+    number: "03",
+    project: swimProject,
+    heading: ["Swim With", "Leah"],
+  },
+];
 
 function isExternalLink(href: string) {
   return href.startsWith("http") || href.endsWith(".pdf");
 }
 
-function BrowserPreview({
-  project,
-  priority = false,
+function linkProps(href: string) {
+  const external = isExternalLink(href);
+
+  return {
+    target: external ? "_blank" : undefined,
+    rel: external ? "noopener noreferrer" : undefined,
+  };
+}
+
+function EditorialLabel({ children }: { children: ReactNode }) {
+  return <p className="editorial-label">{children}</p>;
+}
+
+function ArrowLink({
+  href,
+  children,
+  variant = "ink",
 }: {
-  project: (typeof featuredProjects)[number];
-  priority?: boolean;
+  href: string;
+  children: ReactNode;
+  variant?: "ink" | "light";
 }) {
   return (
-    <div className="browser-shell">
-      <div className="browser-chrome" aria-hidden="true">
-        <span className="browser-dot bg-rose-400" />
-        <span className="browser-dot bg-amber-300" />
-        <span className="browser-dot bg-emerald-400" />
-        <span className="browser-address" />
+    <a
+      href={href}
+      {...linkProps(href)}
+      className={`arrow-link arrow-link--${variant}`}
+    >
+      <span>{children}</span>
+      <FaArrowUpRightFromSquare aria-hidden="true" />
+    </a>
+  );
+}
+
+function TopNav({ activeId }: { activeId: string }) {
+  return (
+    <header className="site-nav">
+      <a className="site-nav__brand" href="#top" aria-label="Back to top">
+        Angelina Mai
+      </a>
+
+      <nav className="site-nav__links" aria-label="Primary navigation">
+        {navItems.map((item) => {
+          const isActive = activeId === item.id;
+
+          return (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              aria-current={isActive ? "true" : undefined}
+              className={isActive ? "is-active" : undefined}
+            >
+              {item.label}
+            </a>
+          );
+        })}
+      </nav>
+    </header>
+  );
+}
+
+function HeroMark() {
+  return (
+    <div className="hero-mark" aria-hidden="true">
+      <div className="hero-mark__grid" />
+      <p className="hero-mark__monogram">AM</p>
+      <div className="hero-mark__window">
+        <span>UI</span>
+        <span>API</span>
+        <span>SHIP</span>
       </div>
-      <div className="preview-frame preview-frame--featured">
+      <p className="hero-mark__cursor">↗</p>
+      <p className="hero-mark__caption">React / Next.js / TypeScript</p>
+    </div>
+  );
+}
+
+function ProjectMedia({
+  project,
+  priority = false,
+  variant = "default",
+}: {
+  project: Project;
+  priority?: boolean;
+  variant?: "default" | "flagship" | "mini" | "archive";
+}) {
+  return (
+    <div className={`project-media project-media--${variant}`}>
+      <div className="project-media__chrome" aria-hidden="true">
+        <span />
+        <span />
+        <span />
+        <i />
+      </div>
+      <div className="project-media__screen">
         <img
           src={project.screenshot}
-          alt={`${project.name} website preview`}
+          alt={`${project.name} project preview`}
           loading={priority ? "eager" : "lazy"}
           decoding="async"
           style={{
-            objectPosition: project.screenshotPosition ?? "center 18%",
+            objectPosition: project.screenshotPosition ?? "top center",
           }}
         />
       </div>
@@ -110,374 +248,349 @@ function BrowserPreview({
   );
 }
 
-function DetailBlock({
-  title,
-  children,
-}: {
-  title: string;
-  children: ReactNode;
-}) {
-  return (
-    <div>
-      <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500">
-        {title}
-      </h4>
-      <p className="mt-2 text-sm leading-relaxed text-slate-400">{children}</p>
-    </div>
-  );
+function TechLine({ items }: { items: string[] }) {
+  return <p className="tech-line">{items.join(" / ")}</p>;
 }
 
-function TechnologyLine({
-  technologies,
-}: {
-  technologies: string[];
-}) {
+function ExperienceSection() {
   return (
-    <p className="text-xs font-semibold text-teal-200">
-      {technologies.join(" · ")}
-    </p>
-  );
-}
+    <section
+      id="experience"
+      aria-labelledby="experience-heading"
+      className="section section--ink experience-section"
+    >
+      <div className="section__index">01</div>
+      <div className="experience-section__header">
+        <EditorialLabel>Professional Experience / 2024</EditorialLabel>
+        <h2 id="experience-heading">
+          Turns out, real software has other developers.
+        </h2>
+        <p>
+          At Hit the Books, I worked from Figma, integrated API-backed features,
+          debugged existing UI behavior, and shipped responsive React work
+          through a team workflow.
+        </p>
+      </div>
 
-function FeaturedProjectCard({
-  project,
-}: {
-  project: (typeof featuredProjects)[number];
-}) {
-  return (
-    <article className="group rounded-xl border border-slate-700/50 bg-slate-800/30 p-4 transition hover:border-teal-300/30 hover:bg-slate-800/45 sm:p-5">
-      <BrowserPreview project={project} />
-      <div className="mt-5">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-            {project.eyebrow}
-          </span>
-          <span className="rounded-full border border-slate-700/80 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-slate-400">
-            Production
-          </span>
+      <div className="experience-panel">
+        <div>
+          <p className="experience-panel__role">
+            Hit the Books · Front-End Developer (Contract)
+          </p>
+          <p className="experience-panel__status">Completed contract · 2024</p>
         </div>
-        <h3 className="mt-3 text-xl font-bold tracking-tight text-slate-100">
-          {project.name}
+
+        <ul className="experience-panel__bullets">
+          {experienceBullets.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+
+        <ul className="experience-panel__stack" aria-label="Experience tools">
+          {experienceStack.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function FlagshipProject({ project }: { project: Project }) {
+  return (
+    <article className="flagship-project">
+      <div className="flagship-project__heading">
+        <p className="project-number">01 / {project.name.toUpperCase()}</p>
+        <h3>
+          <span>Tracy </span>
+          <span>Counselling</span>
         </h3>
-        <p className="mt-1 text-sm font-medium text-slate-300">
-          {project.roleContext ?? project.context}
-        </p>
-        <div className="mt-2">
-          <TechnologyLine technologies={project.keyTechnologies} />
-        </div>
-        <p className="mt-3 text-sm leading-relaxed text-slate-400">
-          {project.description}
-        </p>
+      </div>
 
-        <div className="mt-5 grid gap-4 border-t border-slate-700/60 pt-5">
-          <DetailBlock title="Problem">{project.problem}</DetailBlock>
-          <DetailBlock title="Owned">{project.role}</DetailBlock>
-          <DetailBlock title="Technical Work">
-            {project.technicalFocus}
-          </DetailBlock>
+      <ProjectMedia project={project} priority variant="flagship" />
+
+      <div className="flagship-project__details">
+        <div className="flagship-project__summary">
+          <p className="project-context">{project.roleContext}</p>
+          <p>{project.description}</p>
+          <TechLine items={project.keyTechnologies} />
+          <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-slate-700/70 px-4 py-2 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
-          >
-            Live Site
-            <FaArrowUpRightFromSquare aria-hidden="true" className="h-3 w-3" />
-          </a>
+        <div className="engineering-grid">
+          {tracyEngineering.map((item) => (
+            <div key={item.label}>
+              <h4>{item.label}</h4>
+              <p>{item.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </article>
   );
 }
 
+function SupportingProject({
+  number,
+  project,
+  heading,
+}: {
+  number: string;
+  project: Project;
+  heading: string[];
+}) {
+  return (
+    <article className="project-strip">
+      <div className="project-strip__meta">
+        <p className="project-number">{number} / {project.eyebrow}</p>
+        <h3>
+          {heading.map((line, index) => (
+            <span key={line}>
+              {line}
+              {index < heading.length - 1 ? " " : ""}
+            </span>
+          ))}
+        </h3>
+        <p>{project.description}</p>
+        <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+      </div>
+
+      <ProjectMedia project={project} variant="mini" />
+    </article>
+  );
+}
+
+function ClientAside({ project }: { project: Project }) {
+  return (
+    <article className="client-aside">
+      <ProjectMedia project={project} variant="archive" />
+      <div>
+        <p className="project-number">04 / {project.eyebrow}</p>
+        <h3>{project.name}</h3>
+        <p>{project.description}</p>
+        <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+      </div>
+    </article>
+  );
+}
+
+function ProjectArchive() {
+  return (
+    <div className="project-archive" aria-label="Project archive">
+      <div>
+        <EditorialLabel>Additional React Projects</EditorialLabel>
+        <h3>Small builds, useful scars.</h3>
+        <p>State, routing, APIs, and ordering flows in compact React builds.</p>
+      </div>
+
+      <ul>
+        {appProjects.map((project) => (
+          <li key={project.id}>
+            <a
+              href={project.liveUrl}
+              {...linkProps(project.liveUrl)}
+              aria-label={`Open ${project.name} project`}
+            >
+              <span>{project.name}</span>
+              <small>{project.keyTechnologies.slice(0, 3).join(" / ")}</small>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function SelectedWorkSection() {
+  return (
+    <section
+      id="work"
+      aria-labelledby="work-heading"
+      className="section selected-work"
+    >
+      <div className="section__index">02</div>
+      <div className="section-heading">
+        <EditorialLabel>Featured Work</EditorialLabel>
+        <h2 id="work-heading">Some things that survived production.</h2>
+        <p>
+          React and Next.js work with real clients, real constraints,
+          responsive UI, integrations, and public deployments.
+        </p>
+      </div>
+
+      <FlagshipProject project={tracyProject} />
+
+      <div className="supporting-projects">
+        {selectedProjects.map((item) => (
+          <SupportingProject
+            key={item.project.id}
+            number={item.number}
+            project={item.project}
+            heading={item.heading}
+          />
+        ))}
+      </div>
+
+      <ClientAside project={veganProject} />
+      <ProjectArchive />
+    </section>
+  );
+}
+
+function AboutSection() {
+  return (
+    <section id="about" aria-labelledby="about-heading" className="section about-section">
+      <div className="section__index">03</div>
+      <div>
+        <EditorialLabel>About</EditorialLabel>
+        <h2 id="about-heading">Okay, who is Angelina?</h2>
+      </div>
+
+      <div className="about-section__copy">
+        <p>
+          I&apos;m a front-end developer in Toronto focused on React,
+          TypeScript, Next.js, and UI that holds up under real requirements.
+          Give me a broken layout, a mysterious API response, and too many
+          browser tabs and I&apos;m weirdly calm.
+        </p>
+        <p>
+          I like turning rough product needs into clear screens, resilient
+          components, and interfaces people can actually use. The part I care
+          about most is where design judgment and implementation meet.
+        </p>
+      </div>
+
+      <div className="about-section__rules" aria-label="Working style">
+        <p>Requirements → user flows</p>
+        <p>Design → responsive UI</p>
+        <p>Frontend → integration</p>
+      </div>
+    </section>
+  );
+}
+
+function SkillsSection() {
+  return (
+    <section id="skills" aria-labelledby="skills-heading" className="section skills-section">
+      <div className="section__index">04</div>
+      <div className="skills-section__headline">
+        <EditorialLabel>Technical Capabilities</EditorialLabel>
+        <h2 id="skills-heading">
+          <span>The toolbox isn&apos;t </span>
+          <span>the interesting part.</span>
+        </h2>
+        <p>
+          Nobody has ever hired a developer because she had the prettiest list
+          of programming languages. The useful part is knowing what to do with
+          them.
+        </p>
+      </div>
+
+      <ul className="toolbox-list" aria-label="Technologies and practices">
+        {toolbox.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
+
+      <div className="capability-lanes">
+        {capabilityGroups.map((group) => (
+          <section key={group.title}>
+            <h3>{group.title}</h3>
+            <p>{group.text}</p>
+          </section>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ContactSection() {
+  return (
+    <section
+      id="contact"
+      aria-labelledby="contact-heading"
+      className="section contact-section"
+    >
+      <div className="section__index">05</div>
+      <div className="contact-section__headline">
+        <EditorialLabel>Contact</EditorialLabel>
+        <h2 id="contact-heading">
+          <span>Still here?</span>
+          <span>I should probably give you my email.</span>
+        </h2>
+        <p>
+          Open to Front-End Developer, React Developer, and UI Engineer
+          opportunities where product thinking, UI polish, and careful
+          implementation all matter.
+        </p>
+      </div>
+
+      <div className="contact-links">
+        {contactLinks.map(({ label, detail, href, icon: Icon }) => (
+          <a key={href} href={href} {...linkProps(href)}>
+            <span>
+              <Icon aria-hidden="true" />
+              {label}
+            </span>
+            <small>{detail}</small>
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function App() {
   const activeId = useActiveSection(sectionIds);
-  const primaryProject =
-    featuredProjects.find((project) => project.id === "tracy-counselling") ??
-    featuredProjects[0];
-  const supportingFeaturedProjects = featuredProjects.filter(
-    (project) => project.id !== primaryProject.id,
-  );
 
   return (
-    <div id="top" className="min-h-screen page-glow">
-      <div className="mx-auto max-w-6xl px-6 py-12 sm:px-10 md:px-12 lg:flex lg:gap-16 lg:px-16 lg:py-0">
-        <Sidebar activeId={activeId} />
+    <div id="top" className="site-shell">
+      <TopNav activeId={activeId} />
 
-        <main className="mt-16 lg:mt-0 lg:w-[56%] lg:py-24">
-          <section
-            id="work"
-            aria-labelledby="work-heading"
-            className="scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>Featured Work</SectionLabel>
-              <h2
-                id="work-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Selected projects
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                Production work spanning React interfaces, responsive design,
-                integrations, and real client requirements.
+      <main>
+        <section className="hero-section" aria-labelledby="hero-heading">
+          <div className="hero-section__topline">
+            <span>Angelina Mai</span>
+            <span>Toronto, Canada ↗</span>
+          </div>
+
+          <div className="hero-section__grid">
+            <div className="hero-section__copy">
+              <EditorialLabel>Front-End Developer</EditorialLabel>
+              <h1 id="hero-heading">
+                <span>Front-End </span>
+                <span>Developer.</span>
+              </h1>
+              <p className="hero-section__lede">
+                I design and build polished React products from interface to
+                integration. Clean UI, real constraints, fewer mystery divs.
               </p>
-            </div>
-
-            <article className="rounded-2xl border border-teal-300/20 bg-slate-800/45 p-4 shadow-2xl shadow-slate-950/25 sm:p-6">
-              <BrowserPreview project={primaryProject} priority />
-
-              <div className="mt-6">
-                <div className="flex flex-wrap items-center gap-2.5">
-                  <span className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-                    {primaryProject.eyebrow}
-                  </span>
-                  <span className="rounded-full border border-teal-300/30 bg-teal-300/10 px-2.5 py-1 text-[0.68rem] font-bold uppercase tracking-wide text-teal-100">
-                    Client Project
-                  </span>
-                </div>
-
-                <h3 className="mt-3 text-2xl font-bold tracking-tight text-slate-100">
-                  {primaryProject.name}
-                </h3>
-                <p className="mt-1 text-sm font-medium text-slate-300">
-                  {primaryProject.roleContext ?? primaryProject.context}
-                </p>
-                <div className="mt-2">
-                  <TechnologyLine technologies={primaryProject.keyTechnologies} />
-                </div>
-                <p className="mt-4 leading-relaxed text-slate-400">
-                  {primaryProject.description}
-                </p>
-
-                <div className="mt-6 grid gap-5 border-t border-slate-700/60 pt-6 sm:grid-cols-2">
-                  <DetailBlock title="Problem">
-                    {primaryProject.problem}
-                  </DetailBlock>
-                  <DetailBlock title="Owned">
-                    {primaryProject.role}
-                  </DetailBlock>
-                  <DetailBlock title="Technical Work">
-                    {primaryProject.technicalFocus}
-                  </DetailBlock>
-                </div>
-
-                <a
-                  href={primaryProject.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-teal-300 px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:-translate-y-0.5 hover:bg-teal-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-200 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                >
-                  Live Site
-                  <FaArrowUpRightFromSquare
-                    aria-hidden="true"
-                    className="h-3.5 w-3.5"
-                  />
-                </a>
-              </div>
-            </article>
-
-            <div className="mt-10">
-              <SectionLabel>Selected Client Projects</SectionLabel>
-              <div className="mt-5 space-y-5">
-                {supportingFeaturedProjects.map((project) => (
-                  <FeaturedProjectCard key={project.id} project={project} />
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <section
-            id="about"
-            aria-labelledby="about-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>About</SectionLabel>
-              <h2
-                id="about-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                React development with practical product judgment
-              </h2>
-            </div>
-            <div className="space-y-4 leading-relaxed text-slate-400">
-              <p>
-                I build with React, TypeScript, JavaScript, and Tailwind CSS,
-                working from requirements and designs through implementation,
-                debugging, and deployment. I have shipped production websites
-                for real services and worked directly with non-technical
-                stakeholders when the product path was still taking shape.
+              <p className="hero-section__stack">
+                React / TypeScript / Next.js
               </p>
-              <p>
-                I care about interfaces that are responsive, accessible, and
-                maintainable: clear navigation, readable content hierarchy,
-                reusable components, form behavior, interaction states, and
-                mobile details that do not feel like an afterthought.
-              </p>
-              <p>
-                When requirements move beyond the front end, I am comfortable
-                learning the surrounding concepts needed to ship the work,
-                including authentication, user data, database-backed features,
-                payments, and email integrations.
-              </p>
+              <a className="hero-section__cta" href="#work">
+                <span>See the shipped stuff</span>
+                <FaArrowDown aria-hidden="true" />
+              </a>
             </div>
 
-            <article className="mt-8 rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 sm:p-6">
-              <div className="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-teal-300/90">
-                    Completed Contract
-                  </p>
-                  <h3 className="mt-2 text-xl font-semibold text-slate-100">
-                    Front-End Developer · Hit the Books
-                  </h3>
-                </div>
-                <p className="rounded-full border border-slate-700/80 px-3 py-1 text-xs font-semibold text-slate-300">
-                  2024
-                </p>
-              </div>
+            <HeroMark />
+          </div>
+        </section>
 
-              <ul className="mt-5 space-y-3 text-sm leading-relaxed text-slate-400">
-                {experienceBullets.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <span
-                      className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-teal-300"
-                      aria-hidden="true"
-                    />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          </section>
+        <ExperienceSection />
+        <SelectedWorkSection />
+        <AboutSection />
+        <SkillsSection />
+        <ContactSection />
+      </main>
 
-          <section
-            id="skills"
-            aria-labelledby="skills-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>Skills</SectionLabel>
-              <h2
-                id="skills-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Front-end toolkit for product UI work
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                A focused set of technologies that appears in the current
-                portfolio, resume, or connected project source.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {skillGroups.map((group) => (
-                <section
-                  key={group.title}
-                  className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-5 transition hover:border-teal-300/25 hover:bg-slate-800/45"
-                >
-                  <h3 className="font-semibold text-slate-100">
-                    {group.title}
-                  </h3>
-                  <ul className="mt-4 flex flex-wrap gap-2">
-                    {group.skills.map((skill) => (
-                      <li
-                        key={skill}
-                        className="rounded-full bg-slate-900/70 px-3 py-1 text-xs font-medium text-slate-300"
-                      >
-                        {skill}
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-              ))}
-            </div>
-          </section>
-
-          <section
-            id="projects"
-            aria-labelledby="projects-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="mb-8">
-              <SectionLabel>Additional React Projects</SectionLabel>
-              <h2
-                id="projects-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Smaller builds for React fundamentals
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                These are intentionally secondary to the production client work.
-                They show state, routing, API calls, forms, cart behavior, and
-                small interaction flows.
-              </p>
-            </div>
-            <ul className="group/list space-y-2">
-              {appProjects.map((project) => (
-                <ProjectRow
-                  key={project.id}
-                  project={project}
-                  variant="compact"
-                />
-              ))}
-            </ul>
-          </section>
-
-          <section
-            id="contact"
-            aria-labelledby="contact-heading"
-            className="mt-20 scroll-mt-24"
-          >
-            <div className="rounded-xl border border-slate-700/50 bg-slate-800/30 p-6 sm:p-8">
-              <SectionLabel>Contact</SectionLabel>
-              <h2
-                id="contact-heading"
-                className="mt-2 text-2xl font-bold tracking-tight text-slate-100"
-              >
-                Looking for a Front-End Developer?
-              </h2>
-              <p className="mt-3 leading-relaxed text-slate-400">
-                I&apos;m currently looking for front-end opportunities where I can
-                contribute to thoughtful, user-facing products with React,
-                TypeScript, and careful UI execution.
-              </p>
-              <div className="mt-6 grid gap-3 sm:grid-cols-2">
-                {contactLinks.map(({ label, href, icon: Icon }) => (
-                  <a
-                    key={href}
-                    href={href}
-                    target={isExternalLink(href) ? "_blank" : undefined}
-                    rel={
-                      isExternalLink(href) ? "noopener noreferrer" : undefined
-                    }
-                    className="inline-flex min-h-11 items-center justify-between gap-3 rounded-md border border-slate-700/70 px-4 py-2.5 text-sm font-semibold text-slate-200 transition hover:-translate-y-0.5 hover:border-teal-300/40 hover:bg-teal-300/10 hover:text-teal-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-300/70"
-                  >
-                    <span className="inline-flex items-center gap-3">
-                      <Icon aria-hidden="true" className="h-4 w-4" />
-                      {label}
-                    </span>
-                    <FaArrowUpRightFromSquare
-                      aria-hidden="true"
-                      className="h-3 w-3 text-slate-500"
-                    />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          <footer className="mt-16 pb-12 text-sm leading-relaxed text-slate-500">
-            <p>
-              Designed and built by Angelina Mai with React, Vite, and Tailwind
-              CSS. &copy; {new Date().getFullYear()}.
-            </p>
-          </footer>
-        </main>
-      </div>
+      <footer className="site-footer">
+        <p>Designed and built by Angelina Mai. Yes, the CSS is mine.</p>
+        <p>React / Vite / Tailwind CSS</p>
+      </footer>
     </div>
   );
 }

@@ -33,14 +33,14 @@ export const featuredProjects: Project[] = [
     roleContext: "Client Project · Front-End Development",
     context: "Bilingual production counselling website",
     description:
-      "Bilingual production website for a registered social worker, built from client requirements through development, deployment, and iteration.",
+      "Bilingual React production site for a registered social worker, built from evolving client requirements through development, deployment, and iteration.",
     purpose:
       "Give prospective clients a clear place to learn about Tracy's services, approach, location, resources, and contact options.",
     problem:
       "Visitors need quick trust signals, clear service information, and a straightforward path to ask questions or book.",
-    role: "Owned the React/Vite front end, including page structure, bilingual content flows, responsive forms, debugging, and deployment.",
+    role: "Owned the client-driven React/Vite front end: routing, bilingual content, responsive forms, debugging, and deployment.",
     technicalFocus:
-      "React Router pages with contact/intake and course/account flows, plus auth, database, payment, and email integrations.",
+      "React Router pages with authentication, Supabase-backed data, Stripe payment flows, Express API surfaces, and Resend-supported contact/email flows.",
     uiFocus:
       "Trust-first information architecture, readable service paths, responsive forms, and bilingual navigation.",
     features: [
@@ -61,7 +61,7 @@ export const featuredProjects: Project[] = [
       "Resend",
       "CSS",
     ],
-    keyTechnologies: ["React", "Vite", "Supabase", "Clerk"],
+    keyTechnologies: ["React", "Vite", "React Router", "Supabase", "Clerk"],
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling-card.png",
@@ -81,7 +81,7 @@ export const featuredProjects: Project[] = [
       "Present swim lesson options and help families or adults contact Leah with confidence.",
     problem:
       "Visitors need to compare lesson types, understand credentials, and find a clear route to inquire without digging through the page.",
-    role: "Built the Next.js interface, responsive sections, contact form route, SEO metadata, and Vercel deployment.",
+    role: "Built the Next.js interface: responsive sections, contact form route, SEO metadata, and Vercel deployment.",
     technicalFocus:
       "Used Next.js, TypeScript, Tailwind CSS, Framer Motion, and Resend for the public site and contact flow.",
     uiFocus:
@@ -111,47 +111,6 @@ export const featuredProjects: Project[] = [
     liveUrl: "https://www.swimwithleah.com/",
   },
   {
-    id: "vegan-restaurant",
-    category: "featured",
-    name: "Cơm Chay Ngọc Hạnh",
-    eyebrow: "Restaurant Website",
-    roleContext: "Restaurant Website · Front-End Development",
-    context: "Production restaurant website with menu and ordering paths",
-    description:
-      "Vietnamese vegan restaurant website with menu sections, gallery imagery, service information, and direct ordering contact paths.",
-    purpose:
-      "Showcase vegan dishes and make it easy for customers to browse the menu, see ordering options, and contact the shop.",
-    problem:
-      "Customers need a clear phone-friendly menu and direct ordering details before contacting the shop.",
-    role: "Built the Next.js interface, menu and gallery sections, contact calls to action, responsive layout, and public Vercel deployment.",
-    technicalFocus:
-      "Structured menu categories, dish imagery, gallery sections, and ordering calls to action in a responsive Next.js interface.",
-    uiFocus:
-      "Food imagery, menu scanning, Vietnamese-language content hierarchy, and phone-first ordering actions guide visitors quickly.",
-    features: [
-      "Hero and service overview",
-      "Menu cards with prices, categories, and food images",
-      "Gallery and shop imagery",
-      "Phone and Zalo ordering calls to action",
-      "Responsive Vietnamese-language layout",
-    ],
-    technologies: [
-      "Next.js",
-      "React",
-      "TypeScript",
-      "Tailwind CSS",
-      "Radix UI",
-      "Lucide React",
-      "Vercel Analytics",
-    ],
-    keyTechnologies: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI"],
-    responsive:
-      "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
-    screenshot: "/images/vegan-restaurant-card.png",
-    screenshotPosition: "center 15%",
-    liveUrl: "https://v0-comchayngochanh.vercel.app/",
-  },
-  {
     id: "angelina-interpreting",
     category: "featured",
     name: "Angelina Interpreting",
@@ -164,7 +123,7 @@ export const featuredProjects: Project[] = [
       "Present interpreting services, credentials, service settings, and booking paths in a polished public website.",
     problem:
       "Visitors need service details, language options, credentials, and a direct path to request an appointment.",
-    role: "Built the responsive Next.js interface, bilingual content, service and credential sections, contact form, schedule request flow, SEO metadata, and Vercel deployment.",
+    role: "Built the responsive Next.js interface: bilingual content, service and credential sections, contact form, schedule request flow, SEO metadata, and Vercel deployment.",
     technicalFocus:
       "Implemented bilingual content state, contact and schedule request flows, SEO metadata, structured data, and analytics.",
     uiFocus:
@@ -192,6 +151,47 @@ export const featuredProjects: Project[] = [
     screenshot: "/images/angelina-interpreting-card.png",
     screenshotPosition: "center 18%",
     liveUrl: "https://angelinainterpreting.ca/",
+  },
+  {
+    id: "vegan-restaurant",
+    category: "featured",
+    name: "Cơm Chay Ngọc Hạnh",
+    eyebrow: "Restaurant Website",
+    roleContext: "Restaurant Website · Front-End Development",
+    context: "Production restaurant website with menu and ordering paths",
+    description:
+      "Vietnamese vegan restaurant website with menu sections, gallery imagery, service information, and direct ordering contact paths.",
+    purpose:
+      "Showcase vegan dishes and make it easy for customers to browse the menu, see ordering options, and contact the shop.",
+    problem:
+      "Customers need a clear phone-friendly menu and direct ordering details before contacting the shop.",
+    role: "Built the Next.js interface: menu and gallery sections, contact calls to action, responsive layout, and public Vercel deployment.",
+    technicalFocus:
+      "Structured menu categories, dish imagery, gallery sections, and ordering calls to action in a responsive Next.js interface.",
+    uiFocus:
+      "Food imagery, menu scanning, Vietnamese-language content hierarchy, and phone-first ordering actions guide visitors quickly.",
+    features: [
+      "Hero and service overview",
+      "Menu cards with prices, categories, and food images",
+      "Gallery and shop imagery",
+      "Phone and Zalo ordering calls to action",
+      "Responsive Vietnamese-language layout",
+    ],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "Radix UI",
+      "Lucide React",
+      "Vercel Analytics",
+    ],
+    keyTechnologies: ["Next.js", "TypeScript", "Tailwind CSS", "Radix UI"],
+    responsive:
+      "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
+    screenshot: "/images/vegan-restaurant-card.png",
+    screenshotPosition: "center 15%",
+    liveUrl: "https://v0-comchayngochanh.vercel.app/",
   },
 ];
 
