@@ -533,11 +533,27 @@ function AboutSection() {
         </p>
       </div>
 
-      <div className="about-section__rules" aria-label="Working style">
-        <p>Requirements → user flows</p>
-        <p>Design → responsive UI</p>
-        <p>Frontend → integration</p>
-      </div>
+      <aside className="about-section__rules" aria-label="Working style">
+        <p className="about-section__rules-kicker">How I work</p>
+        <ul>
+          <li>
+            <span>01</span>
+            <strong>Turn loose requirements into clear user flows.</strong>
+          </li>
+          <li>
+            <span>02</span>
+            <strong>Build responsive UI that holds up past the happy path.</strong>
+          </li>
+          <li>
+            <span>03</span>
+            <strong>Debug the awkward bits: state, APIs, auth, and deployment.</strong>
+          </li>
+        </ul>
+        <p className="about-section__rules-note">
+          The tiny details are where the product either feels finished or starts
+          quietly judging everyone involved.
+        </p>
+      </aside>
     </section>
   );
 }
