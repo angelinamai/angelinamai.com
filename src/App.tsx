@@ -13,6 +13,16 @@ import { useActiveSection } from "./hooks/useActiveSection";
 
 const sectionIds = ["experience", "work", "about", "skills", "contact"];
 
+const designVariantIds = [
+  "editorial",
+  "gallery",
+  "casefile",
+  "studio",
+  "product",
+] as const;
+
+type DesignVariant = (typeof designVariantIds)[number];
+
 const navItems = [
   { id: "experience", label: "Experience" },
   { id: "work", label: "Work" },
@@ -172,6 +182,18 @@ function linkProps(href: string) {
     target: external ? "_blank" : undefined,
     rel: external ? "noopener noreferrer" : undefined,
   };
+}
+
+function isDesignVariant(value: string): value is DesignVariant {
+  return designVariantIds.includes(value as DesignVariant);
+}
+
+function getDesignVariant(): DesignVariant {
+  const queryVariant = new URLSearchParams(window.location.search).get("variant");
+  const envVariant = import.meta.env.VITE_PORTFOLIO_VARIANT;
+  const requestedVariant = (queryVariant || envVariant || "editorial").toLowerCase();
+
+  return isDesignVariant(requestedVariant) ? requestedVariant : "editorial";
 }
 
 function projectEyebrow(number: string) {
@@ -616,9 +638,14 @@ function ContactSection() {
 
 function App() {
   const activeId = useActiveSection(sectionIds);
+  const designVariant = getDesignVariant();
 
   return (
-    <div id="top" className="site-shell">
+    <div
+      id="top"
+      className={`site-shell site-shell--${designVariant}`}
+      data-design-variant={designVariant}
+    >
       <TopNav activeId={activeId} />
 
       <main>
@@ -640,7 +667,7 @@ function App() {
                 code.
               </p>
               <p className="hero-section__stack">
-                React / TypeScript / Next.js
+                React · TypeScript · Next.js · APIs
               </p>
               <a className="hero-section__cta" href="#work">
                 <span>See the shipped stuff</span>
