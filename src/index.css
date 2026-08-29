@@ -4,17 +4,21 @@
 
 :root {
   color-scheme: light;
-  --paper: #f3f0e8;
-  --paper-soft: #e8e0d2;
+  --paper: #ffd7cf;
+  --paper-rgb: 255, 215, 207;
+  --paper-soft: #f3beb4;
   --ink: #111111;
   --ink-soft: #242424;
-  --muted: #655f55;
-  --muted-dark: #afa699;
+  --muted: #624d47;
+  --muted-dark: #b8948d;
   --line: #111111;
-  --line-soft: rgba(17, 17, 17, 0.18);
+  --line-soft: rgba(93, 33, 24, 0.19);
   --accent: #d6ff37;
   --accent-soft: #ecff9d;
-  --cream: #fffaf0;
+  --hover-accent: #a82f2d;
+  --hover-accent-text: #fff4ea;
+  --cream: #fff4ea;
+  --cream-rgb: 255, 244, 234;
   --radius: 0.35rem;
   --max-width: 1180px;
   --gutter: max(1.25rem, calc((100vw - var(--max-width)) / 2));
@@ -72,6 +76,10 @@ a {
 
 .site-shell {
   min-height: 100vh;
+  background:
+    linear-gradient(rgba(17, 17, 17, 0.014) 1px, transparent 1px),
+    var(--paper);
+  background-size: 100% 5rem;
   overflow-x: clip;
 }
 
@@ -81,7 +89,7 @@ a {
   justify-content: space-between;
   gap: 1rem;
   border-bottom: 2px solid var(--ink);
-  background: rgba(243, 240, 232, 0.92);
+  background: rgba(var(--paper-rgb), 0.92);
   padding: 0.9rem var(--gutter);
   backdrop-filter: blur(16px);
 }
@@ -138,7 +146,7 @@ a {
 
 .site-nav__links a:hover::after,
 .site-nav__links a.is-active::after {
-  background: var(--accent);
+  background: var(--hover-accent);
 }
 
 .hero-section,
@@ -246,8 +254,8 @@ a {
 
 .hero-section__cta:hover,
 .arrow-link:hover {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--hover-accent);
+  color: var(--hover-accent-text);
 }
 
 .hero-section__cta svg,
@@ -680,7 +688,7 @@ a {
 }
 
 .project-archive a:hover {
-  color: #455600;
+  color: var(--hover-accent);
 }
 
 .about-section {
@@ -706,7 +714,7 @@ a {
   border: 1px solid var(--line-soft);
   border-top: 3px solid var(--ink);
   border-radius: var(--radius);
-  background: rgba(255, 250, 240, 0.58);
+  background: rgba(var(--cream-rgb), 0.58);
   padding: clamp(1.15rem, 1.8vw, 1.65rem);
   box-shadow: 0 1.4rem 3rem rgba(17, 17, 17, 0.06);
 }
@@ -745,7 +753,7 @@ a {
 }
 
 .about-section__rules span {
-  color: #455600;
+  color: var(--hover-accent);
   font-size: 0.74rem;
   font-weight: 950;
 }
@@ -863,8 +871,8 @@ a {
 
 .contact-links a:hover,
 .contact-links button:hover {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--hover-accent);
+  color: var(--hover-accent-text);
 }
 
 .contact-links span {
