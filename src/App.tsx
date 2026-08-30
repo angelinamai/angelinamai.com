@@ -13,7 +13,14 @@ import { tracyCaseStudy } from "./data/caseStudies";
 import { appProjects, featuredProjects, type Project } from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
-const sectionIds = ["experience", "work", "about", "skills", "contact"];
+const sectionIds = [
+  "experience",
+  "work",
+  "about",
+  "skills",
+  "react-projects",
+  "contact",
+];
 
 const designVariantIds = [
   "editorial",
@@ -30,6 +37,7 @@ const navItems = [
   { id: "work", label: "Work" },
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
+  { id: "react-projects", label: "React Projects" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -503,12 +511,14 @@ function SupportingProject({
     <article className="project-strip">
       <div className="project-strip__intro">
         <p className="project-number">{projectEyebrow(number)}</p>
-        <h3>{project.name}</h3>
-        {project.roleContext && (
-          <p className="project-context">{project.roleContext}</p>
-        )}
-        <p className="project-deck">{project.description}</p>
-        <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        <div>
+          <h3>{project.name}</h3>
+          {project.roleContext && (
+            <p className="project-context">{project.roleContext}</p>
+          )}
+          <p className="project-deck">{project.description}</p>
+          <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        </div>
       </div>
 
       <ProjectShowcaseFrame project={project} number={number} />
@@ -532,12 +542,14 @@ function ClientAside({
     <article className="client-aside">
       <div className="client-aside__intro">
         <p className="project-number">{projectEyebrow(number)}</p>
-        <h3>{project.name}</h3>
-        {project.roleContext && (
-          <p className="project-context">{project.roleContext}</p>
-        )}
-        <p className="project-deck">{project.description}</p>
-        <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        <div>
+          <h3>{project.name}</h3>
+          {project.roleContext && (
+            <p className="project-context">{project.roleContext}</p>
+          )}
+          <p className="project-deck">{project.description}</p>
+          <TechLine items={project.keyTechnologies.slice(0, 4)} />
+        </div>
       </div>
 
       <ProjectShowcaseFrame project={project} number={number} />
@@ -550,30 +562,49 @@ function ClientAside({
   );
 }
 
-function ProjectArchive() {
+function ReactProjectsSection() {
   return (
-    <div className="project-archive" aria-label="Project archive">
-      <div>
+    <section
+      id="react-projects"
+      aria-labelledby="react-projects-heading"
+      className="section react-projects-section"
+    >
+      <div className="section__index">05</div>
+      <div className="react-projects-section__headline">
         <EditorialLabel>Additional React Projects</EditorialLabel>
-        <h3>Small builds, useful scars.</h3>
+        <h2 id="react-projects-heading">Small builds, useful scars.</h2>
         <p>State, routing, APIs, and ordering flows in compact React builds.</p>
       </div>
 
-      <ul>
-        {appProjects.map((project) => (
+      <ul
+        className="react-projects-grid"
+        aria-label="Additional React projects"
+      >
+        {appProjects.map((project, index) => (
           <li key={project.id}>
             <a
               href={project.liveUrl}
               {...linkProps(project.liveUrl)}
-              aria-label={`Open ${project.name} project`}
+              aria-label={`Open ${project.name} live project`}
             >
-              <span>{project.name}</span>
-              <small>{project.keyTechnologies.slice(0, 3).join(" / ")}</small>
+              <span className="react-projects-grid__number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span>
+                <span className="react-projects-grid__name">
+                  {project.name}
+                </span>
+                <span className="react-projects-grid__description">
+                  {project.description}
+                </span>
+              </span>
+              <small>{project.keyTechnologies.slice(0, 4).join(" · ")}</small>
+              <FaArrowUpRightFromSquare aria-hidden="true" />
             </a>
           </li>
         ))}
       </ul>
-    </div>
+    </section>
   );
 }
 
@@ -607,7 +638,6 @@ function SelectedWorkSection() {
       </div>
 
       <ClientAside number="04" project={veganProject} />
-      <ProjectArchive />
     </section>
   );
 }
@@ -725,7 +755,7 @@ function ContactSection() {
       aria-labelledby="contact-heading"
       className="section contact-section"
     >
-      <div className="section__index">05</div>
+      <div className="section__index">06</div>
       <div className="contact-section__headline">
         <EditorialLabel>Contact</EditorialLabel>
         <h2 id="contact-heading">
@@ -919,6 +949,7 @@ function App() {
         <SelectedWorkSection />
         <AboutSection />
         <SkillsSection />
+        <ReactProjectsSection />
         <ContactSection />
       </main>
 
