@@ -36,7 +36,7 @@ const navItems = [
 const experienceBullets = [
   "Built responsive React UI components from Figma wireframes and product requirements.",
   "Connected front-end features to REST API-backed data and debugged the usual suspects: rendering, state, and UI behavior.",
-  "Worked through Git, GitHub, code reviews, stand-ups, and sprint planning in a completed 2024 contract.",
+  "Collaborated through GitHub, code reviews, stand-ups, and sprint planning within a professional development team.",
 ];
 
 const experienceStack = [
