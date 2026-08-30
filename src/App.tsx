@@ -670,24 +670,24 @@ function AboutSection() {
         <ul>
           <li>
             <span>01</span>
-            <strong>Turn loose requirements into clear user flows.</strong>
+            <strong>Translate open-ended requirements into clear flows.</strong>
           </li>
           <li>
             <span>02</span>
             <strong>
-              Build responsive UI that holds up past the happy path.
+              Build responsive interfaces that stay clear across devices.
             </strong>
           </li>
           <li>
             <span>03</span>
             <strong>
-              Debug the awkward bits: state, APIs, auth, and deployment.
+              Debug the details across state, APIs, auth, and deployment.
             </strong>
           </li>
         </ul>
         <p className="about-section__rules-note">
-          The tiny details are where the product either feels finished or starts
-          quietly judging everyone involved.
+          I keep refining until the interface feels reliable, usable, and ready
+          for real people.
         </p>
       </aside>
     </section>
