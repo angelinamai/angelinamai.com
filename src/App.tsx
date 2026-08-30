@@ -920,7 +920,7 @@ function App() {
                 React · TypeScript · Next.js · APIs
               </p>
               <a className="hero-section__cta" href="#work">
-                <span>See the shipped stuff</span>
+                <span>View selected work</span>
                 <FaArrowDown aria-hidden="true" />
               </a>
             </div>
