@@ -948,7 +948,7 @@ function CaseStudyPage({
 function SiteFooter() {
   return (
     <footer className="site-footer">
-      <p>Designed and built by Angelina Mai. Yes, the CSS is mine.</p>
+      <p>Designed and built by Angelina Mai.</p>
       <p>React / Vite / Tailwind CSS</p>
     </footer>
   );
