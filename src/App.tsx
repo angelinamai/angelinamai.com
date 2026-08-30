@@ -9,8 +9,13 @@ import {
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa6";
-import { tracyCaseStudy } from "./data/caseStudies";
-import { appProjects, featuredProjects, type Project } from "./data/projects";
+import { caseStudies, type CaseStudy } from "./data/caseStudies";
+import {
+  allProjects,
+  appProjects,
+  featuredProjects,
+  type Project,
+} from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
 const sectionIds = [
@@ -136,6 +141,11 @@ const tracyProject = requireProject("tracy-counselling");
 const interpretingProject = requireProject("angelina-interpreting");
 const swimProject = requireProject("swim-with-leah");
 const veganProject = requireProject("vegan-restaurant");
+const favoriteAppProjectId = "fast-react-pizza";
+const orderedAppProjects = [
+  ...appProjects.filter((project) => project.id === favoriteAppProjectId),
+  ...appProjects.filter((project) => project.id !== favoriteAppProjectId),
+];
 
 const selectedProjects = [
   {
@@ -219,6 +229,47 @@ const projectMetadata: Record<string, { label: string; value: string }[]> = {
   ],
 };
 
+function findCaseStudyByPath(pathname: string) {
+  const match = pathname.match(/^\/case-studies\/([^/]+)\/?$/);
+  const slug = match?.[1];
+
+  return slug
+    ? caseStudies.find((caseStudy) => caseStudy.slug === slug)
+    : undefined;
+}
+
+function findProjectForCaseStudy(caseStudy: CaseStudy) {
+  return allProjects.find((project) => project.id === caseStudy.projectId);
+}
+
+function getProjectShowcaseNumber(project: Project) {
+  if (project.category === "featured") {
+    const featuredIndex = featuredProjects.findIndex(
+      (item) => item.id === project.id,
+    );
+
+    return String(Math.max(featuredIndex + 1, 1)).padStart(2, "0");
+  }
+
+  const appIndex = orderedAppProjects.findIndex(
+    (item) => item.id === project.id,
+  );
+
+  return String(Math.max(appIndex + 1, 1)).padStart(2, "0");
+}
+
+function getProjectShowcaseTotal(project: Project) {
+  return project.category === "featured"
+    ? featuredProjects.length
+    : orderedAppProjects.length;
+}
+
+function getProjectShowcaseLabel(project: Project) {
+  return project.category === "featured"
+    ? "Desktop / Production"
+    : "Desktop / React App";
+}
+
 function isExternalLink(href: string) {
   return href.startsWith("http") || href.endsWith(".pdf");
 }
@@ -254,10 +305,8 @@ function projectEyebrow(number: string) {
   return `${number} — SELECTED WORK`;
 }
 
-function formatShowcaseNumber(number: string) {
-  return `${number.padStart(2, "0")} / ${featuredProjects.length
-    .toString()
-    .padStart(2, "0")}`;
+function formatShowcaseNumber(number: string, total = featuredProjects.length) {
+  return `${number.padStart(2, "0")} / ${total.toString().padStart(2, "0")}`;
 }
 
 function EditorialLabel({ children }: { children: ReactNode }) {
@@ -337,10 +386,14 @@ function ProjectShowcaseFrame({
   project,
   number,
   priority = false,
+  total = featuredProjects.length,
+  frameLabel = getProjectShowcaseLabel(project),
 }: {
   project: Project;
   number: string;
   priority?: boolean;
+  total?: number;
+  frameLabel?: string;
 }) {
   const desktopAlt =
     project.screenshotAlt ?? `${project.name} desktop project preview.`;
@@ -354,9 +407,9 @@ function ProjectShowcaseFrame({
         aria-label={`Open ${project.name} live project`}
       >
         <div className="project-showcase-frame__header" aria-hidden="true">
-          <span>{formatShowcaseNumber(number)}</span>
+          <span>{formatShowcaseNumber(number, total)}</span>
           <span>{project.name}</span>
-          <span>Desktop / Production</span>
+          <span>{frameLabel}</span>
         </div>
 
         <div className="project-showcase-frame__mat">
@@ -578,29 +631,53 @@ function ReactProjectsSection() {
         className="react-projects-grid"
         aria-label="Additional React projects"
       >
-        {appProjects.map((project, index) => (
-          <li key={project.id}>
-            <a
-              href={project.liveUrl}
-              {...linkProps(project.liveUrl)}
-              aria-label={`Open ${project.name} live project`}
+        {orderedAppProjects.map((project, index) => {
+          const isFavoriteProject = project.id === favoriteAppProjectId;
+
+          return (
+            <li
+              key={project.id}
+              className={
+                isFavoriteProject
+                  ? "react-projects-grid__item react-projects-grid__item--featured"
+                  : "react-projects-grid__item"
+              }
             >
-              <span className="react-projects-grid__number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span>
-                <span className="react-projects-grid__name">
-                  {project.name}
+              <article className="react-projects-grid__card">
+                <span className="react-projects-grid__number">
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="react-projects-grid__description">
-                  {project.description}
+                <span>
+                  {isFavoriteProject && (
+                    <span className="react-projects-grid__tag">
+                      Favorite React build
+                    </span>
+                  )}
+                  <span className="react-projects-grid__name">
+                    {project.name}
+                  </span>
+                  <span className="react-projects-grid__description">
+                    {project.description}
+                  </span>
                 </span>
-              </span>
-              <small>{project.keyTechnologies.slice(0, 4).join(" · ")}</small>
-              <FaArrowUpRightFromSquare aria-hidden="true" />
-            </a>
-          </li>
-        ))}
+                <small>{project.keyTechnologies.slice(0, 4).join(" · ")}</small>
+                <div
+                  className="react-projects-grid__actions"
+                  aria-label={`${project.name} links`}
+                >
+                  <ArrowLink href={project.liveUrl} variant="solid">
+                    Live site
+                  </ArrowLink>
+                  {project.caseStudyUrl && (
+                    <ArrowLink href={project.caseStudyUrl}>
+                      Case study
+                    </ArrowLink>
+                  )}
+                </div>
+              </article>
+            </li>
+          );
+        })}
       </ul>
     </section>
   );
@@ -791,10 +868,10 @@ function ContactSection() {
   );
 }
 
-function CaseStudySections() {
+function CaseStudySections({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
     <div className="case-study-sections">
-      {tracyCaseStudy.sections.map((section) => (
+      {caseStudy.sections.map((section) => (
         <section className="case-study-section" key={section.title}>
           <h2>{section.title}</h2>
           <div>
@@ -813,26 +890,39 @@ function CaseStudySections() {
   );
 }
 
-function TracyCaseStudyPage() {
+function CaseStudyPage({
+  caseStudy,
+  project,
+}: {
+  caseStudy: CaseStudy;
+  project: Project;
+}) {
+  const backHref = project.category === "app" ? "/#react-projects" : "/#work";
+  const backText =
+    project.category === "app"
+      ? "Back to React projects"
+      : "Back to selected work";
+  const showcaseNumber = getProjectShowcaseNumber(project);
+
   return (
     <main className="case-study-page">
       <section className="case-study-hero" aria-labelledby="case-study-heading">
-        <a className="case-study-back" href="/#work">
+        <a className="case-study-back" href={backHref}>
           <FaArrowLeft aria-hidden="true" />
-          Back to selected work
+          {backText}
         </a>
 
         <div className="case-study-hero__grid">
           <div>
-            <EditorialLabel>{tracyCaseStudy.eyebrow}</EditorialLabel>
-            <h1 id="case-study-heading">{tracyCaseStudy.title}</h1>
-            <p className="case-study-hero__summary">{tracyCaseStudy.summary}</p>
-            <TechLine items={tracyCaseStudy.stack.slice(0, 5)} />
-            <ProjectActions project={tracyProject} includeCaseStudy={false} />
+            <EditorialLabel>{caseStudy.eyebrow}</EditorialLabel>
+            <h1 id="case-study-heading">{caseStudy.title}</h1>
+            <p className="case-study-hero__summary">{caseStudy.summary}</p>
+            <TechLine items={caseStudy.stack.slice(0, 5)} />
+            <ProjectActions project={project} includeCaseStudy={false} />
           </div>
 
           <dl className="case-study-hero__meta">
-            {tracyCaseStudy.meta.map((item) => (
+            {caseStudy.meta.map((item) => (
               <div key={item.label}>
                 <dt>{item.label}</dt>
                 <dd>{item.value}</dd>
@@ -844,12 +934,18 @@ function TracyCaseStudyPage() {
 
       <section
         className="case-study-media"
-        aria-label="Tracy Counselling previews"
+        aria-label={`${project.name} project preview`}
       >
-        <ProjectShowcaseFrame project={tracyProject} number="01" priority />
+        <ProjectShowcaseFrame
+          project={project}
+          number={showcaseNumber}
+          total={getProjectShowcaseTotal(project)}
+          frameLabel={getProjectShowcaseLabel(project)}
+          priority
+        />
       </section>
 
-      <CaseStudySections />
+      <CaseStudySections caseStudy={caseStudy} />
     </main>
   );
 }
@@ -866,24 +962,32 @@ function SiteFooter() {
 function App() {
   const activeId = useActiveSection(sectionIds);
   const designVariant = getDesignVariant();
-  const isTracyCaseStudy =
-    window.location.pathname === "/case-studies/tracy-counselling";
+  const currentCaseStudy = findCaseStudyByPath(window.location.pathname);
+  const currentCaseStudyProject = currentCaseStudy
+    ? findProjectForCaseStudy(currentCaseStudy)
+    : undefined;
 
   useEffect(() => {
-    document.title = isTracyCaseStudy
-      ? "Tracy Counselling Case Study | Angelina Mai"
+    document.title = currentCaseStudy
+      ? `${currentCaseStudy.title} Case Study | Angelina Mai`
       : "Angelina Mai | Front-End Developer · React · Next.js";
-  }, [isTracyCaseStudy]);
+  }, [currentCaseStudy]);
 
-  if (isTracyCaseStudy) {
+  if (currentCaseStudy && currentCaseStudyProject) {
+    const caseStudyActiveId =
+      currentCaseStudyProject.category === "app" ? "react-projects" : "work";
+
     return (
       <div
         id="top"
         className={`site-shell site-shell--${designVariant}`}
         data-design-variant={designVariant}
       >
-        <TopNav activeId="work" navBasePath="/" />
-        <TracyCaseStudyPage />
+        <TopNav activeId={caseStudyActiveId} navBasePath="/" />
+        <CaseStudyPage
+          caseStudy={currentCaseStudy}
+          project={currentCaseStudyProject}
+        />
         <SiteFooter />
       </div>
     );

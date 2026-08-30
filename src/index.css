@@ -804,34 +804,67 @@ a {
   border-left: 2px solid var(--ink);
 }
 
-.react-projects-grid li {
+.react-projects-grid__item {
   min-width: 0;
 }
 
-.react-projects-grid a {
+.react-projects-grid__card {
   display: grid;
   min-height: clamp(6rem, 8vw, 7.4rem);
-  grid-template-columns: 2.8rem minmax(0, 1fr) minmax(9rem, 0.38fr) auto;
+  grid-template-columns: 2.8rem minmax(0, 1fr) minmax(9rem, 0.34fr) minmax(
+      8rem,
+      auto
+    );
+  grid-template-areas: "number content stack actions";
   gap: clamp(0.85rem, 2vw, 1.4rem);
   align-items: center;
   border-right: 2px solid var(--ink);
   border-bottom: 2px solid var(--ink);
   padding: clamp(0.95rem, 1.8vw, 1.35rem);
+}
+
+.react-projects-grid__item--featured .react-projects-grid__card {
+  min-height: clamp(7rem, 9vw, 8.35rem);
+  background: rgba(255, 244, 234, 0.46);
+  box-shadow: inset 0.35rem 0 0 var(--accent);
+}
+
+.react-projects-grid__item--featured .react-projects-grid__name {
+  font-size: clamp(1.45rem, 2.45vw, 2.1rem);
+}
+
+.react-projects-grid__actions .arrow-link {
+  min-height: 2.35rem;
+  padding-right: 0.85rem;
+  padding-left: 0.85rem;
+  font-size: 0.72rem;
+}
+
+.react-projects-grid__actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.react-projects-grid__actions a {
   transition:
     background-color 180ms ease,
     color 180ms ease;
 }
 
-.react-projects-grid a:hover {
+.react-projects-grid__actions a:hover {
   background: var(--accent);
   color: var(--ink);
 }
 
-.react-projects-grid a:focus-visible {
+.react-projects-grid__actions a:focus-visible {
   outline-offset: -6px;
 }
 
 .react-projects-grid__number {
+  grid-area: number;
   color: var(--muted);
   font-size: 0.78rem;
   font-weight: 950;
@@ -841,6 +874,23 @@ a {
 .react-projects-grid__name,
 .react-projects-grid__description {
   display: block;
+}
+
+.react-projects-grid__card > span:not(.react-projects-grid__number) {
+  grid-area: content;
+}
+
+.react-projects-grid__tag {
+  display: inline-flex;
+  margin-bottom: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--ink) 72%, transparent);
+  background: var(--accent);
+  padding: 0.2rem 0.42rem;
+  color: var(--ink);
+  font-size: 0.64rem;
+  font-weight: 950;
+  line-height: 1;
+  text-transform: uppercase;
 }
 
 .react-projects-grid__name {
@@ -859,23 +909,13 @@ a {
 }
 
 .react-projects-grid small {
+  grid-area: stack;
   color: var(--muted);
   font-size: 0.72rem;
   font-weight: 900;
   line-height: 1.35;
   text-align: right;
   text-transform: uppercase;
-}
-
-.react-projects-grid svg {
-  height: 0.82rem;
-  width: 0.82rem;
-}
-
-.react-projects-grid a:hover .react-projects-grid__number,
-.react-projects-grid a:hover .react-projects-grid__description,
-.react-projects-grid a:hover small {
-  color: var(--ink);
 }
 
 .about-section {
@@ -1656,18 +1696,27 @@ a {
     max-width: none;
   }
 
-  .react-projects-grid a {
-    grid-template-columns: minmax(0, 1fr) auto;
+  .react-projects-grid__card {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "number"
+      "content"
+      "stack"
+      "actions";
     gap: 0.8rem;
   }
 
-  .react-projects-grid__number,
-  .react-projects-grid small {
-    grid-column: 1 / -1;
+  .react-projects-grid__actions {
+    justify-content: flex-start;
   }
 
   .react-projects-grid small {
     text-align: left;
+  }
+
+  .react-projects-grid__actions .arrow-link {
+    width: auto;
+    min-width: min(100%, 8.5rem);
   }
 
   .flagship-project {

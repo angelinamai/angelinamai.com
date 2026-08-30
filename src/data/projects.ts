@@ -131,6 +131,7 @@ export const featuredProjects: Project[] = [
     screenshotHeight: 2080,
     screenshotPosition: "center 12%",
     liveUrl: "https://www.swimwithleah.com/",
+    caseStudyUrl: "/case-studies/swim-with-leah",
   },
   {
     id: "angelina-interpreting",
@@ -182,6 +183,7 @@ export const featuredProjects: Project[] = [
     mobileScreenshotHeight: 1800,
     screenshotPosition: "center 18%",
     liveUrl: "https://angelinainterpreting.ca/",
+    caseStudyUrl: "/case-studies/angelina-interpreting",
   },
   {
     id: "vegan-restaurant",
@@ -232,6 +234,7 @@ export const featuredProjects: Project[] = [
     mobileScreenshotHeight: 1800,
     screenshotPosition: "center 15%",
     liveUrl: "https://v0-comchayngochanh.vercel.app/",
+    caseStudyUrl: "/case-studies/vegan-restaurant",
   },
 ];
 
@@ -378,6 +381,7 @@ export const appProjects: Project[] = [
     screenshotHeight: 906,
     screenshotPosition: "top center",
     liveUrl: "https://www.angelinamai.com/projects/pizzamenufinal/index.html",
+    caseStudyUrl: "/case-studies/fast-react-pizza",
   },
 ];
 
