@@ -497,11 +497,6 @@ function ExperienceSection() {
       <div className="experience-section__header">
         <EditorialLabel>Professional Experience / 2024</EditorialLabel>
         <h2 id="experience-heading">Front-end work in a product team.</h2>
-        <p>
-          At Hit the Books, I worked from Figma, integrated API-backed features,
-          debugged existing UI behavior, and shipped responsive React work
-          through a team workflow.
-        </p>
       </div>
 
       <div className="experience-panel">

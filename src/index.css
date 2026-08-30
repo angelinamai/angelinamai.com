@@ -364,7 +364,6 @@ a {
 }
 
 .section-heading p,
-.experience-section__header p,
 .about-section__copy,
 .skills-section__headline p,
 .react-projects-section__headline p,
@@ -403,6 +402,10 @@ a {
 
 .experience-section__header h2 {
   color: var(--paper);
+}
+
+.experience-section__header .editorial-label {
+  margin-bottom: 0.5rem;
 }
 
 .experience-panel {
@@ -1672,7 +1675,6 @@ a {
   }
 
   .section-heading p,
-  .experience-section__header p,
   .about-section__copy,
   .skills-section__headline p,
   .react-projects-section__headline p,
