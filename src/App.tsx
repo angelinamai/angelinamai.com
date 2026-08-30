@@ -1017,7 +1017,7 @@ function App() {
                 <span>Developer.</span>
               </h1>
               <p className="hero-section__lede">
-                I turn &quot;it should be pretty simple&quot; into production
+                I turn &quot;Can we also...&quot; into clean, production-ready
                 code.
               </p>
               <p className="hero-section__stack">
