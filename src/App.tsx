@@ -443,9 +443,7 @@ function ExperienceSection() {
       <div className="section__index">01</div>
       <div className="experience-section__header">
         <EditorialLabel>Professional Experience / 2024</EditorialLabel>
-        <h2 id="experience-heading">
-          Turns out, real software has other developers.
-        </h2>
+        <h2 id="experience-heading">Front-end work in a product team.</h2>
         <p>
           At Hit the Books, I worked from Figma, integrated API-backed features,
           debugged existing UI behavior, and shipped responsive React work
@@ -571,8 +569,8 @@ function ReactProjectsSection() {
     >
       <div className="section__index">05</div>
       <div className="react-projects-section__headline">
-        <EditorialLabel>Additional React Projects</EditorialLabel>
-        <h2 id="react-projects-heading">Small builds, useful scars.</h2>
+        <EditorialLabel>React Practice / Product Logic</EditorialLabel>
+        <h2 id="react-projects-heading">Additional React Projects</h2>
         <p>State, routing, APIs, and ordering flows in compact React builds.</p>
       </div>
 
@@ -618,7 +616,7 @@ function SelectedWorkSection() {
       <div className="section__index">02</div>
       <div className="section-heading">
         <EditorialLabel>Featured Work</EditorialLabel>
-        <h2 id="work-heading">Some things that survived production.</h2>
+        <h2 id="work-heading">Selected production projects.</h2>
         <p>
           React and Next.js work with real clients, real constraints, responsive
           UI, integrations, and public deployments.
@@ -652,31 +650,18 @@ function AboutSection() {
       <div className="section__index">03</div>
       <div>
         <EditorialLabel>About</EditorialLabel>
-        <h2 id="about-heading">Okay, who is Angelina?</h2>
+        <h2 id="about-heading">About Angelina</h2>
       </div>
 
       <div className="about-section__copy">
         <p>
-          I&apos;m Angelina. I build websites and web apps for a living, which
-          mostly means turning perfectly reasonable-looking designs into 47 very
-          specific decisions nobody warned you about.
+          I&apos;m Angelina, a front-end developer and enthusiastic
+          problem-solver working with React, TypeScript, and Next.js.
         </p>
         <p>
-          I work with React, TypeScript, and Next.js. I care way too much about
-          spacing, buttons that actually feel clickable, and whether something
-          looks weird by three pixels. Unfortunately, I will notice.
-        </p>
-        <p>
-          I like the part of frontend where design meets reality: where
-          &quot;just make it responsive&quot; becomes six screen sizes, three
-          edge cases, one suspicious API response, and somehow a perfectly
-          normal Tuesday.
-        </p>
-        <p>
-          And I&apos;m stubborn about the final 10%. If the client isn&apos;t
-          happy yet, I&apos;m not done. I&apos;ll keep tweaking, fixing, and
-          probably staring at that one button until we both stop having opinions
-          about it.
+          I care deeply about what I build, notice when something is off by
+          three pixels, and don&apos;t give up easily in my work or in life. If
+          the client isn&apos;t happy yet, I&apos;m not done.
         </p>
       </div>
 
@@ -720,13 +705,12 @@ function SkillsSection() {
       <div className="skills-section__headline">
         <EditorialLabel>Technical Capabilities</EditorialLabel>
         <h2 id="skills-heading">
-          <span>The toolbox isn&apos;t </span>
-          <span>the interesting part.</span>
+          <span>Practical front-end </span>
+          <span>skills.</span>
         </h2>
         <p>
-          Nobody has ever hired a developer because she had the prettiest list
-          of programming languages. The useful part is knowing what to do with
-          them.
+          Tools I use to build responsive interfaces, connect product flows,
+          debug edge cases, and ship polished front-end work.
         </p>
       </div>
 
@@ -759,8 +743,8 @@ function ContactSection() {
       <div className="contact-section__headline">
         <EditorialLabel>Contact</EditorialLabel>
         <h2 id="contact-heading">
-          <span>Still here?</span>
-          <span>I should probably give you a way to reach me.</span>
+          <span>Front-end roles </span>
+          <span>and product teams.</span>
         </h2>
         <p>
           Open to Front-End Developer, React Developer, and UI Engineer

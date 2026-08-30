@@ -760,7 +760,7 @@ a {
 
 .react-projects-section {
   display: grid;
-  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(18rem, 0.48fr) minmax(0, 1fr);
   gap: clamp(1.5rem, 4vw, 3.2rem);
   align-items: start;
   background: var(--paper);
@@ -778,12 +778,13 @@ a {
 }
 
 .react-projects-section h2 {
-  max-width: 24rem;
-  text-transform: none;
+  max-width: 32rem;
+  font-size: clamp(2.35rem, 3.2vw, 3.05rem);
+  line-height: 1.04;
 }
 
 .react-projects-section__headline p {
-  max-width: 24rem;
+  max-width: 27rem;
   margin: 1rem 0 0;
 }
 
