@@ -38,8 +38,7 @@ html {
 
 body {
   margin: 0;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.014) 1px, transparent 1px),
+  background: linear-gradient(rgba(17, 17, 17, 0.014) 1px, transparent 1px),
     var(--paper);
   background-size: 100% 5rem;
   color: var(--ink);
@@ -76,8 +75,7 @@ a {
 
 .site-shell {
   min-height: 100vh;
-  background:
-    linear-gradient(rgba(17, 17, 17, 0.014) 1px, transparent 1px),
+  background: linear-gradient(rgba(17, 17, 17, 0.014) 1px, transparent 1px),
     var(--paper);
   background-size: 100% 5rem;
   overflow-x: clip;
@@ -109,6 +107,7 @@ a {
   display: inline-flex;
   min-height: 2.5rem;
   align-items: center;
+  font-size: 0.88rem;
 }
 
 .site-nav__links {
@@ -124,8 +123,7 @@ a {
   min-height: 2.5rem;
   align-items: center;
   padding: 0 0.75rem;
-  transition:
-    color 180ms ease;
+  transition: color 180ms ease;
 }
 
 .site-nav__links a::after {
@@ -186,6 +184,15 @@ a {
   font-weight: 950;
   line-height: 1.06;
   letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.hero-section__name {
+  margin: 0 0 0.7rem;
+  color: var(--ink);
+  font-size: clamp(1.05rem, 1.4vw, 1.24rem);
+  font-weight: 950;
+  line-height: 1;
   text-transform: uppercase;
 }
 
@@ -273,6 +280,12 @@ a {
 }
 
 .arrow-link--light {
+  color: var(--paper);
+}
+
+.arrow-link--solid {
+  border-color: var(--ink);
+  background: var(--ink);
   color: var(--paper);
 }
 
@@ -503,13 +516,25 @@ a {
 
 .project-deck {
   max-width: 40rem;
-  margin: 0.65rem 0 0;
+  margin: 0.5rem 0 0;
   color: var(--muted);
   font-size: clamp(1rem, 1.15vw, 1.12rem);
   line-height: 1.5;
 }
 
+.project-context {
+  max-width: 36rem;
+  margin: 0.45rem 0 0;
+  color: var(--ink);
+  font-size: 0.8rem;
+  font-weight: 900;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
 .project-media {
+  --media-width: min(100%, 46rem);
+  --mobile-width: clamp(5.7rem, 10vw, 8rem);
   display: flex;
   justify-content: center;
   border-radius: calc(var(--radius) * 0.75);
@@ -518,45 +543,63 @@ a {
   overflow: visible;
 }
 
-.project-media picture {
-  display: flex;
-  justify-content: center;
-  max-width: 100%;
+.project-media--flagship {
+  --media-width: min(100%, 48rem);
+  --mobile-width: clamp(6.2rem, 11vw, 8.8rem);
+}
+
+.project-media--mini {
+  --media-width: min(100%, 40rem);
+  --mobile-width: clamp(5.5rem, 9vw, 7.6rem);
+}
+
+.project-media--archive {
+  --media-width: min(100%, 38rem);
+  --mobile-width: clamp(5.2rem, 8.5vw, 7.2rem);
+}
+
+.project-media__stage {
+  display: grid;
+  width: var(--media-width);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(0.65rem, 1.35vw, 0.95rem);
+  align-items: end;
+}
+
+.project-media--single .project-media__stage {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.project-media__frame {
+  display: block;
+  min-width: 0;
+  border: 1px solid var(--line-soft);
+  border-radius: calc(var(--radius) * 0.75);
+  background: rgba(var(--cream-rgb), 0.62);
+  box-shadow: 0 0.9rem 2rem rgba(17, 17, 17, 0.055);
+  overflow: hidden;
 }
 
 .project-media img {
   display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid var(--line-soft);
-  border-radius: calc(var(--radius) * 0.75);
   object-fit: contain;
   object-position: top center;
 }
 
-.project-media--flagship picture {
-  width: min(100%, 56rem);
+.project-media__desktop img {
+  width: 100%;
+  height: auto;
 }
 
-.project-media--mini picture {
-  width: min(100%, 52rem);
+.project-media__mobile {
+  width: var(--mobile-width);
+  max-height: 24rem;
 }
 
-.project-media--archive picture {
-  width: min(100%, 46rem);
-}
-
-.project-media--flagship img {
-  max-height: min(52vh, 34rem);
-}
-
-.project-media--mini img {
-  max-height: min(48vh, 31rem);
-}
-
-.project-media--archive img {
-  max-height: min(44vh, 27rem);
+.project-media__mobile img {
+  width: 100%;
+  height: auto;
+  max-height: inherit;
 }
 
 .flagship-project__details {
@@ -569,12 +612,23 @@ a {
 }
 
 .tech-line {
-  margin: 0.85rem 0 0;
+  margin: 0.75rem 0 0;
   color: var(--ink);
   font-size: 0.78rem;
   font-weight: 850;
   line-height: 1.45;
   text-transform: uppercase;
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  justify-content: flex-end;
+}
+
+.project-actions .arrow-link {
+  min-height: 2.75rem;
 }
 
 .project-meta {
@@ -895,6 +949,153 @@ a {
   font-weight: 850;
 }
 
+.case-study-page {
+  background: var(--paper);
+}
+
+.case-study-hero,
+.case-study-media,
+.case-study-sections {
+  padding-right: var(--gutter);
+  padding-left: var(--gutter);
+}
+
+.case-study-hero {
+  border-bottom: 2px solid var(--ink);
+  padding-top: clamp(1.75rem, 3.5vw, 3rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+}
+
+.case-study-back {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.65rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.case-study-back:hover {
+  color: var(--hover-accent);
+}
+
+.case-study-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.42fr);
+  gap: clamp(1.8rem, 4vw, 3.5rem);
+  align-items: end;
+  margin-top: clamp(1.8rem, 4vw, 3.25rem);
+}
+
+.case-study-hero h1 {
+  margin: 0;
+  font-size: clamp(3.1rem, 6.2vw, 5.4rem);
+  font-weight: 950;
+  line-height: 0.98;
+  letter-spacing: 0;
+  overflow-wrap: break-word;
+}
+
+.case-study-hero__summary {
+  max-width: 48rem;
+  margin: 1rem 0 0;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.5;
+}
+
+.case-study-hero .project-actions {
+  justify-content: flex-start;
+  margin-top: 1.35rem;
+}
+
+.case-study-hero__meta {
+  display: grid;
+  gap: 0.85rem;
+  margin: 0;
+  border-top: 2px solid var(--ink);
+  padding-top: 1rem;
+}
+
+.case-study-hero__meta div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 0.35fr) minmax(0, 1fr);
+  gap: 1rem;
+  border-bottom: 1px solid var(--line-soft);
+  padding-bottom: 0.85rem;
+}
+
+.case-study-hero__meta dt,
+.case-study-section h2 {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.case-study-hero__meta dd {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.case-study-media {
+  border-bottom: 2px solid var(--ink);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.case-study-media .project-media--flagship {
+  --media-width: min(100%, 56rem);
+}
+
+.case-study-sections {
+  display: grid;
+  padding-top: clamp(1.25rem, 3vw, 2rem);
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+}
+
+.case-study-section {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.28fr) minmax(0, 1fr);
+  gap: clamp(1.25rem, 3.5vw, 2.75rem);
+  border-bottom: 1px solid var(--line-soft);
+  padding: clamp(1.25rem, 3vw, 2rem) 0;
+}
+
+.case-study-section h2 {
+  margin: 0;
+}
+
+.case-study-section p {
+  max-width: 54rem;
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.58;
+}
+
+.case-study-section ul {
+  display: grid;
+  gap: 0.55rem;
+  max-width: 54rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.case-study-section li {
+  border-top: 1px solid var(--line-soft);
+  padding-top: 0.55rem;
+  color: var(--muted);
+  font-weight: 720;
+  line-height: 1.45;
+}
+
 .site-footer {
   display: flex;
   justify-content: space-between;
@@ -1170,6 +1371,8 @@ a {
   .client-aside__intro,
   .client-aside__details,
   .project-meta,
+  .case-study-hero__grid,
+  .case-study-section,
   .about-section,
   .skills-section,
   .contact-section,
@@ -1207,6 +1410,15 @@ a {
 
   .capability-lanes {
     grid-template-columns: 1fr;
+  }
+
+  .project-actions {
+    justify-content: flex-start;
+  }
+
+  .case-study-hero__meta div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.35rem;
   }
 }
 
@@ -1336,8 +1548,29 @@ a {
     padding-top: 2.5rem;
   }
 
+  .project-media__stage {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-media__mobile {
+    display: none;
+  }
+
+  .project-actions {
+    display: grid;
+    justify-content: stretch;
+  }
+
   .project-archive a {
     display: grid;
+  }
+
+  .case-study-hero h1 {
+    font-size: 3rem;
+  }
+
+  .case-study-section {
+    gap: 0.75rem;
   }
 
   .project-archive small {
@@ -1378,6 +1611,10 @@ a {
   .project-strip__intro h3,
   .client-aside__intro h3 {
     font-size: 2.35rem;
+  }
+
+  .case-study-hero h1 {
+    font-size: 2.7rem;
   }
 }
 

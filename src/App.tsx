@@ -1,13 +1,15 @@
 import "./App.css";
-import type { ReactNode } from "react";
+import { useEffect, type ReactNode } from "react";
 import {
   FaArrowDown,
+  FaArrowLeft,
   FaArrowUpRightFromSquare,
   FaEnvelope,
   FaFilePdf,
   FaGithub,
   FaLinkedin,
 } from "react-icons/fa6";
+import { tracyCaseStudy } from "./data/caseStudies";
 import { appProjects, featuredProjects, type Project } from "./data/projects";
 import { useActiveSection } from "./hooks/useActiveSection";
 
@@ -34,7 +36,7 @@ const navItems = [
 const experienceBullets = [
   "Built responsive React UI components from Figma wireframes and product requirements.",
   "Connected front-end features to REST API-backed data and debugged the usual suspects: rendering, state, and UI behavior.",
-  "Worked through Git, GitHub, code reviews, stand-ups, and sprint planning during a completed 2024 contract.",
+  "Worked through Git, GitHub, code reviews, stand-ups, and sprint planning in a completed 2024 contract.",
 ];
 
 const experienceStack = [
@@ -139,34 +141,71 @@ const selectedProjects = [
 
 const projectMetadata: Record<string, { label: string; value: string }[]> = {
   "tracy-counselling": [
-    { label: "Role", value: "Front-End Developer" },
-    { label: "Year", value: "2025" },
     {
-      label: "Focus",
+      label: "Problem",
       value:
-        "Authentication, database-backed features, payments, email flows, responsive UI",
+        "Translate evolving counselling and course-access requirements into a clear bilingual visitor flow.",
+    },
+    {
+      label: "Owned",
+      value:
+        "React routes, responsive UI, forms, debugging, deployment, and client feedback iterations.",
+    },
+    {
+      label: "Engineering",
+      value:
+        "Clerk auth, Supabase purchase records, Stripe checkout, Express APIs, and Resend email handling.",
     },
   ],
   "angelina-interpreting": [
-    { label: "Role", value: "Front-End Developer" },
     {
-      label: "Focus",
+      label: "Problem",
       value:
-        "Bilingual content, service pages, scheduling flow, responsive UI",
+        "Visitors need to understand service types, language options, and booking paths quickly.",
+    },
+    {
+      label: "Owned",
+      value:
+        "Next.js pages, bilingual content, service sections, schedule/contact flows, and responsive UI.",
+    },
+    {
+      label: "Engineering",
+      value:
+        "Language state, schedule request handling, metadata, structured data, and analytics.",
     },
   ],
   "swim-with-leah": [
-    { label: "Role", value: "Front-End Developer" },
     {
-      label: "Focus",
-      value: "Lesson sections, booking calls to action, contact flow, responsive UI",
+      label: "Problem",
+      value:
+        "Families and adult swimmers need lesson options, credentials, service areas, and an easy inquiry path.",
+    },
+    {
+      label: "Owned",
+      value:
+        "Next.js layout, responsive lesson sections, contact form route, SEO metadata, and deployment.",
+    },
+    {
+      label: "Engineering",
+      value:
+        "TypeScript components, Resend contact handling, structured data, and analytics.",
     },
   ],
   "vegan-restaurant": [
-    { label: "Role", value: "Front-End Developer" },
     {
-      label: "Focus",
-      value: "Menu sections, gallery, ordering contact paths, responsive UI",
+      label: "Problem",
+      value:
+        "Customers need a phone-friendly menu and direct ordering details.",
+    },
+    {
+      label: "Owned",
+      value:
+        "Menu/gallery sections, Vietnamese content hierarchy, contact CTAs, and responsive layout.",
+    },
+    {
+      label: "Engineering",
+      value:
+        "Next.js sections, image-driven menu cards, phone/Zalo paths, SEO metadata, and analytics.",
     },
   ],
 };
@@ -189,9 +228,15 @@ function isDesignVariant(value: string): value is DesignVariant {
 }
 
 function getDesignVariant(): DesignVariant {
-  const queryVariant = new URLSearchParams(window.location.search).get("variant");
+  const queryVariant = new URLSearchParams(window.location.search).get(
+    "variant",
+  );
   const envVariant = import.meta.env.VITE_PORTFOLIO_VARIANT;
-  const requestedVariant = (queryVariant || envVariant || "editorial").toLowerCase();
+  const requestedVariant = (
+    queryVariant ||
+    envVariant ||
+    "editorial"
+  ).toLowerCase();
 
   return isDesignVariant(requestedVariant) ? requestedVariant : "editorial";
 }
@@ -211,7 +256,7 @@ function ArrowLink({
 }: {
   href: string;
   children: ReactNode;
-  variant?: "ink" | "light";
+  variant?: "ink" | "light" | "solid";
 }) {
   return (
     <a
@@ -225,11 +270,23 @@ function ArrowLink({
   );
 }
 
-function TopNav({ activeId }: { activeId: string }) {
+function TopNav({
+  activeId,
+  navBasePath = "",
+}: {
+  activeId: string;
+  navBasePath?: string;
+}) {
+  const sectionHref = (id: string) => `${navBasePath}#${id}`;
+
   return (
     <header className="site-nav">
-      <a className="site-nav__brand" href="#top" aria-label="Back to top">
-        Angelina Mai
+      <a
+        className="site-nav__brand"
+        href={navBasePath ? "/" : "#top"}
+        aria-label="Angelina Mai portfolio home"
+      >
+        AM
       </a>
 
       <nav className="site-nav__links" aria-label="Primary navigation">
@@ -239,7 +296,7 @@ function TopNav({ activeId }: { activeId: string }) {
           return (
             <a
               key={item.id}
-              href={`#${item.id}`}
+              href={sectionHref(item.id)}
               aria-current={isActive ? "true" : undefined}
               className={isActive ? "is-active" : undefined}
             >
@@ -270,35 +327,84 @@ function ProjectMedia({
   priority?: boolean;
   variant?: "default" | "flagship" | "mini" | "archive";
 }) {
+  const hasMobileScreenshot = Boolean(project.mobileScreenshot);
+  const desktopAlt =
+    project.screenshotAlt ?? `${project.name} desktop project preview.`;
+  const mobileAlt =
+    project.mobileScreenshotAlt ?? `${project.name} mobile project preview.`;
+
   return (
-    <div className={`project-media project-media--${variant}`}>
-      <picture>
-        {project.mobileScreenshot && (
-          <source
-            media="(max-width: 640px)"
-            srcSet={project.mobileScreenshot}
-            width={project.mobileScreenshotWidth}
-            height={project.mobileScreenshotHeight}
+    <div
+      className={`project-media project-media--${variant} ${
+        hasMobileScreenshot
+          ? "project-media--with-mobile"
+          : "project-media--single"
+      }`}
+    >
+      <div className="project-media__stage">
+        <picture className="project-media__frame project-media__desktop">
+          {project.mobileScreenshot && (
+            <source
+              media="(max-width: 640px)"
+              srcSet={project.mobileScreenshot}
+              width={project.mobileScreenshotWidth}
+              height={project.mobileScreenshotHeight}
+            />
+          )}
+          <img
+            src={project.screenshot}
+            alt={desktopAlt}
+            width={project.screenshotWidth}
+            height={project.screenshotHeight}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            style={{
+              objectPosition: project.screenshotPosition ?? "top center",
+            }}
           />
+        </picture>
+
+        {project.mobileScreenshot && (
+          <div className="project-media__frame project-media__mobile">
+            <img
+              src={project.mobileScreenshot}
+              alt={mobileAlt}
+              width={project.mobileScreenshotWidth}
+              height={project.mobileScreenshotHeight}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
         )}
-        <img
-          src={project.screenshot}
-          alt={`${project.name} project preview`}
-          width={project.screenshotWidth}
-          height={project.screenshotHeight}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          style={{
-            objectPosition: project.screenshotPosition ?? "top center",
-          }}
-        />
-      </picture>
+      </div>
     </div>
   );
 }
 
 function TechLine({ items }: { items: string[] }) {
   return <p className="tech-line">{items.join(" · ")}</p>;
+}
+
+function ProjectActions({
+  project,
+  includeCaseStudy = true,
+}: {
+  project: Project;
+  includeCaseStudy?: boolean;
+}) {
+  return (
+    <div className="project-actions" aria-label={`${project.name} links`}>
+      <ArrowLink href={project.liveUrl} variant="solid">
+        View live site
+      </ArrowLink>
+      {includeCaseStudy && project.caseStudyUrl && (
+        <ArrowLink href={project.caseStudyUrl}>Read case study</ArrowLink>
+      )}
+      {project.codeUrl && (
+        <ArrowLink href={project.codeUrl}>View code</ArrowLink>
+      )}
+    </div>
+  );
 }
 
 function ProjectMetadata({ project }: { project: Project }) {
@@ -348,7 +454,7 @@ function ExperienceSection() {
           <p className="experience-panel__role">
             Hit the Books · Front-End Developer (Contract)
           </p>
-          <p className="experience-panel__status">Completed contract · 2024</p>
+          <p className="experience-panel__status">2024</p>
         </div>
 
         <ul className="experience-panel__bullets">
@@ -374,10 +480,9 @@ function FlagshipProject({ project }: { project: Project }) {
         <p className="project-number">{projectEyebrow("01")}</p>
         <div>
           <h3>{project.name}</h3>
-          <p className="project-deck">
-            Production React application for a private counselling practice.
-          </p>
-          <TechLine items={["React", "Vite", "Clerk", "Supabase", "Stripe"]} />
+          <p className="project-context">{project.roleContext}</p>
+          <p className="project-deck">{project.description}</p>
+          <TechLine items={project.keyTechnologies.slice(0, 5)} />
         </div>
       </div>
 
@@ -385,7 +490,7 @@ function FlagshipProject({ project }: { project: Project }) {
 
       <div className="flagship-project__details">
         <ProjectMetadata project={project} />
-        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+        <ProjectActions project={project} />
       </div>
     </article>
   );
@@ -403,6 +508,9 @@ function SupportingProject({
       <div className="project-strip__intro">
         <p className="project-number">{projectEyebrow(number)}</p>
         <h3>{project.name}</h3>
+        {project.roleContext && (
+          <p className="project-context">{project.roleContext}</p>
+        )}
         <p className="project-deck">{project.description}</p>
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
       </div>
@@ -411,18 +519,27 @@ function SupportingProject({
 
       <div className="project-strip__details">
         <ProjectMetadata project={project} />
-        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+        <ProjectActions project={project} />
       </div>
     </article>
   );
 }
 
-function ClientAside({ number, project }: { number: string; project: Project }) {
+function ClientAside({
+  number,
+  project,
+}: {
+  number: string;
+  project: Project;
+}) {
   return (
     <article className="client-aside">
       <div className="client-aside__intro">
         <p className="project-number">{projectEyebrow(number)}</p>
         <h3>{project.name}</h3>
+        {project.roleContext && (
+          <p className="project-context">{project.roleContext}</p>
+        )}
         <p className="project-deck">{project.description}</p>
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
       </div>
@@ -431,7 +548,7 @@ function ClientAside({ number, project }: { number: string; project: Project }) 
 
       <div className="client-aside__details">
         <ProjectMetadata project={project} />
-        <ArrowLink href={project.liveUrl}>View live site</ArrowLink>
+        <ProjectActions project={project} />
       </div>
     </article>
   );
@@ -476,8 +593,8 @@ function SelectedWorkSection() {
         <EditorialLabel>Featured Work</EditorialLabel>
         <h2 id="work-heading">Some things that survived production.</h2>
         <p>
-          React and Next.js work with real clients, real constraints,
-          responsive UI, integrations, and public deployments.
+          React and Next.js work with real clients, real constraints, responsive
+          UI, integrations, and public deployments.
         </p>
       </div>
 
@@ -501,7 +618,11 @@ function SelectedWorkSection() {
 
 function AboutSection() {
   return (
-    <section id="about" aria-labelledby="about-heading" className="section about-section">
+    <section
+      id="about"
+      aria-labelledby="about-heading"
+      className="section about-section"
+    >
       <div className="section__index">03</div>
       <div>
         <EditorialLabel>About</EditorialLabel>
@@ -542,11 +663,15 @@ function AboutSection() {
           </li>
           <li>
             <span>02</span>
-            <strong>Build responsive UI that holds up past the happy path.</strong>
+            <strong>
+              Build responsive UI that holds up past the happy path.
+            </strong>
           </li>
           <li>
             <span>03</span>
-            <strong>Debug the awkward bits: state, APIs, auth, and deployment.</strong>
+            <strong>
+              Debug the awkward bits: state, APIs, auth, and deployment.
+            </strong>
           </li>
         </ul>
         <p className="about-section__rules-note">
@@ -560,7 +685,11 @@ function AboutSection() {
 
 function SkillsSection() {
   return (
-    <section id="skills" aria-labelledby="skills-heading" className="section skills-section">
+    <section
+      id="skills"
+      aria-labelledby="skills-heading"
+      className="section skills-section"
+    >
       <div className="section__index">04</div>
       <div className="skills-section__headline">
         <EditorialLabel>Technical Capabilities</EditorialLabel>
@@ -652,9 +781,103 @@ function ContactSection() {
   );
 }
 
+function CaseStudySections() {
+  return (
+    <div className="case-study-sections">
+      {tracyCaseStudy.sections.map((section) => (
+        <section className="case-study-section" key={section.title}>
+          <h2>{section.title}</h2>
+          <div>
+            <p>{section.body}</p>
+            {section.points && (
+              <ul>
+                {section.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
+}
+
+function TracyCaseStudyPage() {
+  return (
+    <main className="case-study-page">
+      <section className="case-study-hero" aria-labelledby="case-study-heading">
+        <a className="case-study-back" href="/#work">
+          <FaArrowLeft aria-hidden="true" />
+          Back to selected work
+        </a>
+
+        <div className="case-study-hero__grid">
+          <div>
+            <EditorialLabel>{tracyCaseStudy.eyebrow}</EditorialLabel>
+            <h1 id="case-study-heading">{tracyCaseStudy.title}</h1>
+            <p className="case-study-hero__summary">{tracyCaseStudy.summary}</p>
+            <TechLine items={tracyCaseStudy.stack.slice(0, 5)} />
+            <ProjectActions project={tracyProject} includeCaseStudy={false} />
+          </div>
+
+          <dl className="case-study-hero__meta">
+            {tracyCaseStudy.meta.map((item) => (
+              <div key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section
+        className="case-study-media"
+        aria-label="Tracy Counselling previews"
+      >
+        <ProjectMedia project={tracyProject} priority variant="flagship" />
+      </section>
+
+      <CaseStudySections />
+    </main>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="site-footer">
+      <p>Designed and built by Angelina Mai. Yes, the CSS is mine.</p>
+      <p>React / Vite / Tailwind CSS</p>
+    </footer>
+  );
+}
+
 function App() {
   const activeId = useActiveSection(sectionIds);
   const designVariant = getDesignVariant();
+  const isTracyCaseStudy =
+    window.location.pathname === "/case-studies/tracy-counselling";
+
+  useEffect(() => {
+    document.title = isTracyCaseStudy
+      ? "Tracy Counselling Case Study | Angelina Mai"
+      : "Angelina Mai | Front-End Developer · React · Next.js";
+  }, [isTracyCaseStudy]);
+
+  if (isTracyCaseStudy) {
+    return (
+      <div
+        id="top"
+        className={`site-shell site-shell--${designVariant}`}
+        data-design-variant={designVariant}
+      >
+        <TopNav activeId="work" navBasePath="/" />
+        <TracyCaseStudyPage />
+        <SiteFooter />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -673,6 +896,7 @@ function App() {
 
           <div className="hero-section__grid">
             <div className="hero-section__copy">
+              <p className="hero-section__name">Angelina Mai</p>
               <EditorialLabel>Front-End Developer</EditorialLabel>
               <h1 id="hero-heading">
                 <span>Front-End </span>
@@ -702,10 +926,7 @@ function App() {
         <ContactSection />
       </main>
 
-      <footer className="site-footer">
-        <p>Designed and built by Angelina Mai. Yes, the CSS is mine.</p>
-        <p>React / Vite / Tailwind CSS</p>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

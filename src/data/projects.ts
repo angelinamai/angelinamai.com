@@ -18,13 +18,16 @@ export type Project = {
   keyTechnologies: string[];
   responsive: string;
   screenshot: string;
+  screenshotAlt?: string;
   screenshotWidth?: number;
   screenshotHeight?: number;
   mobileScreenshot?: string;
+  mobileScreenshotAlt?: string;
   mobileScreenshotWidth?: number;
   mobileScreenshotHeight?: number;
   screenshotPosition?: string;
   liveUrl: string;
+  caseStudyUrl?: string;
   codeUrl?: string;
   status?: "In Development";
 };
@@ -38,11 +41,11 @@ export const featuredProjects: Project[] = [
     roleContext: "Client Project · Front-End Development",
     context: "Bilingual production counselling website",
     description:
-      "Bilingual React production site for a registered social worker, built from evolving client requirements through development, deployment, and iteration.",
+      "Bilingual React site for a counselling practice that grew from public service pages into authenticated course access, payments, account history, and email-backed inquiry flows.",
     purpose:
       "Give prospective clients a clear place to learn about Tracy's services, approach, location, resources, and contact options.",
     problem:
-      "Visitors need quick trust signals, clear service information, and a straightforward path to ask questions or book.",
+      "Visitors need quick trust signals, clear service information, and a straightforward path to ask questions, book, or access paid course material.",
     role: "Owned the client-driven React/Vite front end: routing, bilingual content, responsive forms, debugging, and deployment.",
     technicalFocus:
       "React Router pages with authentication, Supabase-backed data, Stripe payment flows, Express API surfaces, and Resend-supported contact/email flows.",
@@ -70,13 +73,18 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive cards, navigation, content pages, and form layouts for desktop, tablet, and mobile screens.",
     screenshot: "/images/tracy-counselling-card.png",
+    screenshotAlt:
+      "Tracy Counselling desktop preview showing the profile, services, office photos, and booking information.",
     screenshotWidth: 2880,
     screenshotHeight: 2360,
     mobileScreenshot: "/images/tracy-counselling-card-mobile.png",
+    mobileScreenshotAlt:
+      "Tracy Counselling mobile preview showing bilingual counselling content and service navigation.",
     mobileScreenshotWidth: 860,
     mobileScreenshotHeight: 1800,
     screenshotPosition: "center 18%",
     liveUrl: "https://www.nguyentracy.com/",
+    caseStudyUrl: "/case-studies/tracy-counselling",
   },
   {
     id: "swim-with-leah",
@@ -86,7 +94,7 @@ export const featuredProjects: Project[] = [
     roleContext: "Service Website · Front-End Development",
     context: "Production service website for a swimming coach",
     description:
-      "Responsive service website for a private swim coach, focused on lesson options, credentials, service areas, and booking inquiries.",
+      "Next.js service site for a swim coach with lesson categories, credentials, service areas, and a Resend-backed inquiry flow.",
     purpose:
       "Present swim lesson options and help families or adults contact Leah with confidence.",
     problem:
@@ -117,6 +125,8 @@ export const featuredProjects: Project[] = [
     responsive:
       "Designed with responsive section spacing, mobile navigation, and flexible service cards across viewport sizes.",
     screenshot: "/images/swim-with-leah-card.png",
+    screenshotAlt:
+      "Swim With Leah desktop preview showing the hero section, lesson cards, and booking call to action.",
     screenshotWidth: 2880,
     screenshotHeight: 2080,
     screenshotPosition: "center 12%",
@@ -130,7 +140,7 @@ export const featuredProjects: Project[] = [
     roleContext: "Service Website · Front-End Development",
     context: "Production bilingual service website",
     description:
-      "Bilingual Vietnamese-English interpreting website for medical, legal, and community interpretation services across Ontario.",
+      "Next.js bilingual service site for Vietnamese-English interpreting with service categories, scheduling flow, and contact paths.",
     purpose:
       "Present interpreting services, credentials, service settings, and booking paths in a polished public website.",
     problem:
@@ -161,9 +171,13 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive hero, navigation, service cards, booking form, and contact sections for desktop, tablet, and mobile screens.",
     screenshot: "/images/angelina-interpreting-card.png",
+    screenshotAlt:
+      "Angelina Interpreting desktop preview showing the bilingual service hero and navigation.",
     screenshotWidth: 2880,
     screenshotHeight: 2080,
     mobileScreenshot: "/images/angelina-interpreting-card-mobile.png",
+    mobileScreenshotAlt:
+      "Angelina Interpreting mobile preview showing the responsive service layout and language toggle.",
     mobileScreenshotWidth: 1120,
     mobileScreenshotHeight: 1800,
     screenshotPosition: "center 18%",
@@ -177,7 +191,7 @@ export const featuredProjects: Project[] = [
     roleContext: "Restaurant Website · Front-End Development",
     context: "Production restaurant website with menu and ordering paths",
     description:
-      "Vietnamese vegan restaurant website with menu sections, gallery imagery, service information, and direct ordering contact paths.",
+      "Vietnamese vegan restaurant site with menu categories, gallery imagery, service information, and phone/Zalo ordering paths.",
     purpose:
       "Showcase vegan dishes and make it easy for customers to browse the menu, see ordering options, and contact the shop.",
     problem:
@@ -207,9 +221,13 @@ export const featuredProjects: Project[] = [
     responsive:
       "Responsive navigation, stacked content sections, menu cards, and contact actions for mobile ordering.",
     screenshot: "/images/vegan-restaurant-card.png",
+    screenshotAlt:
+      "Cơm Chay Ngọc Hạnh desktop preview showing the restaurant hero, navigation, and primary ordering actions.",
     screenshotWidth: 2880,
     screenshotHeight: 2080,
     mobileScreenshot: "/images/vegan-restaurant-card-mobile.png",
+    mobileScreenshotAlt:
+      "Cơm Chay Ngọc Hạnh mobile preview showing the restaurant content and ordering actions.",
     mobileScreenshotWidth: 860,
     mobileScreenshotHeight: 1800,
     screenshotPosition: "center 15%",
