@@ -52,6 +52,7 @@ const toolbox = [
   "React",
   "TypeScript",
   "Next.js",
+  "Vite",
   "JavaScript",
   "HTML / CSS",
   "Tailwind CSS",
