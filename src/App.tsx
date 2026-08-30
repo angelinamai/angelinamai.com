@@ -245,6 +245,12 @@ function projectEyebrow(number: string) {
   return `${number} — SELECTED WORK`;
 }
 
+function formatShowcaseNumber(number: string) {
+  return `${number.padStart(2, "0")} / ${featuredProjects.length
+    .toString()
+    .padStart(2, "0")}`;
+}
+
 function EditorialLabel({ children }: { children: ReactNode }) {
   return <p className="editorial-label">{children}</p>;
 }
@@ -318,65 +324,54 @@ function HeroMark() {
   );
 }
 
-function ProjectMedia({
+function ProjectShowcaseFrame({
   project,
+  number,
   priority = false,
-  variant = "default",
 }: {
   project: Project;
+  number: string;
   priority?: boolean;
-  variant?: "default" | "flagship" | "mini" | "archive";
 }) {
-  const hasMobileScreenshot = Boolean(project.mobileScreenshot);
   const desktopAlt =
     project.screenshotAlt ?? `${project.name} desktop project preview.`;
-  const mobileAlt =
-    project.mobileScreenshotAlt ?? `${project.name} mobile project preview.`;
 
   return (
-    <div
-      className={`project-media project-media--${variant} ${
-        hasMobileScreenshot
-          ? "project-media--with-mobile"
-          : "project-media--single"
-      }`}
-    >
-      <div className="project-media__stage">
-        <picture className="project-media__frame project-media__desktop">
-          {project.mobileScreenshot && (
-            <source
-              media="(max-width: 640px)"
-              srcSet={project.mobileScreenshot}
-              width={project.mobileScreenshotWidth}
-              height={project.mobileScreenshotHeight}
-            />
-          )}
-          <img
-            src={project.screenshot}
-            alt={desktopAlt}
-            width={project.screenshotWidth}
-            height={project.screenshotHeight}
-            loading={priority ? "eager" : "lazy"}
-            decoding="async"
-            style={{
-              objectPosition: project.screenshotPosition ?? "top center",
-            }}
-          />
-        </picture>
+    <div className="project-showcase-frame">
+      <a
+        className="project-showcase-frame__link"
+        href={project.liveUrl}
+        {...linkProps(project.liveUrl)}
+        aria-label={`Open ${project.name} live project`}
+      >
+        <div className="project-showcase-frame__header" aria-hidden="true">
+          <span>{formatShowcaseNumber(number)}</span>
+          <span>{project.name}</span>
+          <span>Desktop / Production</span>
+        </div>
 
-        {project.mobileScreenshot && (
-          <div className="project-media__frame project-media__mobile">
+        <div className="project-showcase-frame__mat">
+          <div className="project-showcase-frame__viewport">
             <img
-              src={project.mobileScreenshot}
-              alt={mobileAlt}
-              width={project.mobileScreenshotWidth}
-              height={project.mobileScreenshotHeight}
-              loading="lazy"
+              src={project.screenshot}
+              alt={desktopAlt}
+              width={project.screenshotWidth}
+              height={project.screenshotHeight}
+              loading={priority ? "eager" : "lazy"}
               decoding="async"
+              style={{
+                objectPosition: project.screenshotPosition ?? "top center",
+              }}
             />
           </div>
-        )}
-      </div>
+        </div>
+
+        <div className="project-showcase-frame__footer" aria-hidden="true">
+          <span>Angelina Mai — Selected Work</span>
+          <span className="project-showcase-frame__mark" />
+          <span>AM</span>
+        </div>
+      </a>
     </div>
   );
 }
@@ -486,7 +481,7 @@ function FlagshipProject({ project }: { project: Project }) {
         </div>
       </div>
 
-      <ProjectMedia project={project} priority variant="flagship" />
+      <ProjectShowcaseFrame project={project} number="01" priority />
 
       <div className="flagship-project__details">
         <ProjectMetadata project={project} />
@@ -515,7 +510,7 @@ function SupportingProject({
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
       </div>
 
-      <ProjectMedia project={project} variant="mini" />
+      <ProjectShowcaseFrame project={project} number={number} />
 
       <div className="project-strip__details">
         <ProjectMetadata project={project} />
@@ -544,7 +539,7 @@ function ClientAside({
         <TechLine items={project.keyTechnologies.slice(0, 4)} />
       </div>
 
-      <ProjectMedia project={project} variant="archive" />
+      <ProjectShowcaseFrame project={project} number={number} />
 
       <div className="client-aside__details">
         <ProjectMetadata project={project} />
@@ -836,7 +831,7 @@ function TracyCaseStudyPage() {
         className="case-study-media"
         aria-label="Tracy Counselling previews"
       >
-        <ProjectMedia project={tracyProject} priority variant="flagship" />
+        <ProjectShowcaseFrame project={tracyProject} number="01" priority />
       </section>
 
       <CaseStudySections />
